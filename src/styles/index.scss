@@ -1,0 +1,183 @@
+body {
+  background-color: darkgray;
+  padding: 0;
+  margin: 0px;
+  // overflow: hidden;
+}
+
+.top {
+  display: flex;
+  flex-direction: column;
+  // display: none;
+
+  input[type="file"] {
+    display: none;
+  }
+
+  .menu {
+    width: 100vw;
+    display: flex;
+    button {
+      min-height: 30px;
+      font-family: monospace;
+      margin: 4px;
+    }
+    #zoom-range {
+      align-self: center;
+    }
+
+    .react-slider {
+      flex-grow: 0;
+      flex-shrink: 0;
+      white-space: nowrap;
+      height: 25px;
+      margin-top: 4px;
+      margin-right: 4px;
+      display: block;
+      input[type="range"] {
+        vertical-align: middle;
+      }
+      label {
+        display: inline-block;
+        min-width: 100px;
+      }
+    }
+  }
+
+  .row2 {
+    display: flex;
+    justify-content: space-between;
+    .info-box {
+      padding: 10px;
+    }
+
+    .video-container {
+      margin: 4px;
+      // border: 1px dotted white;
+      display: flex;
+      flex-direction: column;
+
+      video {
+        max-height: 400px;
+        background-color: #333;
+      }
+
+      .transport-controls {
+        display: flex;
+        // justify-content: space-between;
+        padding: 5px;
+
+        .position-display {
+          padding: 3px;
+          // justify-self: center;
+        }
+
+        button {
+          min-width: 120px;
+        }
+      }
+    }
+  }
+}
+
+.scrollable {
+  overflow-x: scroll;
+  // min-height: 400px;
+  width: 100vw;
+
+  .container {
+    position: relative;
+    // padding: 10px;
+    // box-sizing: border-box;
+    // width: 100%;
+
+    .resizable {
+      cursor: inherit;
+      // width: inherit;
+      // position: absolute;
+      position: relative;
+      // box-sizing: border-box;
+      height: 80px;
+      background-color: rgb(245, 151, 11);
+      margin-bottom: 10px;
+
+      &.video {
+        background-color: aquamarine;
+      }
+      &.midi {
+        background-color: rgb(241, 245, 11);
+      }
+    }
+
+    .time-ticks {
+      height: 35px;
+      // width: inherit;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      background-color: bisque;
+      // position: relative;
+
+      .tick {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        // position: absolute;
+
+        .label {
+          font-family: monospace;
+          font-size: 12px;
+          user-select: none;
+        }
+
+        .second {
+          height: 15px;
+          width: 1px;
+          border-left: 1px solid black;
+          justify-self: flex-end;
+        }
+      }
+    }
+
+    .playhead {
+      position: absolute;
+      top: 0px;
+      left: 100px;
+      width: 41px;
+      height: calc(100% + 10px);
+      background-color: rgba(255, 0, 0, 0.2);
+      display: flex;
+      justify-content: center;
+      z-index: 0;
+      margin-left: -20px;
+      div {
+        // should be able to receive pointer events
+        z-index: -1;
+        width: 1px;
+        height: 100%;
+        background-color: red;
+      }
+    }
+  }
+}
+
+.overview {
+  width: 100vw;
+  margin-bottom: 20px;
+  .overview-track {
+    height: 10px;
+    position: relative;
+
+    &.audio {
+      background-color: rgb(245, 140, 11);
+    }
+
+    &.video {
+      background-color: aquamarine;
+    }
+
+    &.midi {
+      background-color: rgb(241, 245, 11);
+    }
+  }
+}
