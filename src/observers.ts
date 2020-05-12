@@ -7,6 +7,7 @@ export const setupClock = () => {
   let id: number;
   let start = 0;
   let progress = 0;
+  let run = false;
 
   const state$ = getState$();
   state$
@@ -27,13 +28,16 @@ export const setupClock = () => {
       if (!track) {
         return;
       }
+
       const duration = tracks[currentTrackIndex].duration;
       const end = position >= duration;
       const isPlaying = transport === Transport.PLAY && !end;
       if (isPlaying) {
         start = performance.now();
+        run = true;
         play(start);
       } else {
+        run = false;
         cancelAnimationFrame(id);
       }
     });
@@ -42,10 +46,13 @@ export const setupClock = () => {
     progress = a - start;
     store.dispatch(setProgress(progress));
     start = a;
+    if(!run) {
+      return;
+    }
     id = requestAnimationFrame(b => {
       play(performance.now());
     });
-    // console.log(progress);
+    // console.log(progress, id);
   };
 };
 

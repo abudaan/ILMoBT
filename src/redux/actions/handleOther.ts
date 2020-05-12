@@ -134,9 +134,11 @@ export const setProgress = (progress: number) => {
         playheadPercentage: perc,
         playheadPosition: millis,
         isPlaying: true,
+        // currentTrack: track,
       },
     };
   }
+  track = stopMIDI(track);
   return {
     type: SET_PROGRESS,
     payload: {
@@ -145,6 +147,7 @@ export const setProgress = (progress: number) => {
       playheadPercentage: 0,
       playheadPosition: 0,
       isPlaying: false,
+      // currentTrack: track,
     },
   };
 };
@@ -153,7 +156,9 @@ export const selectTrack = (index: number) => {
   const state = store.getState() as RootState;
   const {
     tracks,
+    currentTrack
   } = state;
+  stopMIDI(currentTrack);
   const track = stopMIDI(tracks[index]);
   return {
     type: SELECT_TRACK,

@@ -90,7 +90,7 @@ export const rootReducer = (
     };
   } else if (action.type === SET_PROGRESS) {
     // console.log(action.payload);
-    const { playheadPosition, playheadPercentage, isPlaying, progress } = action.payload;
+    const { playheadPosition, playheadPercentage, isPlaying, progress, transport } = action.payload;
     return {
       ...state,
       playheadPercentage,
@@ -98,6 +98,7 @@ export const rootReducer = (
       playheadPositionX: playheadPercentage * state.width,
       isPlaying,
       progress,
+      transport,
     };
   } else if (action.type === START_EDIT) {
     return {
