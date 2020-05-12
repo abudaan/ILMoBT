@@ -6,6 +6,12 @@ body {
   font-family: "Source Code Pro";
   color: rgb(231, 208, 186);
   font-size: 16px;
+  width: 100vw;
+  overflow: hidden;
+}
+
+#album, .react-slider {
+  width: 100%;
 }
 
 button {
@@ -34,13 +40,15 @@ button {
   }
 }
 
-input[type='range']{
+input[type=range]{
   -webkit-appearance: none;
   height: 15px;
+  max-width: 600px;
+  width: 100%;
   background-color: #53352e;
 }
 
-input[type="range"]::-webkit-slider-thumb {
+input[type=range]::-webkit-slider-thumb {
    -webkit-appearance: none;
   background-color: rgb(231, 208, 186);
   width: 10px;

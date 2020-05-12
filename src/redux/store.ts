@@ -12,25 +12,13 @@ const initialState: RootState = {
   width: window.innerWidth,
   height: window.innerHeight,
   isPlaying: false,
+  progress: 0,
   playheadPosition: 0,
   playheadPercentage: 0,
   transport: Transport.STOP,
   tracks: [],
+  currentTrack: null,
   currentTrackIndex: 0,
-  currentTrackDuration: 0,
-  progress: 0,
-  sliderProps: {
-    max: 100,
-    min: 0,
-    value: 0,
-    id: `slider-${Date.now()}`,
-    label: "",
-    onChange: () => {},
-    onInput: ()=> {},
-    step: 0.1,
-    type: "song-position",
-    disabled: false,
-  }
 };
 
 // const store: Store<any, AnyAction> = createStore(

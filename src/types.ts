@@ -1,6 +1,5 @@
 import { Song } from "./webdaw/types";
 import { MIDIEvent } from "./webdaw/midi_events";
-import { ParsedMIDIFile } from "./webdaw/parse_midi_binary";
 
 export enum Transport {
   PLAY_REQUEST = "request-play",
@@ -11,9 +10,11 @@ export enum Transport {
 
 export type RefMIDI = {
   id: string;
+  title: string;
   song: Song;
   timestamp: number;
   millis: number;
+  duration: number,
   index: number;
   scheduled: MIDIEvent[];
 };
@@ -39,22 +40,10 @@ export type RootState = {
   playheadPosition: number,
   playheadPercentage: number,
   transport: Transport,
-  tracks: Tracks[],
+  tracks: RefMIDI[],
+  currentTrack: RefMIDI,
   currentTrackIndex: number,
-  currentTrackDuration: number,
   progress: 0,
-  sliderProps: {
-    max: number,
-    min: number,
-    value: number,
-    id: string,
-    label: string,
-    onChange: () => void,
-    onInput: ()=> void,
-    step: number,
-    type: "song-position",
-    disabled: boolean,
-  }
 };
 
 export type ProjectData = {

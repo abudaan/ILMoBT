@@ -1,23 +1,30 @@
-import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-// import { handlePointerDown } from "../redux/actions/handlePointer";
+import React, { SyntheticEvent } from "react";
+import { useSelector } from "react-redux";
 import { RootState } from "../types";
 import { List } from "./List";
 import { Slider } from "./Slider";
 import { TransportControls } from "./TransportControls";
 
 export const App = (): JSX.Element => {
-  const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.loading);
-  const sliderProps = useSelector((state: RootState) => state.sliderProps);
-
-  if(loading) {
-      return <div className='loading'>LOADING...</div>
+  const sliderProps = {
+    max: 100,
+    min: 0,
+    value: 0,
+    id: `slider-${Date.now()}`,
+    label: "",
+    step: 0.1,
+    type: "song-position",
+    disabled: false,
+  }
+  
+  if (loading) {
+    return <div className='loading'>LOADING...</div>
   }
 
   return (<>
     <List></List>
     <TransportControls></TransportControls>
     <Slider {...sliderProps}></Slider>
-    </>);
+  </>);
 }

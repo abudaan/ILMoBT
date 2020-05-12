@@ -6,6 +6,7 @@ import {
   SET_PROGRESS,
   JSON_LOADED,
   SELECT_TRACK,
+  RESIZE,
 } from "../constants";
 
 export const rootReducer = (
@@ -18,14 +19,25 @@ export const rootReducer = (
       ...state,
       loading: false,
       tracks: tracks,
-      currentTrackDuration: tracks[state.currentTrackIndex].duration,
+      currentTrack: tracks[state.currentTrackIndex],
+      // currentTrackDuration: tracks[state.currentTrackIndex].duration,
     };
-  } else if (action.type === SELECT_TRACK) {
+  } else if (action.type === RESIZE) {
+    const { width, height } = action.payload;
     return {
       ...state,
-      currentTrackIndex: action.payload.index,
-      currentTrackDuration: state.tracks[action.payload.index].duration,
-
+      width,
+      height,
+    };
+  } else if (action.type === SELECT_TRACK) {
+    const { payload: { index, currentTrack } } = action;
+    return {
+      ...state,
+      currentTrack: { ...currentTrack },
+      currentTrackIndex: index,
+      isPlaying: false,
+      transport: Transport.STOP,
+      // currentTrackDuration: state.tracks[index].duration,
     };
   } else if (action.type === POINTER_MOVE) {
     return {
@@ -33,7 +45,7 @@ export const rootReducer = (
     };
   } else if (action.type === SET_POSITION) {
     const {
-      payload: { newPos, millis, id, partsById, referencesById },
+      payload: { newPos, millis },
     } = action;
     return {
       ...state,
@@ -43,7 +55,7 @@ export const rootReducer = (
     };
   } else if (action.type === SET_TRANSPORT) {
     const {
-      payload: { transport, partsById, referencesById },
+      payload: { transport, currentTrack },
     } = action;
     // console.log("REDUCER", transportAction);
     if (transport === Transport.STOP) {
@@ -51,18 +63,21 @@ export const rootReducer = (
         ...state,
         isPlaying: false,
         playheadPosition: 0,
+        currentTrack: { ...currentTrack },
         transport,
       };
     } else if (transport === Transport.PAUSE) {
       return {
         ...state,
         isPlaying: false,
+        currentTrack: { ...currentTrack },
         transport,
       };
     }
     return {
       ...state,
       isPlaying: true,
+      currentTrack: { ...currentTrack },
       transport,
     };
   } else if (action.type === SET_PROGRESS) {

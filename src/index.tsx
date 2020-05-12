@@ -15,7 +15,7 @@ init().then(() => {
     <Provider store={store}>
       <App></App>
     </Provider>,
-    document.getElementById("app")
+    document.getElementById("album")
   );
 
   store.dispatch(loadJSON('https://ilmobt.heartbeatjs.org/list.json'));

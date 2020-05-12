@@ -20,6 +20,9 @@ export const setupClock = () => {
       }))
     )
     .subscribe(({ transport, position, tracks, currentTrackIndex }) => {
+      if (!tracks) {
+        return;
+      }
       const track = tracks[currentTrackIndex];
       if (!track) {
         return;
