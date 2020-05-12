@@ -37,7 +37,7 @@ const Slider = (props: Props): JSX.Element => {
 
   return (
     <div className="react-slider" id={id}>
-      <label htmlFor={id} dangerouslySetInnerHTML={createLabel(label, value)} />
+      {/* <label htmlFor={id} dangerouslySetInnerHTML={createLabel(label, value)} /> */}
       <input
         key={type}
         type="range"

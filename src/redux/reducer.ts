@@ -22,6 +22,7 @@ export const rootReducer = (
     return {
       ...state,
       loading: false,
+      ListData: action.payload.files,
     };
   } else if (action.type === POINTER_MOVE) {
     return {
