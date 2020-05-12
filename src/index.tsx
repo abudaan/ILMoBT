@@ -3,7 +3,7 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { RESIZE } from "./constants";
 import { store } from "./redux/store";
-// import { setupClock } from "./observers";
+import { setupClock } from "./observers";
 import { Transport } from "./types";
 import { init } from "./media";
 import { handleTransport, loadJSON } from "./redux/actions/handleOther";
@@ -31,7 +31,7 @@ init().then(() => {
   });
 
   // set up a clock using RxJS
-  // setupClock();
+  setupClock();
 
   document.addEventListener("keydown", e => {
     if (e.keyCode === 32 || e.keyCode === 13) {

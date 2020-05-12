@@ -5,24 +5,27 @@ import {
   SET_TRANSPORT,
   SET_PROGRESS,
   JSON_LOADED,
+  SELECT_TRACK,
 } from "../constants";
 
 export const rootReducer = (
   state: RootState,
   action: { type: string; payload: { [id: string]: any } }
 ): RootState => {
-  // if (
-  //   action.type !== SET_PROGRESS &&
-  //   action.type !== DO_EDIT &&
-  //   action.type !== NO_ACTION_REQUIRED
-  // ) {
-  //   console.log("[ACTION]", action.type, action.payload);
-  // }
   if (action.type === JSON_LOADED) {
+    const { payload: { tracks } } = action;
     return {
       ...state,
       loading: false,
-      ListData: action.payload.files,
+      tracks: tracks,
+      currentTrackDuration: tracks[state.currentTrackIndex].duration,
+    };
+  } else if (action.type === SELECT_TRACK) {
+    return {
+      ...state,
+      currentTrackIndex: action.payload.index,
+      currentTrackDuration: state.tracks[action.payload.index].duration,
+
     };
   } else if (action.type === POINTER_MOVE) {
     return {
@@ -63,12 +66,14 @@ export const rootReducer = (
       transport,
     };
   } else if (action.type === SET_PROGRESS) {
-    // console.log(action.payload.partsById["audio-0"].transport);
+    // console.log(action.payload);
+    const { playheadPosition, playheadPercentage, isPlaying, progress } = action.payload;
     return {
       ...state,
-      playheadPosition: action.payload.millis,
-      isPlaying: action.payload.isPlaying,
-      progress: action.payload.progress,
+      playheadPercentage,
+      playheadPosition,
+      isPlaying,
+      progress,
     };
   }
 

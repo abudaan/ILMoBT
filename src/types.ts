@@ -18,7 +18,7 @@ export type RefMIDI = {
   scheduled: MIDIEvent[];
 };
 
-export type ListData = {
+export type Tracks = {
   title: string,
   song: Song,
   duration: number,
@@ -27,7 +27,7 @@ export type ListData = {
 export type ListDataJSON = {
   title: string,
   url: string,
-  // order: number,
+  // mood: string,
 }
 
 
@@ -37,9 +37,11 @@ export type RootState = {
   height: number,
   isPlaying: boolean,
   playheadPosition: number,
+  playheadPercentage: number,
   transport: Transport,
-  ListData: ListData[],
-  currentMIDIFileIndex: 0,
+  tracks: Tracks[],
+  currentTrackIndex: number,
+  currentTrackDuration: number,
   progress: 0,
   sliderProps: {
     max: number,

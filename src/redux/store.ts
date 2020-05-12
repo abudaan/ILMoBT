@@ -13,9 +13,11 @@ const initialState: RootState = {
   height: window.innerHeight,
   isPlaying: false,
   playheadPosition: 0,
+  playheadPercentage: 0,
   transport: Transport.STOP,
-  ListData: [],
-  currentMIDIFileIndex: 0,
+  tracks: [],
+  currentTrackIndex: 0,
+  currentTrackDuration: 0,
   progress: 0,
   sliderProps: {
     max: 100,

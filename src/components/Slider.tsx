@@ -1,4 +1,6 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import { RootState } from "../types";
 /* React wrapper for input type Range */
 type Props = {
   max: number;
@@ -13,21 +15,12 @@ type Props = {
   disabled: boolean;
 };
 
-const createLabel = (label: string, value: number) => {
-  let l = `${value}`;
-  if (label !== "") {
-    l = label + ": <em>" + value + "</em>";
-  }
-  return { __html: l };
-};
-
 const Slider = (props: Props): JSX.Element => {
+  const value = useSelector((state: RootState) => state.playheadPercentage);
   const {
     max,
     min,
-    value,
     id = `slider-${Date.now()}`,
-    label = "",
     onChange,
     onInput,
     step = 1,
@@ -37,12 +30,11 @@ const Slider = (props: Props): JSX.Element => {
 
   return (
     <div className="react-slider" id={id}>
-      {/* <label htmlFor={id} dangerouslySetInnerHTML={createLabel(label, value)} /> */}
       <input
         key={type}
         type="range"
         disabled={disabled}
-        defaultValue={`${value}`}
+        value={`${value}`}
         min={min}
         max={max}
         step={step}
