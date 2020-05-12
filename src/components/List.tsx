@@ -7,10 +7,12 @@ import { RootState } from "../types";
 export const List = (): JSX.Element => {
   const dispatch = useDispatch();
   const tracks = useSelector((state: RootState) => state.tracks);
+  const currentTrackIndex = useSelector((state: RootState) => state.currentTrackIndex);
   const divTracks = tracks.map((d, i) => {
+    const className = i === currentTrackIndex ? "list-item active" : "list-item";
     return <div
       key={uniquid()}
-      className="list-item"
+      className={className}
       onPointerDown={() => {
         dispatch(selectTrack(i));
       }}>{d.title}

@@ -41,6 +41,7 @@ export const rootReducer = (
       isPlaying: false,
       transport: Transport.STOP,
       playheadPosition: 0,
+      playheadPositionX: 0,
       playheadPercentage: 0,
       // currentTrackDuration: state.tracks[index].duration,
     };
