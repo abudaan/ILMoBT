@@ -37,6 +37,8 @@ export const rootReducer = (
       currentTrackIndex: index,
       isPlaying: false,
       transport: Transport.STOP,
+      playheadPosition: 0,
+      playheadPercentage: 0,
       // currentTrackDuration: state.tracks[index].duration,
     };
   } else if (action.type === POINTER_MOVE) {
@@ -45,13 +47,15 @@ export const rootReducer = (
     };
   } else if (action.type === SET_POSITION) {
     const {
-      payload: { newPos, millis },
+      payload: { playheadPosition, playheadPercentage, currentTrack },
     } = action;
     return {
       ...state,
-      isPlaying: false,
-      transport: Transport.STOP,
-      playheadPosition: millis,
+      // isPlaying: false,
+      // transport: Transport.STOP,
+      currentTrack: { ...currentTrack },
+      playheadPosition,
+      playheadPercentage,
     };
   } else if (action.type === SET_TRANSPORT) {
     const {

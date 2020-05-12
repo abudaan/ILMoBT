@@ -8,12 +8,12 @@ import { TransportControls } from "./TransportControls";
 export const App = (): JSX.Element => {
   const loading = useSelector((state: RootState) => state.loading);
   const sliderProps = {
-    max: 100,
+    max: 1,
     min: 0,
     value: 0,
     id: `slider-${Date.now()}`,
     label: "",
-    step: 0.1,
+    step: 0.001,
     type: "song-position",
     disabled: false,
   }

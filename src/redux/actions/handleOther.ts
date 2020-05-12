@@ -6,11 +6,11 @@ import {
   SET_PROGRESS,
   JSON_LOADED,
   SELECT_TRACK,
+  SET_POSITION,
 } from "../../constants";
 import { Dispatch } from "redux";
 import { fetchJSON, fetchArraybuffer } from "../../webdaw/fetch_helpers";
 import { createSongFromMIDIFile } from "../../webdaw/sugar_coating";
-import { Song } from "../../webdaw/types";
 import { stopMIDI, startMIDI, playMIDI } from "./action_utils";
 
 export const handleTransport = (transport: Transport) => async (
@@ -22,10 +22,10 @@ export const handleTransport = (transport: Transport) => async (
     currentTrack,
   } = state;
   let track = currentTrack;
-  if(currentTrack !== null) {
-    if(transport === Transport.STOP) {
+  if (currentTrack !== null) {
+    if (transport === Transport.STOP) {
       track = stopMIDI(currentTrack);
-    } else  if(transport === Transport.PLAY) {
+    } else if (transport === Transport.PLAY) {
       track = startMIDI(currentTrack, playheadPosition);
     }
   }
@@ -38,6 +38,33 @@ export const handleTransport = (transport: Transport) => async (
   });
 }
 
+export const setPosition = (position?: number, percentage?: number) => {
+  const state = store.getState() as RootState;
+  const {
+    currentTrack,
+  } = state;
+  if (currentTrack) {
+    startMIDI(currentTrack, position)
+  }
+  let abs = position;
+  let rel = percentage;
+  console.log(1, abs, rel);
+  if (abs) {
+    rel = abs / currentTrack.duration;
+  } else if (rel) {
+    abs = rel * currentTrack.duration;
+  }
+  console.log(2, abs, rel);
+  return ({
+    type: SET_POSITION,
+    payload: {
+      playheadPosition: abs,
+      playheadPercentage: rel,
+      currentTrack,
+    },
+  });
+}
+
 export const setProgress = (progress: number) => {
   const state = store.getState() as RootState;
   const {
@@ -46,9 +73,9 @@ export const setProgress = (progress: number) => {
     transport,
   } = state;
   const millis = playheadPosition + progress;
-  const perc = (millis / currentTrack.duration * 100);
+  const perc = millis / currentTrack.duration;
   let track = currentTrack;
-  if(currentTrack !== null && millis < currentTrack.duration) {
+  if (currentTrack !== null && millis < currentTrack.duration) {
     track = playMIDI(track);
     return {
       type: SET_PROGRESS,
@@ -81,7 +108,7 @@ export const selectTrack = (index: number) => {
   const track = stopMIDI(tracks[index]);
   return {
     type: SELECT_TRACK,
-    payload: { 
+    payload: {
       index,
       currentTrack: track,
     }

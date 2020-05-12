@@ -14,6 +14,22 @@ body {
   width: 100%;
 }
 
+.slider {
+  width: 100%;
+  position: relative;
+  height: 20px;
+  background-color: #53352e;
+
+  .thumb {
+    top: 1px;
+    height: 18px;
+    width: 10px;
+    position: absolute;
+    background-color: rgb(231, 208, 186);
+    cursor: pointer;
+  }
+}
+
 button {
   font-family: "Source Code Pro";
   color: rgb(231, 208, 186);
