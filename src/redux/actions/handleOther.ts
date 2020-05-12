@@ -1,3 +1,4 @@
+import { SyntheticEvent } from "react";
 import { store } from "../store";
 import { outputs } from "../../media";
 import { RootState, Transport, RefMIDI } from "../../types";
@@ -7,11 +8,18 @@ import {
   JSON_LOADED,
   SELECT_TRACK,
   SET_POSITION,
+  STOP_EDIT,
+  START_EDIT,
+  NO_ACTION_REQUIRED,
+  SEEK_POSITION,
 } from "../../constants";
-import { Dispatch } from "redux";
+import { Dispatch, AnyAction } from "redux";
 import { fetchJSON, fetchArraybuffer } from "../../webdaw/fetch_helpers";
 import { createSongFromMIDIFile } from "../../webdaw/sugar_coating";
 import { stopMIDI, startMIDI, playMIDI } from "./action_utils";
+import { getNativeEvent, getPagePos, getClientPos } from "../../util/util";
+import { NOTE_AFTERTOUCH } from "../../webdaw/midi_utils";
+
 
 export const handleTransport = (transport: Transport) => async (
   dispatch: Dispatch
@@ -38,29 +46,69 @@ export const handleTransport = (transport: Transport) => async (
   });
 }
 
-export const setPosition = (position?: number, percentage?: number) => {
+export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
+  const state = store.getState() as RootState;
+  const { thumbX, lastX, width, currentTrack } = state;
+
+  if (thumbX === null) {
+    return {
+      type: NO_ACTION_REQUIRED
+    }
+  }
+  const n = getNativeEvent(e);
+  const { x } = getPagePos(n);
+  const diffX = lastX !== null ? x - lastX : 0;
+  return {
+    type: SEEK_POSITION,
+    payload: {
+      lastX: x,
+      playheadPercentage: x / width,
+      playheadPosition: (x / width) * currentTrack.duration,
+    }
+  }
+}
+
+export const startSeek = (e: SyntheticEvent) => {
+  const n = getNativeEvent(e);
+  const x = getClientPos(n).x;
+  // console.log(x);
+  return {
+    type: START_EDIT,
+    payload: {
+      thumbX: x
+    }
+  }
+}
+
+export const stopInteractivity = () => {
+  return {
+    type: STOP_EDIT,
+  }
+}
+
+export const setPosition = (e: SyntheticEvent) => {
   const state = store.getState() as RootState;
   const {
     currentTrack,
+    width,
   } = state;
-  if (currentTrack) {
-    startMIDI(currentTrack, position)
+  const id = (e.target as HTMLDivElement).id;
+  if (id !== "slider") {
+    return {
+      type: NO_ACTION_REQUIRED,
+    }
   }
-  let abs = position;
-  let rel = percentage;
-  console.log(1, abs, rel);
-  if (abs) {
-    rel = abs / currentTrack.duration;
-  } else if (rel) {
-    abs = rel * currentTrack.duration;
-  }
-  console.log(2, abs, rel);
+  const n = getNativeEvent(e);
+  const x = getClientPos(n).x;
+  const millis = (x / width) * currentTrack.duration;
+  const track = startMIDI(currentTrack, millis);
+
   return ({
     type: SET_POSITION,
     payload: {
-      playheadPosition: abs,
-      playheadPercentage: rel,
-      currentTrack,
+      playheadPosition: (x / width) * currentTrack.duration,
+      playheadPercentage: x / width,
+      currentTrack: track,
     },
   });
 }

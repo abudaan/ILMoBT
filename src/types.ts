@@ -43,7 +43,9 @@ export type RootState = {
   tracks: RefMIDI[],
   currentTrack: RefMIDI,
   currentTrackIndex: number,
-  progress: 0,
+  progress: number,
+  thumbX: number,
+  lastX: number,
 };
 
 export type ProjectData = {

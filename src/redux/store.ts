@@ -19,6 +19,8 @@ const initialState: RootState = {
   tracks: [],
   currentTrack: null,
   currentTrackIndex: 0,
+  thumbX: null,
+  lastX: null,
 };
 
 // const store: Store<any, AnyAction> = createStore(

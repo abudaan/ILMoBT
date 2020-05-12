@@ -7,6 +7,9 @@ import {
   JSON_LOADED,
   SELECT_TRACK,
   RESIZE,
+  START_EDIT,
+  STOP_EDIT,
+  SEEK_POSITION,
 } from "../constants";
 
 export const rootReducer = (
@@ -41,18 +44,15 @@ export const rootReducer = (
       playheadPercentage: 0,
       // currentTrackDuration: state.tracks[index].duration,
     };
-  } else if (action.type === POINTER_MOVE) {
-    return {
-      ...state,
-    };
   } else if (action.type === SET_POSITION) {
     const {
-      payload: { playheadPosition, playheadPercentage, currentTrack },
+      payload: { playheadPosition, playheadPercentage, currentTrack, lastX },
     } = action;
     return {
       ...state,
       // isPlaying: false,
       // transport: Transport.STOP,
+      lastX,
       currentTrack: { ...currentTrack },
       playheadPosition,
       playheadPercentage,
@@ -93,6 +93,30 @@ export const rootReducer = (
       playheadPosition,
       isPlaying,
       progress,
+    };
+  } else if (action.type === START_EDIT) {
+    return {
+      ...state,
+      lastX: null,
+      thumbX: action.payload.thumbX,
+    }
+  } else if (action.type === STOP_EDIT) {
+    return {
+      ...state,
+      lastX: null,
+      thumbX: null,
+    }
+  }  else if (action.type === SEEK_POSITION) {
+    const {
+      payload: { lastX, playheadPosition, playheadPercentage },
+    } = action;
+    return {
+      ...state,
+      isPlaying: false,
+      transport: Transport.STOP,
+      lastX,
+      playheadPosition,
+      playheadPercentage,
     };
   }
 

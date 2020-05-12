@@ -8,6 +8,7 @@ import { Transport } from "./types";
 import { init } from "./media";
 import { handleTransport, loadJSON } from "./redux/actions/handleOther";
 import { App } from './components/App'
+
 import "./styles/index.scss";
 
 init().then(() => {

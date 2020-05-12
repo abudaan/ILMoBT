@@ -1,30 +1,27 @@
-import React, { SyntheticEvent } from "react";
-import { useSelector } from "react-redux";
+import React from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../types";
 import { List } from "./List";
 import { Slider } from "./Slider";
 import { TransportControls } from "./TransportControls";
+import { stopInteractivity, handlePointerMove } from "../redux/actions/handleOther";
 
 export const App = (): JSX.Element => {
+  const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.loading);
-  const sliderProps = {
-    max: 1,
-    min: 0,
-    value: 0,
-    id: `slider-${Date.now()}`,
-    label: "",
-    step: 0.001,
-    type: "song-position",
-    disabled: false,
-  }
-  
+
   if (loading) {
     return <div className='loading'>LOADING...</div>
   }
+  const stop = () => {
+    dispatch(stopInteractivity()); 
+  }
 
-  return (<>
+  return (<div onPointerUp={stop} onPointerLeave={stop} onPointerMove={(e): void => {
+    dispatch(handlePointerMove(e));
+  }}>
     <List></List>
     <TransportControls></TransportControls>
-    <Slider {...sliderProps}></Slider>
-  </>);
+    <Slider></Slider>
+  </div>);
 }
