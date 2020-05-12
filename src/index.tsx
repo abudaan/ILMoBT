@@ -12,24 +12,28 @@ import { App } from './components/App'
 import "./styles/index.scss";
 
 init().then(() => {
+  const album = document.getElementById("album");
   render(
     <Provider store={store}>
       <App></App>
     </Provider>,
-    document.getElementById("album")
+    album
   );
 
   store.dispatch(loadJSON('https://ilmobt.heartbeatjs.org/list.json'));
-  
-  window.addEventListener("resize", () => {
+
+  const resize = () => {
+    const rect = album.getBoundingClientRect();
     store.dispatch({
       type: RESIZE,
       payload: {
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: rect.width,
+        height: rect.height,
       },
     });
-  });
+  }
+  resize();
+  window.addEventListener("resize", resize);
 
   // set up a clock using RxJS
   setupClock();

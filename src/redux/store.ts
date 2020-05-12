@@ -14,6 +14,7 @@ const initialState: RootState = {
   isPlaying: false,
   progress: 0,
   playheadPosition: 0,
+  playheadPositionX: 0,
   playheadPercentage: 0,
   transport: Transport.STOP,
   tracks: [],

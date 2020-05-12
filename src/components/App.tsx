@@ -4,6 +4,7 @@ import { RootState } from "../types";
 import { List } from "./List";
 import { Slider } from "./Slider";
 import { TransportControls } from "./TransportControls";
+import { PositionDisplay } from "./PositionDisplay";
 import { stopInteractivity, handlePointerMove } from "../redux/actions/handleOther";
 
 export const App = (): JSX.Element => {
@@ -22,6 +23,7 @@ export const App = (): JSX.Element => {
   }}>
     <List></List>
     <TransportControls></TransportControls>
+    <PositionDisplay></PositionDisplay>
     <Slider></Slider>
   </div>);
 }

@@ -38,6 +38,7 @@ export type RootState = {
   height: number,
   isPlaying: boolean,
   playheadPosition: number,
+  playheadPositionX: number,
   playheadPercentage: number,
   transport: Transport,
   tracks: RefMIDI[],

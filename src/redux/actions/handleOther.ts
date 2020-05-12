@@ -17,8 +17,7 @@ import { Dispatch, AnyAction } from "redux";
 import { fetchJSON, fetchArraybuffer } from "../../webdaw/fetch_helpers";
 import { createSongFromMIDIFile } from "../../webdaw/sugar_coating";
 import { stopMIDI, startMIDI, playMIDI } from "./action_utils";
-import { getNativeEvent, getPagePos, getClientPos } from "../../util/util";
-import { NOTE_AFTERTOUCH } from "../../webdaw/midi_utils";
+import { getNativeEvent, getPagePos, getClientPos, getOffset } from "../../util/util";
 
 
 export const handleTransport = (transport: Transport) => async (
@@ -48,7 +47,7 @@ export const handleTransport = (transport: Transport) => async (
 
 export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
   const state = store.getState() as RootState;
-  const { thumbX, lastX, width, currentTrack } = state;
+  const { thumbX, lastX, width, currentTrack,playheadPositionX } = state;
 
   if (thumbX === null) {
     return {
@@ -62,8 +61,9 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     type: SEEK_POSITION,
     payload: {
       lastX: x,
-      playheadPercentage: x / width,
-      playheadPosition: (x / width) * currentTrack.duration,
+      playheadPositionX: playheadPositionX + diffX ,
+      playheadPercentage: playheadPositionX / width,
+      playheadPosition: (playheadPositionX / width) * currentTrack.duration,
     }
   }
 }
@@ -99,7 +99,7 @@ export const setPosition = (e: SyntheticEvent) => {
     }
   }
   const n = getNativeEvent(e);
-  const x = getClientPos(n).x;
+  const x = getOffset(n).x;
   const millis = (x / width) * currentTrack.duration;
   const track = startMIDI(currentTrack, millis);
 
@@ -107,6 +107,7 @@ export const setPosition = (e: SyntheticEvent) => {
     type: SET_POSITION,
     payload: {
       playheadPosition: (x / width) * currentTrack.duration,
+      playheadPositionX: x,
       playheadPercentage: x / width,
       currentTrack: track,
     },

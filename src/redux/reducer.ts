@@ -46,7 +46,7 @@ export const rootReducer = (
     };
   } else if (action.type === SET_POSITION) {
     const {
-      payload: { playheadPosition, playheadPercentage, currentTrack, lastX },
+      payload: { playheadPosition, playheadPositionX, playheadPercentage, currentTrack, lastX },
     } = action;
     return {
       ...state,
@@ -55,6 +55,7 @@ export const rootReducer = (
       lastX,
       currentTrack: { ...currentTrack },
       playheadPosition,
+      playheadPositionX,
       playheadPercentage,
     };
   } else if (action.type === SET_TRANSPORT) {
@@ -67,6 +68,8 @@ export const rootReducer = (
         ...state,
         isPlaying: false,
         playheadPosition: 0,
+        playheadPositionX: 0,
+        playheadPercentage: 0,
         currentTrack: { ...currentTrack },
         transport,
       };
@@ -91,6 +94,7 @@ export const rootReducer = (
       ...state,
       playheadPercentage,
       playheadPosition,
+      playheadPositionX: playheadPercentage * state.width,
       isPlaying,
       progress,
     };
@@ -106,9 +110,9 @@ export const rootReducer = (
       lastX: null,
       thumbX: null,
     }
-  }  else if (action.type === SEEK_POSITION) {
+  } else if (action.type === SEEK_POSITION) {
     const {
-      payload: { lastX, playheadPosition, playheadPercentage },
+      payload: { lastX, playheadPositionX, playheadPosition, playheadPercentage },
     } = action;
     return {
       ...state,
@@ -116,6 +120,7 @@ export const rootReducer = (
       transport: Transport.STOP,
       lastX,
       playheadPosition,
+      playheadPositionX,
       playheadPercentage,
     };
   }

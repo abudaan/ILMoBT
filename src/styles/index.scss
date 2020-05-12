@@ -10,11 +10,24 @@ body {
   overflow: hidden;
 }
 
-#album, .react-slider {
+#container {
+  width: 100vw;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  padding: 20px;
+
+  >div {
+    width: 500px;
+  }
+}
+
+#album {
   width: 100%;
 }
 
 .slider {
+  margin-top: 20px;
   width: 100%;
   position: relative;
   height: 20px;
@@ -36,7 +49,7 @@ button {
   font-size: 16px;
   padding: 4px;
   margin-right: 5px;
-  width: 100px;
+  width: 80px;
   background-color: #100806 ;
 }
 
@@ -52,33 +65,13 @@ button {
     font-weight: 300;
     cursor: pointer;
     user-select: none;
-
   }
 }
 
-input[type=range]{
-  -webkit-appearance: none;
-  height: 15px;
-  max-width: 600px;
-  width: 100%;
-  background-color: #53352e;
+.transport-controls {
+  margin-top: 30px;
 }
 
-input[type=range]::-webkit-slider-thumb {
-   -webkit-appearance: none;
-  background-color: rgb(231, 208, 186);
-  width: 10px;
-  height: 17px;
+.position-display {
+  margin-top: 20px;
 }
-
-input[type=range]::-moz-range-thumb {
-  background-color: rgb(231, 208, 186);
-  width: 10px;
-  height: 17px;
-  cursor: pointer;
-}
-
-input[type=range]:focus {
-  outline: none; 
-}
-
