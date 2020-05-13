@@ -17,7 +17,7 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     editData: { action, lastX },
     zoomLevel,
     millisPerPixel,
-    playheadPositionX,
+    playheadPixels: playheadPositionX,
     referencesById,
     partsById,
   } = state;

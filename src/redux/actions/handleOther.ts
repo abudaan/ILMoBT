@@ -25,7 +25,7 @@ export const handleTransport = (transport: Transport) => async (
 ): Promise<void> => {
   const state = store.getState() as RootState;
   const {
-    playheadPosition,
+    playheadMillis: playheadPosition,
     currentTrack,
   } = state;
   let track = currentTrack;
@@ -47,7 +47,7 @@ export const handleTransport = (transport: Transport) => async (
 
 export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
   const state = store.getState() as RootState;
-  const { thumbX, lastX, width, currentTrack,playheadPositionX } = state;
+  const { thumbX, lastX, width, currentTrack,playheadPixels: playheadPositionX } = state;
 
   if (thumbX === null) {
     return {
@@ -62,7 +62,6 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     payload: {
       lastX: x,
       playheadPositionX: playheadPositionX + diffX ,
-      playheadPercentage: playheadPositionX / width,
       playheadPosition: (playheadPositionX / width) * currentTrack.duration,
     }
   }
@@ -108,7 +107,6 @@ export const setPosition = (e: SyntheticEvent) => {
     payload: {
       playheadPosition: (x / width) * currentTrack.duration,
       playheadPositionX: x,
-      playheadPercentage: x / width,
       currentTrack: track,
     },
   });
@@ -117,12 +115,11 @@ export const setPosition = (e: SyntheticEvent) => {
 export const setProgress = (progress: number) => {
   const state = store.getState() as RootState;
   const {
-    playheadPosition,
+    playheadMillis: playheadPosition,
     currentTrack,
     transport,
   } = state;
   const millis = playheadPosition + progress;
-  const perc = millis / currentTrack.duration;
   let track = currentTrack;
   if (currentTrack !== null && millis < currentTrack.duration) {
     track = playMIDI(track);
@@ -131,7 +128,6 @@ export const setProgress = (progress: number) => {
       payload: {
         progress,
         transport,
-        playheadPercentage: perc,
         playheadPosition: millis,
         isPlaying: true,
         // currentTrack: track,
@@ -144,7 +140,6 @@ export const setProgress = (progress: number) => {
     payload: {
       progress,
       transport: Transport.STOP,
-      playheadPercentage: 0,
       playheadPosition: 0,
       isPlaying: false,
       // currentTrack: track,

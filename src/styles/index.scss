@@ -1,26 +1,26 @@
-body {
-  background-color: #100806;
-  padding: 0;
-  margin: 0px;
-  // overflow: hidden;
-  font-family: "Source Code Pro";
-  color: rgb(231, 208, 186);
-  font-size: 16px;
-  width: 100vw;
-  overflow: hidden;
-}
+// body {
+//   background-color: #100806;
+//   padding: 0;
+//   margin: 0px;
+//   // overflow: hidden;
+//   font-family: "Source Code Pro";
+//   color: rgb(231, 208, 186);
+//   font-size: 16px;
+//   width: 100vw;
+//   overflow: hidden;
+// }
 
-#container {
-  width: 100vw;
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  padding: 20px;
+// #container {
+//   width: 100vw;
+//   display: flex;
+//   flex-direction: row;
+//   justify-content: center;
+//   padding: 20px;
 
-  >div {
-    width: 500px;
-  }
-}
+//   >div {
+//     width: 500px;
+//   }
+// }
 
 #album {
   width: 100%;
@@ -32,6 +32,7 @@ body {
   position: relative;
   height: 20px;
   background-color: #53352e;
+  max-width: 500px;
 
   .thumb {
     top: 1px;
@@ -46,7 +47,7 @@ body {
 button {
   font-family: "Source Code Pro";
   color: rgb(231, 208, 186);
-  font-size: 16px;
+  font-size: 14px;
   padding: 4px;
   margin-right: 5px;
   width: 80px;
@@ -57,7 +58,7 @@ button {
   font-family: "Source Code Pro";
 
   .list-item {
-    font-size: 16px;
+    font-size: 14px;
     line-height: 1.75em;
     color: rgb(231, 208, 186);
     // margin-bottom: 7px;
@@ -83,4 +84,5 @@ button {
 
 .position-display {
   margin-top: 20px;
+  font-size: 14px;
 }

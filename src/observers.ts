@@ -15,7 +15,7 @@ export const setupClock = () => {
       distinctUntilKeyChanged("transport"),
       map(app => ({
         transport: app.transport,
-        position: app.playheadPosition,
+        position: app.playheadMillis,
         tracks: app.tracks,
         currentTrackIndex: app.currentTrackIndex,
       }))

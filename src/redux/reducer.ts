@@ -40,14 +40,13 @@ export const rootReducer = (
       currentTrackIndex: index,
       isPlaying: false,
       transport: Transport.STOP,
-      playheadPosition: 0,
-      playheadPositionX: 0,
-      playheadPercentage: 0,
+      playheadMillis: 0,
+      playheadPixels: 0,
       // currentTrackDuration: state.tracks[index].duration,
     };
   } else if (action.type === SET_POSITION) {
     const {
-      payload: { playheadPosition, playheadPositionX, playheadPercentage, currentTrack, lastX },
+      payload: { playheadPosition, playheadPositionX, currentTrack, lastX },
     } = action;
     return {
       ...state,
@@ -55,9 +54,8 @@ export const rootReducer = (
       // transport: Transport.STOP,
       lastX,
       currentTrack: { ...currentTrack },
-      playheadPosition,
-      playheadPositionX,
-      playheadPercentage,
+      playheadMillis: playheadPosition,
+      playheadPixels: playheadPositionX,
     };
   } else if (action.type === SET_TRANSPORT) {
     const {
@@ -68,9 +66,8 @@ export const rootReducer = (
       return {
         ...state,
         isPlaying: false,
-        playheadPosition: 0,
-        playheadPositionX: 0,
-        playheadPercentage: 0,
+        playheadMillis: 0,
+        playheadPixels: 0,
         currentTrack: { ...currentTrack },
         transport,
       };
@@ -90,12 +87,12 @@ export const rootReducer = (
     };
   } else if (action.type === SET_PROGRESS) {
     // console.log(action.payload);
-    const { playheadPosition, playheadPercentage, isPlaying, progress, transport } = action.payload;
+    const { playheadPosition, isPlaying, progress, transport } = action.payload;
+    const p = playheadPosition / state.currentTrack.duration
     return {
       ...state,
-      playheadPercentage,
-      playheadPosition,
-      playheadPositionX: playheadPercentage * state.width,
+      playheadMillis: playheadPosition,
+      playheadPixels: p * state.width,
       isPlaying,
       progress,
       transport,
@@ -114,16 +111,15 @@ export const rootReducer = (
     }
   } else if (action.type === SEEK_POSITION) {
     const {
-      payload: { lastX, playheadPositionX, playheadPosition, playheadPercentage },
+      payload: { lastX, playheadPositionX, playheadPosition },
     } = action;
     return {
       ...state,
       isPlaying: false,
       transport: Transport.STOP,
       lastX,
-      playheadPosition,
-      playheadPositionX,
-      playheadPercentage,
+      playheadMillis: playheadPosition,
+      playheadPixels: playheadPositionX,
     };
   }
 

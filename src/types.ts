@@ -2,7 +2,6 @@ import { Song } from "./webdaw/types";
 import { MIDIEvent } from "./webdaw/midi_events";
 
 export enum Transport {
-  PLAY_REQUEST = "request-play",
   PLAY = "play",
   PAUSE = "pause",
   STOP = "stop",
@@ -37,9 +36,8 @@ export type RootState = {
   width: number,
   height: number,
   isPlaying: boolean,
-  playheadPosition: number,
-  playheadPositionX: number,
-  playheadPercentage: number,
+  playheadMillis: number,
+  playheadPixels: number,
   transport: Transport,
   tracks: RefMIDI[],
   currentTrack: RefMIDI,

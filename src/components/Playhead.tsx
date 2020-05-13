@@ -5,7 +5,7 @@ import { RootState } from "../types";
 
 const Playhead = (): JSX.Element => {
   const dispatch = useDispatch();
-  const playheadPositionX = useSelector((state: RootState) => state.playheadPositionX);
+  const playheadPositionX = useSelector((state: RootState) => state.playheadPixels);
   const zoomLevel = useSelector((state: RootState) => state.zoomLevel);
   const millisPerPixel = useSelector((state: RootState) => state.millisPerPixel);
   // const left = `${playheadPositionX * millisPerPixel * zoomLevel}px`;

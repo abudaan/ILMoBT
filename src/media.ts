@@ -8,14 +8,18 @@ let outputs: WebMidi.MIDIOutput[] = [];
 export const init = async () => {
   midiAccess = await getMIDIAccess();
   ({ inputs, outputs } = await getMIDIDevices());
-  audioContext = new AudioContext();
-  audioContext.suspend();
+  // audioContext.suspend();
+  // audioContext = new AudioContext();
 };
 
 export const enable = async () => {
+  if (audioContext) {
+    return;
+  }
   if (audioContext.state === "running") {
     return;
   }
+  audioContext = new AudioContext();
   await audioContext.resume();
   // console.log(audioContext);
 };

@@ -13,7 +13,7 @@ const VideoController = (): JSX.Element => {
     }
     return 0; // state.tracks[0].start;
   });
-  const position = useSelector((state: RootState) => state.playheadPosition);
+  const position = useSelector((state: RootState) => state.playheadMillis);
   const isPlaying = useSelector((state: RootState) => state.isPlaying);
   const action = useSelector((state: RootState) => state.editData.action);
 

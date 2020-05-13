@@ -19,8 +19,8 @@ const uiDataSelector = (
   return {
     millisPerPixel: state.millisPerPixel,
     zoomLevel: state.zoomLevel,
-    playheadPosition: state.playheadPosition,
-    playheadPositionX: state.playheadPositionX,
+    playheadPosition: state.playheadMillis,
+    playheadPositionX: state.playheadPixels,
     arrangerScrollPos: state.arrangerScrollPos,
   };
 };
@@ -193,7 +193,7 @@ const InfoBox = (): JSX.Element => {
   // define sometriggers
   useSelector((state: RootState) => state.editData.id);
   useSelector((state: RootState) => state.editData.lastX);
-  useSelector((state: RootState) => state.playheadPositionX);
+  useSelector((state: RootState) => state.playheadPixels);
   useSelector((state: RootState) => state.arrangerScrollPos);
   const table = getInfo(store.getState());
   return <div className="info-box">{table}</div>;
