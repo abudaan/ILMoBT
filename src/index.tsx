@@ -1,3 +1,4 @@
+import "jzz";
 import "./styles/index.scss";
 import React from "react";
 import { render } from "react-dom";
@@ -21,7 +22,8 @@ document.addEventListener("DOMContentLoaded", () => {
       album
     );
 
-    store.dispatch(loadJSON('https://ilmobt.heartbeatjs.org/list.json'));
+    // store.dispatch(loadJSON('https://ilmobt.heartbeatjs.org/list.json'));
+    store.dispatch(loadJSON('./list.json'));
 
     const resize = () => {
       const rect = album.getBoundingClientRect();

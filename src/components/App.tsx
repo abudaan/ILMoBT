@@ -6,6 +6,7 @@ import { Slider } from "./Slider";
 import { TransportControls } from "./TransportControls";
 import { PositionDisplay } from "./PositionDisplay";
 import { stopInteractivity, handlePointerMove } from "../redux/actions/handleOther";
+import { Editor } from "./Editor";
 
 export const App = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -25,5 +26,6 @@ export const App = (): JSX.Element => {
     <TransportControls></TransportControls>
     <PositionDisplay></PositionDisplay>
     <Slider></Slider>
+    <Editor></Editor>
   </div>);
 }
