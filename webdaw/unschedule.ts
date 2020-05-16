@@ -61,8 +61,8 @@ export const unschedule = (song: Song, outputs?: WebMidi.MIDIOutputMap) => {
 
   outputIds.forEach(id => {
     channels.forEach(channel => {
-      outputs?.get(id).send([0xb0 + channel, 0x7b, 0x00], time + 50); // stop all notes
-      outputs?.get(id).send([0xb0 + channel, 0x79, 0x00], time + 50); // reset all controllers
+      outputs?.get(id).send([0xb0 + channel, 0x7b, 0x00], time + 80); // stop all notes
+      outputs?.get(id).send([0xb0 + channel, 0x79, 0x00], time + 80); // reset all controllers
     });
   });
 };

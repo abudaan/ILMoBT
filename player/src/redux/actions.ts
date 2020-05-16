@@ -83,8 +83,17 @@ export const startSeek = (e: SyntheticEvent) => {
 };
 
 export const stopInteractivity = () => {
+  const state = store.getState() as RootState;
+  const { wasPlaying, currentTrack, playheadMillis } = state;
+  let track = currentTrack;
+  if (wasPlaying) {
+    track = startMIDI(track, playheadMillis);
+  }
   return {
     type: STOP_SEEK,
+    payload: {
+      currentTrack: track,
+    },
   };
 };
 
@@ -97,6 +106,7 @@ export const setPosition = (e: SyntheticEvent) => {
       type: NO_ACTION_REQUIRED,
     };
   }
+  unschedule(currentTrack.song, midiAccess.outputs);
   const n = getNativeEvent(e);
   const x = getOffset(n).x;
   const millis = (x / width) * currentTrack.duration;

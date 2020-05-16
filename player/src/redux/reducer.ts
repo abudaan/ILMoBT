@@ -101,18 +101,22 @@ export const rootReducer = (
       transport,
     };
   } else if (action.type === START_SEEK) {
-    console.log(action.payload.wasPlaying);
     return {
       ...state,
       lastX: null,
       thumbX: action.payload.thumbX,
       wasPlaying: action.payload.wasPlaying,
+      transport: Transport.STOP,
     };
   } else if (action.type === STOP_SEEK) {
     return {
       ...state,
       lastX: null,
       thumbX: null,
+      isPlaying: state.wasPlaying,
+      transport: state.wasPlaying ? Transport.PLAY : state.transport,
+      wasPlaying: false,
+      currentTrack: { ...action.payload.currentTrack },
     };
   } else if (action.type === SEEK_POSITION) {
     const {
@@ -121,7 +125,6 @@ export const rootReducer = (
     return {
       ...state,
       isPlaying: false,
-      transport: Transport.STOP,
       lastX,
       playheadMillis,
       playheadPixels,

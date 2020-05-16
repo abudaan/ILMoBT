@@ -37,8 +37,11 @@ document.addEventListener("DOMContentLoaded", () => {
       album
     );
 
-    // store.dispatch(loadJSON("https://ilmobt.heartbeatjs.org/list.json"));
-    store.dispatch(loadJSON("/assets/list.json"));
+    if (window.location.hostname === "localhost") {
+      store.dispatch(loadJSON("/assets/list.json"));
+    } else {
+      store.dispatch(loadJSON("https://ilmobt.heartbeatjs.org/list.json"));
+    }
 
     const resize = () => {
       const rect = album.getBoundingClientRect();
@@ -81,6 +84,7 @@ document.addEventListener("DOMContentLoaded", () => {
     window.addEventListener("beforeunload", event => {
       cleanup();
     });
+
     window.addEventListener("visibilitychange", event => {
       cleanup();
     });
