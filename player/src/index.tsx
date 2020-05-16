@@ -15,6 +15,21 @@ import { unschedule } from "../../webdaw/unschedule";
 document.addEventListener("DOMContentLoaded", () => {
   init().then(() => {
     const album = document.getElementById("album");
+
+    if (midiAccess === null) {
+      const browsers = ["Chrome", "Chromium", "Brave", "Edge", "Samsung Internet"].map(b => (
+        <li key={b}>{b}</li>
+      ));
+      render(
+        <div className="message">
+          The MIDI player only runs in Chrome based browsers:
+          <ul>{browsers}</ul>
+        </div>,
+        album
+      );
+      return;
+    }
+
     render(
       <Provider store={store}>
         <App></App>

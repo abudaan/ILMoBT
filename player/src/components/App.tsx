@@ -31,6 +31,7 @@ export const App = (): JSX.Element => {
       <TransportControls></TransportControls>
       <PositionDisplay></PositionDisplay>
       <Slider></Slider>
+      {/* <div className="overlay"></div> */}
       {/* <PianoRollPreview></PianoRollPreview> */}
     </div>
   );
