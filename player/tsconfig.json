@@ -1,0 +1,22 @@
+{
+  "compilerOptions": {
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "module": "commonjs",
+    "target": "es6",
+    "sourceMap": true,
+    "esModuleInterop": true,
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
+    "jsx": "react",
+    "allowJs": true,
+    "skipLibCheck": true,
+    "types": ["redux", "react"],
+    "typeRoots": ["./node_modules/@types"],
+    "lib": ["dom", "es6", "es2018"],
+    "outDir": "./dist/",
+    "noImplicitAny": false
+  },
+  "exclude": ["node_modules", "build", "public"]
+}
