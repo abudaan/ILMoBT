@@ -379,6 +379,7 @@ function parseEvent(reader: BufferReader, lastTypeByte: number | null): ParsedDa
     // console.log(isRunningStatus, typeByte, value);
 
     const channel = typeByte & 0x0f;
+    // channels[channel] = true;
 
     switch (typeByte >> 4) {
       // note off

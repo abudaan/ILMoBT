@@ -38,6 +38,7 @@ export const schedule = ({
       const track = song.tracksById[event.trackId];
       track.outputs.forEach(id => {
         if (event.descr === NOTE_ON || event.descr === NOTE_OFF) {
+          // console.log(event.type[0], event.channel, event.noteNumber);
           const time = ts + song.latency + track.latency + (event.millis - millis);
           // console.log(time, ts, time - ts);
           outputs

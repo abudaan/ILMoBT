@@ -1,51 +1,50 @@
 [
-    {
-        "title": "Mozart Sonata Facile",
-        "mood": "",
-        "moreMetaData": "add as much as you like",
-        "url": "./assets/mozk545a.mid"
-    },
-    {
-        "title": "Limits",
-        "mood": "",
-        "moreMetaData": "add as much as you like",
-        "url": "./assets/01 Limits.mid"
-    },
-    {
-        "title": "Hard Pressed",
-        "url": "./assets/02 Hard Pressed.mid"
-    },
-    {
-        "title": "Rocking Back and Forth",
-        "url": "./assets/03 Rocking Back and Forth.mid"
-    },
-    {
-        "title": "Expansion",
-        "url": "./assets/04 Expansion.mid"
-    },
-    {
-        "title": "Wildlife",
-        "url": "./assets/05 Wildlife.mid"
-    },
-    {
-        "title": "Knotted backs",
-        "url": "./assets/06 Knotted Backs.MID"
-    },
-    {
-        "title": "Euclid",
-        "url": "./assets/07 Euclid.mid"
-    },
-    {
-        "title": "Salience",
-        "url": "./assets/08 Salience.mid"
-    },
-    {
-        "title": "Clubbing at Home",
-        "url": "./assets/09 Clubbing at Home.mid"
-    },
-    {
-        "title": "Thaw",
-        "url": "./assets/10 Thaw.mid"
-    }
-
+  {
+    "title": "Mozart Sonata Facile",
+    "mood": "",
+    "moreMetaData": "add as much as you like",
+    "url": "./assets/mozart-snippet.mid"
+  },
+  {
+    "title": "Limits",
+    "mood": "",
+    "moreMetaData": "add as much as you like",
+    "url": "./assets/01 Limits.mid"
+  },
+  {
+    "title": "Hard Pressed",
+    "url": "./assets/02 Hard Pressed.mid"
+  },
+  {
+    "title": "Rocking Back and Forth",
+    "url": "./assets/03 Rocking Back and Forth.mid"
+  },
+  {
+    "title": "Expansion",
+    "url": "./assets/04 Expansion.mid"
+  },
+  {
+    "title": "Wildlife",
+    "url": "./assets/05 Wildlife.mid"
+  },
+  {
+    "title": "Knotted backs",
+    "url": "./assets/06 Knotted Backs.MID"
+  },
+  {
+    "title": "Euclid",
+    "url": "./assets/07 Euclid.mid"
+  },
+  {
+    "title": "Salience",
+    "url": "./assets/08 Salience.mid"
+  },
+  {
+    "title": "Clubbing at Home",
+    "url": "./assets/09 Clubbing at Home.mid"
+  },
+  {
+    "title": "Thaw",
+    "url": "./assets/10 Thaw.mid"
+  }
 ]
