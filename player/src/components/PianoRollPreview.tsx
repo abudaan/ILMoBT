@@ -10,7 +10,8 @@ const height = 500 / 5;
 
 const draw = (canvas: HTMLCanvasElement, track: RefMIDI) => {
   const events = track.song.events;
-  createNotePair(events);
+  const notes = createNotePair(events);
+  console.log(notes);
   const duration = track.duration;
   // const duration = track.song.events[track.song.events.length - 1].ticks;
   const pixelsPerMilli = width / duration;

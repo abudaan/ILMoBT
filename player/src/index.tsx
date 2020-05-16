@@ -7,12 +7,12 @@ import { RESIZE } from "./constants";
 import { store } from "./redux/store";
 import { setupClock } from "./observers";
 import { Transport } from "./types";
-import { init } from "./media";
+import { init, midiAccess } from "./media";
 import { handleTransport, loadJSON } from "./redux/actions";
-import { App } from './components/App'
+import { App } from "./components/App";
+import { unschedule } from "../../webdaw/unschedule";
 
 document.addEventListener("DOMContentLoaded", () => {
-
   init().then(() => {
     const album = document.getElementById("album");
     render(
@@ -23,7 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
     );
 
     // store.dispatch(loadJSON('https://ilmobt.heartbeatjs.org/list.json'));
-    store.dispatch(loadJSON('./list.json'));
+    store.dispatch(loadJSON("./list.json"));
 
     const resize = () => {
       const rect = album.getBoundingClientRect();
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", () => {
           height: rect.height,
         },
       });
-    }
+    };
     resize();
     window.addEventListener("resize", resize);
 
@@ -54,5 +54,20 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("keyup", e => {
       // console.log(e);
     });
-  })
+
+    const cleanup = () => {
+      const state = store.getState();
+      state.transport = Transport.STOP; // YOLO!
+      state.tracks.forEach(({ song }) => {
+        unschedule(song, midiAccess?.outputs);
+      });
+    };
+
+    window.addEventListener("beforeunload", event => {
+      cleanup();
+    });
+    window.addEventListener("visibilitychange", event => {
+      cleanup();
+    });
+  });
 });
