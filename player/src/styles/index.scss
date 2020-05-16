@@ -29,11 +29,11 @@ body {
 .slider {
   margin-top: 20px;
   width: 100%;
-  width: 1500px;
+  // width: 1500px;
   position: relative;
   height: 20px;
   background-color: #53352e;
-  // max-width: 500px;
+  max-width: 500px;
 
   .thumb {
     top: 1px;
@@ -52,7 +52,7 @@ button {
   padding: 4px;
   margin-right: 5px;
   width: 80px;
-  background-color: #100806 ;
+  background-color: #100806;
 }
 
 .list {
@@ -86,4 +86,5 @@ button {
 .position-display {
   margin-top: 20px;
   font-size: 14px;
+  color: rgb(231, 208, 186);
 }

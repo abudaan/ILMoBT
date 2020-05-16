@@ -13,19 +13,25 @@ export const App = (): JSX.Element => {
   const loading = useSelector((state: RootState) => state.loading);
 
   if (loading) {
-    return <div className='loading'>LOADING...</div>
+    return <div className="loading">LOADING...</div>;
   }
   const stop = () => {
-    dispatch(stopInteractivity()); 
-  }
+    dispatch(stopInteractivity());
+  };
 
-  return (<div onPointerUp={stop} onPointerLeave={stop} onPointerMove={(e): void => {
-    dispatch(handlePointerMove(e));
-  }}>
-    <List></List>
-    <TransportControls></TransportControls>
-    <PositionDisplay></PositionDisplay>
-    <Slider></Slider>
-    <PianoRollPreview></PianoRollPreview>
-  </div>);
-}
+  return (
+    <div
+      onPointerUp={stop}
+      onPointerLeave={stop}
+      onPointerMove={(e): void => {
+        dispatch(handlePointerMove(e));
+      }}
+    >
+      <List></List>
+      <TransportControls></TransportControls>
+      <PositionDisplay></PositionDisplay>
+      <Slider></Slider>
+      {/* <PianoRollPreview></PianoRollPreview> */}
+    </div>
+  );
+};

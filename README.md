@@ -1,9 +1,6 @@
 # Player
 
 ```bash
-# switch to live branch
-git checkout live
-
 # webdaw is still in development so the source folder is included
 # and you have to install its dependencies
 cd ./webdaw
@@ -20,3 +17,10 @@ npm run dev
 npm run build
 ```
 
+# Editor
+
+wip
+
+# Backend
+
+wip
