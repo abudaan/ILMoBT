@@ -31,7 +31,7 @@ export const playMIDI = (reference: RefMIDI): RefMIDI => {
 };
 
 export const stopMIDI = (reference: RefMIDI): RefMIDI => {
-  unschedule(reference.song, reference.scheduled, reference.millis, midiAccess?.outputs);
+  unschedule(reference.song, midiAccess?.outputs);
   reference.index = 0;
   reference.millis = 0;
   reference.scheduled = [];

@@ -5,7 +5,7 @@ export const createNotePair = (events: MIDIEvent[]) => {
   const notes: { [id: string]: [NoteOnEvent, NoteOffEvent?] } = {};
   events.forEach(e => {
     const event = e as NoteOnEvent;
-    // console.log(e.ticks, event.noteNumber, event.descr, event.channel);
+    console.log(e.ticks, event.noteNumber, event.descr, event.channel);
     if (e.descr === NOTE_ON) {
       const event = e as NoteOnEvent;
       notes[`${e.noteNumber}`] = [event];
