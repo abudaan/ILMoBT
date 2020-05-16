@@ -8,8 +8,8 @@ import {
   JSON_LOADED,
   SELECT_TRACK,
   SET_POSITION,
-  STOP_EDIT,
-  START_EDIT,
+  STOP_SEEK,
+  START_SEEK,
   NO_ACTION_REQUIRED,
   SEEK_POSITION,
 } from "../constants";
@@ -46,7 +46,7 @@ export const handleTransport = (transport: Transport) => async (
 
 export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
   const state = store.getState() as RootState;
-  const { thumbX, lastX, width, currentTrack, playheadPixels: playheadPositionX } = state;
+  const { thumbX, lastX, width, currentTrack, playheadPixels } = state;
 
   if (thumbX === null) {
     return {
@@ -60,8 +60,8 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     type: SEEK_POSITION,
     payload: {
       lastX: x,
-      playheadPositionX: playheadPositionX + diffX,
-      playheadPosition: (playheadPositionX / width) * currentTrack.duration,
+      playheadPixels: playheadPixels + diffX,
+      playheadMillis: (playheadPixels / width) * currentTrack.duration,
     },
   };
 };
@@ -69,18 +69,22 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
 export const startSeek = (e: SyntheticEvent) => {
   const n = getNativeEvent(e);
   const x = getClientPos(n).x;
+  const state = store.getState() as RootState;
+  const { currentTrack, isPlaying } = state;
+  unschedule(currentTrack.song, midiAccess.outputs);
   // console.log(x);
   return {
-    type: START_EDIT,
+    type: START_SEEK,
     payload: {
       thumbX: x,
+      wasPlaying: isPlaying,
     },
   };
 };
 
 export const stopInteractivity = () => {
   return {
-    type: STOP_EDIT,
+    type: STOP_SEEK,
   };
 };
 
@@ -101,8 +105,8 @@ export const setPosition = (e: SyntheticEvent) => {
   return {
     type: SET_POSITION,
     payload: {
-      playheadPosition: (x / width) * currentTrack.duration,
-      playheadPositionX: x,
+      playheadMillis: (x / width) * currentTrack.duration,
+      playheadPixels: x,
       currentTrack: track,
     },
   };
@@ -110,8 +114,8 @@ export const setPosition = (e: SyntheticEvent) => {
 
 export const setProgress = (progress: number) => {
   const state = store.getState() as RootState;
-  const { playheadMillis: playheadPosition, currentTrack, transport } = state;
-  const millis = playheadPosition + progress;
+  const { playheadMillis, currentTrack, transport } = state;
+  const millis = playheadMillis + progress;
   let track = currentTrack;
   if (currentTrack !== null && millis < currentTrack.duration) {
     track = playMIDI(track);
@@ -120,7 +124,7 @@ export const setProgress = (progress: number) => {
       payload: {
         progress,
         transport,
-        playheadPosition: millis,
+        playheadMillis: millis,
         isPlaying: true,
         // currentTrack: track,
       },
@@ -132,7 +136,7 @@ export const setProgress = (progress: number) => {
     payload: {
       progress,
       transport: Transport.STOP,
-      playheadPosition: 0,
+      playheadMillis: 0,
       isPlaying: false,
       // currentTrack: track,
     },

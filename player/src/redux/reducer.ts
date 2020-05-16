@@ -6,8 +6,8 @@ import {
   JSON_LOADED,
   SELECT_TRACK,
   RESIZE,
-  START_EDIT,
-  STOP_EDIT,
+  START_SEEK,
+  STOP_SEEK,
   SEEK_POSITION,
 } from "../constants";
 
@@ -16,7 +16,9 @@ export const rootReducer = (
   action: { type: string; payload: { [id: string]: any } }
 ): RootState => {
   if (action.type === JSON_LOADED) {
-    const { payload: { tracks } } = action;
+    const {
+      payload: { tracks },
+    } = action;
     return {
       ...state,
       loading: false,
@@ -32,7 +34,9 @@ export const rootReducer = (
       height,
     };
   } else if (action.type === SELECT_TRACK) {
-    const { payload: { index, currentTrack } } = action;
+    const {
+      payload: { index, currentTrack },
+    } = action;
     return {
       ...state,
       currentTrack: { ...currentTrack },
@@ -45,7 +49,7 @@ export const rootReducer = (
     };
   } else if (action.type === SET_POSITION) {
     const {
-      payload: { playheadPosition, playheadPositionX, currentTrack, lastX },
+      payload: { playheadMillis, playheadPixels, currentTrack, lastX },
     } = action;
     return {
       ...state,
@@ -53,8 +57,8 @@ export const rootReducer = (
       // transport: Transport.STOP,
       lastX,
       currentTrack: { ...currentTrack },
-      playheadMillis: playheadPosition,
-      playheadPixels: playheadPositionX,
+      playheadMillis,
+      playheadPixels,
     };
   } else if (action.type === SET_TRANSPORT) {
     const {
@@ -86,39 +90,41 @@ export const rootReducer = (
     };
   } else if (action.type === SET_PROGRESS) {
     // console.log(action.payload);
-    const { playheadPosition, isPlaying, progress, transport } = action.payload;
-    const p = playheadPosition / state.currentTrack.duration
+    const { playheadMillis, isPlaying, progress, transport } = action.payload;
+    const p = playheadMillis / state.currentTrack.duration;
     return {
       ...state,
-      playheadMillis: playheadPosition,
+      playheadMillis,
       playheadPixels: p * state.width,
       isPlaying,
       progress,
       transport,
     };
-  } else if (action.type === START_EDIT) {
+  } else if (action.type === START_SEEK) {
+    console.log(action.payload.wasPlaying);
     return {
       ...state,
       lastX: null,
       thumbX: action.payload.thumbX,
-    }
-  } else if (action.type === STOP_EDIT) {
+      wasPlaying: action.payload.wasPlaying,
+    };
+  } else if (action.type === STOP_SEEK) {
     return {
       ...state,
       lastX: null,
       thumbX: null,
-    }
+    };
   } else if (action.type === SEEK_POSITION) {
     const {
-      payload: { lastX, playheadPositionX, playheadPosition },
+      payload: { lastX, playheadMillis, playheadPixels },
     } = action;
     return {
       ...state,
       isPlaying: false,
       transport: Transport.STOP,
       lastX,
-      playheadMillis: playheadPosition,
-      playheadPixels: playheadPositionX,
+      playheadMillis,
+      playheadPixels,
     };
   }
 
