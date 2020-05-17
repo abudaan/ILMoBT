@@ -5,7 +5,8 @@ import { Slider } from "./Slider";
 import { TransportControls } from "./TransportControls";
 import { PositionDisplay } from "./PositionDisplay";
 import { stopInteractivity, handlePointerMove } from "../redux/actions";
-import { Editor } from "./Editor";
+import { EditorGrid } from "./EditorGrid";
+import { EditorNotes } from "./EditorNotes";
 import { Scrollable } from "./Scrollable";
 
 export const App = (): JSX.Element => {
@@ -20,16 +21,17 @@ export const App = (): JSX.Element => {
   };
   return (
     <div
-      onPointerUp={stop}
-      onPointerLeave={stop}
-      onPointerMove={(e): void => {
-        dispatch(handlePointerMove(e));
-      }}
+    // onPointerUp={stop}
+    // onPointerLeave={stop}
+    // onPointerMove={(e): void => {
+    //   dispatch(handlePointerMove(e));
+    // }}
     >
       <TransportControls></TransportControls>
       {/* <PositionDisplay></PositionDisplay> */}
       <Scrollable>
-        <Editor></Editor>
+        <EditorGrid></EditorGrid>
+        <EditorNotes></EditorNotes>
       </Scrollable>
     </div>
   );

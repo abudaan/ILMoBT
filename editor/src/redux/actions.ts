@@ -211,13 +211,13 @@ export const scrollArranger = (scroll: number): AnyAction => {
   };
 };
 
-export const handlePointerUp = (): AnyAction => {
-  const state = store.getState() as RootState;
-  const {
-    editData: { thumbX },
-  } = state;
+// export const handlePointerUp = (): AnyAction => {
+//   const state = store.getState() as RootState;
+//   const {
+//     editData: { thumbX },
+//   } = state;
 
-  return {
-    type: thumbX === null ? NO_ACTION_REQUIRED : STOP_EDIT,
-  };
-};
+//   return {
+//     type: thumbX === null ? NO_ACTION_REQUIRED : STOP_EDIT,
+//   };
+// };

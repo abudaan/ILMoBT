@@ -2,8 +2,10 @@ import React, { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, RefMIDI } from "../types";
 import { NoteOnEvent } from "../../../webdaw/midi_events";
+import { handlePointerDown } from "../redux/actions/handlePointer";
 
-export const Editor = (): JSX.Element => {
+export const EditorGrid = (): JSX.Element => {
+  const dispatch = useDispatch();
   const width = useSelector((state: RootState) => state.width);
   const zoomLevel = useSelector((state: RootState) => state.zoomLevel);
   const numBars = useSelector((state: RootState) => state.numBars);
@@ -30,7 +32,16 @@ export const Editor = (): JSX.Element => {
   };
 
   return (
-    <div style={{ width: `${width * zoomLevel}px` }} className="piano-roll">
+    <div
+      // onPointerMove={(e): void => {
+      //   dispatch(handlePointerMove(e));
+      // }}
+      onPointerDown={(e): void => {
+        dispatch(handlePointerDown(e));
+      }}
+      style={{ width: `${width * zoomLevel}px` }}
+      className="piano-roll"
+    >
       {createGrid()}
     </div>
   );

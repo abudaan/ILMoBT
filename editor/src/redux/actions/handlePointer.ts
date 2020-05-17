@@ -17,28 +17,24 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     editData: { action, lastX },
     zoomLevel,
     millisPerPixel,
-    playheadPixels: playheadPositionX,
-    referencesById,
-    partsById,
+    playheadPixels,
   } = state;
 
   const diffX = lastX !== null ? x - lastX : 0;
-  const part = partsById["video"];
 
   if (action === null) {
     return {
       type: NO_ACTION_REQUIRED,
     };
   } else if (action === MOVE_PLAYHEAD) {
-    const newPos = playheadPositionX + diffX;
+    const newPos = playheadPixels + diffX;
     const millis = newPos / millisPerPixel / zoomLevel;
     // console.log(newPos);
-    (referencesById["video"] as RefVideo).videoElement.currentTime =
-      (millis - part.start + part.trimStart) / 1000;
     return {
       type: SEEK_POSITION,
       payload: { lastX: x, newPos, millis },
     };
+  } else if (action === "drawNote") {
   }
 
   return {
@@ -48,33 +44,21 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
 };
 
 export const handlePointerDown = (e: SyntheticEvent): AnyAction => {
-  const id = (e.currentTarget as HTMLDivElement).id;
+  const className = (e.currentTarget as HTMLDivElement).className;
   const n = getNativeEvent(e);
   const state = store.getState() as RootState;
-  const { arrangerScrollPos, zoomLevel, millisPerPixel, referencesById, partsById } = state;
-  const video = (referencesById["video"] as RefVideo).videoElement;
-  const part = partsById["video"];
+  const { editorScrollPos, zoomLevel, millisPerPixel } = state;
 
-  if (id === "time-ticks") {
-    const newPos = getClientPos(n).x + arrangerScrollPos;
+  if (className === "time-ticks") {
+    const newPos = getClientPos(n).x + editorScrollPos;
     const millis = newPos / millisPerPixel / zoomLevel;
-    video.pause();
-    video.currentTime = (millis - part.start + part.trimStart) / 1000;
-
-    const [partsById1, referencesById1] = processTransportParts(
-      partsById,
-      referencesById,
-      Transport.PAUSE
-    );
 
     return {
       type: SET_POSITION,
       payload: {
-        id,
+        id: className,
         newPos,
         millis,
-        partsById: partsById1,
-        referencesById: referencesById1,
       },
     };
   }
@@ -82,21 +66,13 @@ export const handlePointerDown = (e: SyntheticEvent): AnyAction => {
   // this x is the thumb!
   const { x } = getOffset(n);
 
-  if (id === "playhead") {
-    video.pause();
-    const [partsById1, referencesById1] = processTransportParts(
-      partsById,
-      referencesById,
-      Transport.PAUSE
-    );
+  if (className === "playhead") {
     return {
       type: START_EDIT,
       payload: {
-        id,
+        id: className,
         x,
         action: MOVE_PLAYHEAD,
-        partsById: partsById1,
-        referencesById: referencesById1,
       },
     };
   }
@@ -104,9 +80,9 @@ export const handlePointerDown = (e: SyntheticEvent): AnyAction => {
   return {
     type: START_EDIT,
     payload: {
-      id,
+      id: className,
       x,
-      action: getEditAction(x, id, state),
+      action: className === "piano-roll" ? "drawNote" : "we will see",
     },
   };
 };

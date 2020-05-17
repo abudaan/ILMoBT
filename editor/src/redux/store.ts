@@ -26,10 +26,25 @@ const initialState: RootState = {
   numNotes: 8,
   numerator: 4,
   denominator: 4,
-  editData: null,
+  editData: {
+    id: null,
+    thumbX: null,
+    lastX: null,
+    action: null,
+  },
   zoomLevel: 2,
   durationTimeline: 2000,
   millisPerPixel: window.innerWidth / 2000,
+  editorScrollPos: 0,
+  notes: [
+    {
+      id: "C1",
+      ticks: 480,
+      noteNumber: 3,
+      duration: 480 * 4,
+    },
+  ],
+  ppq: 960,
 };
 
 // const store: Store<any, AnyAction> = createStore(

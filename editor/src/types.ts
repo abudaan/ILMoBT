@@ -54,6 +54,16 @@ export type RootState = {
   zoomLevel: number;
   millisPerPixel: number;
   durationTimeline: number;
+  editorScrollPos: number;
+  notes: NoteUI[];
+  ppq: number;
+};
+
+export type NoteUI = {
+  id: string;
+  ticks: number;
+  noteNumber: number;
+  duration: number;
 };
 
 export type EditData = {

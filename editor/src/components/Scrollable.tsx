@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, RefObject, SyntheticEvent } from "react";
 import { useDispatch } from "react-redux";
 import { scrollArranger } from "../redux/actions";
-import { handlePointerUp } from "../redux/actions";
+import { handlePointerUp } from "../redux/actions/handlePointer";
 
-type Props = { children: JSX.Element };
+type Props = { children: JSX.Element[] };
 const Scrollable = ({ children }: Props): JSX.Element => {
   const dispatch = useDispatch();
   const containerRef: RefObject<HTMLDivElement> = useRef();
