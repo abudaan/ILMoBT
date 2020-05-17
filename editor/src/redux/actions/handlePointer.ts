@@ -106,6 +106,7 @@ export const handlePointerUp = (): AnyAction => {
   } = state;
 
   return {
-    type: thumbX === null ? NO_ACTION_REQUIRED : STOP_EDIT,
+    // type: thumbX === null ? NO_ACTION_REQUIRED : STOP_EDIT,
+    type: STOP_EDIT,
   };
 };

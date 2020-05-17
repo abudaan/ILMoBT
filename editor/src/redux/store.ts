@@ -11,7 +11,7 @@ const ppq = 960;
 const numerator = 4;
 const denominator = 4;
 const numBars = 10;
-const numNotes = 8;
+const numNotes = 18;
 
 const initialState: RootState = {
   loading: false,

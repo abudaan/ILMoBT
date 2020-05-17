@@ -75,12 +75,20 @@ button {
     top: 0px;
     position: absolute;
     z-index: 2;
-    .note {
-      position: absolute;
-      // background-color: red;
-      background-color: rgba(231, 208, 186, 0.6);
-      height: 15px;
-    }
+  }
+
+  .piano-roll-note-current {
+    top: 0;
+    height: 100%;
+    position: absolute;
+    z-index: 3;
+  }
+
+  .note {
+    position: absolute;
+    // background-color: red;
+    background-color: rgba(231, 208, 186, 0.6);
+    height: 15px;
   }
 
   .piano-roll {

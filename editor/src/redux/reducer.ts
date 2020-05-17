@@ -117,6 +117,8 @@ export const rootReducer = (
       ...state,
       lastX: null,
       thumbX: null,
+      notes: [...state.notes, { ...state.currentNote }],
+      currentNote: null,
     };
   } else if (action.type === SEEK_POSITION) {
     const {
@@ -145,26 +147,28 @@ export const rootReducer = (
       seekZoomLevel: action.payload.zoom,
     };
   } else if (action.type === ADD_BAR) {
+    const numBars = state.numBars + 1;
     return {
       ...state,
-      numBars: state.numBars + 1,
+      numBars,
       ticksPerPixel:
         (state.width * state.zoomLevel) /
-        (state.numBars + 1 * state.numerator * state.denominator * state.ppq),
+        (numBars * state.numerator * state.denominator * state.ppq),
     };
   } else if (action.type === REMOVE_BAR) {
+    const numBars = state.numBars - 1;
     return {
       ...state,
-      numBars: state.numBars - 1,
+      numBars,
       ticksPerPixel:
         (state.width * state.zoomLevel) /
-        (state.numBars - 1 * state.numerator * state.denominator * state.ppq),
+        (numBars * state.numerator * state.denominator * state.ppq),
     };
   } else if (action.type === START_EDIT_NOTE) {
     return {
       ...state,
       currentNote: { ...action.payload.currentNote },
-      notes: [...state.notes, action.payload.currentNote],
+      // notes: [...state.notes, action.payload.currentNote],
     };
   }
 

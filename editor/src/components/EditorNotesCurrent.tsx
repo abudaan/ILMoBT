@@ -4,41 +4,33 @@ import { RootState, RefMIDI } from "../types";
 import { NoteOnEvent } from "../../../webdaw/midi_events";
 import { handlePointerDown } from "../redux/actions/handlePointer";
 
-export const EditorNotes = (): JSX.Element => {
+export const EditorNotesCurrent = (): JSX.Element => {
   const dispatch = useDispatch();
-  const notes = useSelector((state: RootState) => state.notes);
+  const currentNote = useSelector((state: RootState) => state.currentNote);
   const width = useSelector((state: RootState) => state.width);
   const numNotes = useSelector((state: RootState) => state.numNotes);
   const zoomLevel = useSelector((state: RootState) => state.zoomLevel);
   const ticksPerPixel = useSelector((state: RootState) => state.ticksPerPixel);
-  // console.log(ticksPerPixel);
 
-  const addNotes = () => {
-    const noteDivs = notes.map(n => {
-      const x = n.ticks * ticksPerPixel + 0.5;
-      const y = (numNotes - n.noteNumber) * 30 + 9;
-      const w = n.duration * ticksPerPixel;
-      return (
-        <div
-          key={n.id}
-          id={n.id}
-          className="note"
-          style={{ left: `${x}px`, top: `${y}px`, width: `${w}px` }}
-        ></div>
-      );
-    });
-    return noteDivs;
-  };
+  if (currentNote === null) {
+    return null;
+  }
+
+  console.log(currentNote);
+  const x = currentNote.ticks * ticksPerPixel + 0.5;
+  const y = (numNotes - currentNote.noteNumber) * 30 + 9;
+  const w = currentNote.duration * ticksPerPixel;
+  const style = { left: `${x}px`, top: `${y}px`, width: `${w}px` };
 
   return (
     <div
       style={{ width: `${width * zoomLevel}px` }}
-      className="piano-roll-notes"
-      onPointerDown={(e): void => {
-        dispatch(handlePointerDown(e));
-      }}
+      className="piano-roll-note-current"
+      // onPointerDown={(e): void => {
+      //   dispatch(handlePointerDown(e));
+      // }}
     >
-      {addNotes()}
+      <div id={currentNote.id} style={style} className="note"></div>
     </div>
   );
 };
