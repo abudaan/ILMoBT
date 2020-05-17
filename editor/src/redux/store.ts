@@ -39,9 +39,21 @@ const initialState: RootState = {
   notes: [
     {
       id: "C1",
-      ticks: 480,
+      ticks: 960 * 16,
       noteNumber: 3,
-      duration: 480 * 4,
+      duration: 960 * 4,
+    },
+    {
+      id: "C1",
+      ticks: 960 * 50,
+      noteNumber: 1,
+      duration: 960 * 4,
+    },
+    {
+      id: "C1",
+      ticks: 960 * 150,
+      noteNumber: 5,
+      duration: 960 * 4,
     },
   ],
   ppq: 960,
