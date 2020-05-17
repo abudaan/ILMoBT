@@ -34,6 +34,7 @@ export const rootReducer = (
       height,
     };
   } else if (action.type === SELECT_TRACK) {
+    console.log('select track')
     const {
       payload: { index, currentTrack },
     } = action;
@@ -41,6 +42,8 @@ export const rootReducer = (
       ...state,
       currentTrack: { ...currentTrack },
       currentTrackIndex: index,
+      // isPlaying: true,
+      // transport: Transport.PLAY,
       isPlaying: false,
       transport: Transport.STOP,
       playheadMillis: 0,

@@ -1,5 +1,5 @@
-import { Song } from "./webdaw/types";
-import { MIDIEvent } from "./webdaw/midi_events";
+import { Song } from "../../webdaw/types";
+import { MIDIEvent } from "../../webdaw/midi_events";
 
 export enum Transport {
   PLAY = "play",
@@ -45,13 +45,14 @@ export type RootState = {
   progress: number,
   thumbX: number,
   lastX: number,
+  wasPlaying: boolean,
 };
 
 export type ProjectData = {
   tracks: [
     {
       order: number;
-      title: string; 
+      title: string;
       url: string;
     }
   ];

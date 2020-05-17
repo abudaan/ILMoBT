@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
 import { RootState } from "../types";
-import { getNiceTime } from "../webdaw/utils";
+import { getNiceTime } from "../../../webdaw/utils";
 
 const PositionDisplay = (): JSX.Element => {
   const playheadPosition = useSelector((state: RootState) => state.playheadMillis);

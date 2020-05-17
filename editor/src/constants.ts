@@ -1,6 +1,10 @@
 export const POINTER_MOVE = "POINTER_MOVE";
 export const RESIZE = "RESIZE";
 
+export const STOP_SEEK = "STOP_SEEK";
+export const START_SEEK = "START_SEEK";
+
+
 export const START_EDIT = "START_EDIT";
 export const DO_EDIT = "DO_EDIT";
 export const STOP_EDIT = "STOP_EDIT";
@@ -11,11 +15,6 @@ export const EDIT_RESIZE_LEFT = "resize-left";
 export const EDIT_RESIZE_RIGHT = "resize-right";
 export const EDIT_MOVE = "move";
 
-// export const VIDEO_UPLOADED = "VIDEO_UPLOADED";
-// export const AUDIO_UPLOADED = "AUDIO_UPLOADED";
-// export const MIDI_UPLOADED = "MIDI_UPLOADED";
-export const FILE_UPLOADED = "FILE_UPLOADED";
-export const HANDLE_FILE_UPLOAD = "HANDLE_FILE_UPLOAD";
 
 export const ZOOM_LEVEL = "ZOOM_LEVEL";
 export const SEEK_ZOOM_LEVEL = "SEEK_ZOOM_LEVEL";

@@ -1,4 +1,4 @@
-import { getMIDIDevices, getMIDIAccess } from "./webdaw/init-midi";
+import { getMIDIDevices, getMIDIAccess } from "../../webdaw/init-midi";
 
 let midiAccess: WebMidi.MIDIAccess = null;
 let audioContext: AudioContext = null;

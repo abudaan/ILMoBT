@@ -14,9 +14,9 @@ import {
   SEEK_POSITION,
 } from "../../constants";
 import { Dispatch, AnyAction } from "redux";
-import { fetchJSON, fetchArraybuffer } from "../../webdaw/fetch_helpers";
-import { createSongFromMIDIFile } from "../../webdaw/sugar_coating";
-import { stopMIDI, startMIDI, playMIDI } from "./action_utils";
+import { fetchJSON, fetchArraybuffer } from "../../../../webdaw/fetch_helpers";
+import { createSongFromMIDIFile } from "../../../../webdaw/sugar_coating";
+import { stopMIDI, startMIDI, playMIDI } from "../action_utils";
 import { getNativeEvent, getPagePos, getClientPos, getOffset } from "../../util/util";
 
 
@@ -47,7 +47,7 @@ export const handleTransport = (transport: Transport) => async (
 
 export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
   const state = store.getState() as RootState;
-  const { thumbX, lastX, width, currentTrack,playheadPixels: playheadPositionX } = state;
+  const { thumbX, lastX, width, currentTrack, playheadPixels: playheadPositionX } = state;
 
   if (thumbX === null) {
     return {
@@ -61,7 +61,7 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     type: SEEK_POSITION,
     payload: {
       lastX: x,
-      playheadPositionX: playheadPositionX + diffX ,
+      playheadPositionX: playheadPositionX + diffX,
       playheadPosition: (playheadPositionX / width) * currentTrack.duration,
     }
   }

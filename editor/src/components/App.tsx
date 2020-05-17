@@ -1,11 +1,10 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../types";
-import { List } from "./List";
 import { Slider } from "./Slider";
 import { TransportControls } from "./TransportControls";
 import { PositionDisplay } from "./PositionDisplay";
-import { stopInteractivity, handlePointerMove } from "../redux/actions/handleOther";
+import { stopInteractivity, handlePointerMove } from "../redux/actions";
 import { Editor } from "./Editor";
 
 export const App = (): JSX.Element => {
@@ -16,16 +15,18 @@ export const App = (): JSX.Element => {
     return <div className='loading'>LOADING...</div>
   }
   const stop = () => {
-    dispatch(stopInteractivity()); 
+    dispatch(stopInteractivity());
   }
-
-  return (<div onPointerUp={stop} onPointerLeave={stop} onPointerMove={(e): void => {
-    dispatch(handlePointerMove(e));
-  }}>
-    <List></List>
-    <TransportControls></TransportControls>
-    <PositionDisplay></PositionDisplay>
-    <Slider></Slider>
-    <Editor></Editor>
-  </div>);
+  return (
+    <div
+      onPointerUp={stop}
+      onPointerLeave={stop}
+      onPointerMove={(e): void => {
+        dispatch(handlePointerMove(e));
+      }}
+    >
+      <TransportControls></TransportControls>
+      {/* <PositionDisplay></PositionDisplay> */}
+      <Editor></Editor>
+    </div>);
 }

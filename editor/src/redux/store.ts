@@ -8,7 +8,7 @@ import { rootReducer } from "./reducer";
 import { RootState, Transport } from "../types";
 
 const initialState: RootState = {
-  loading: true,
+  loading: false,
   width: window.innerWidth,
   height: window.innerHeight,
   isPlaying: false,
@@ -21,6 +21,7 @@ const initialState: RootState = {
   currentTrackIndex: 0,
   thumbX: null,
   lastX: null,
+  wasPlaying: false,
 };
 
 // const store: Store<any, AnyAction> = createStore(

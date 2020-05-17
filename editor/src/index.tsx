@@ -1,4 +1,4 @@
-import "jzz";
+// import "jzz";
 import "./styles/index.scss";
 import React from "react";
 import { render } from "react-dom";
@@ -7,26 +7,38 @@ import { RESIZE } from "./constants";
 import { store } from "./redux/store";
 import { setupClock } from "./observers";
 import { Transport } from "./types";
-import { init } from "./media";
-import { handleTransport, loadJSON } from "./redux/actions/handleOther";
-import { App } from './components/App'
+import { init, midiAccess } from "./media";
+import { handleTransport } from "./redux/actions";
+import { App } from "./components/App";
+import { unschedule } from "../../webdaw/unschedule";
 
 document.addEventListener("DOMContentLoaded", () => {
-
   init().then(() => {
-    const album = document.getElementById("album");
+    const editor = document.getElementById("editor");
+
+    // if (midiAccess === null) {
+    //   const browsers = ["Chrome", "Chromium", "Brave", "Edge", "Samsung Internet"].map(b => (
+    //     <li key={b}>{b}</li>
+    //   ));
+    //   render(
+    //     <div className="message">
+    //       The MIDI player only runs in Chrome based browsers:
+    //       <ul>{browsers}</ul>
+    //     </div>,
+    //     editor
+    //   );
+    //   return;
+    // }
+
     render(
       <Provider store={store}>
         <App></App>
       </Provider>,
-      album
+      editor
     );
 
-    // store.dispatch(loadJSON('https://ilmobt.heartbeatjs.org/list.json'));
-    store.dispatch(loadJSON('./list.json'));
-
     const resize = () => {
-      const rect = album.getBoundingClientRect();
+      const rect = editor.getBoundingClientRect();
       store.dispatch({
         type: RESIZE,
         payload: {
@@ -34,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
           height: rect.height,
         },
       });
-    }
+    };
     resize();
     window.addEventListener("resize", resize);
 
@@ -54,5 +66,21 @@ document.addEventListener("DOMContentLoaded", () => {
     document.addEventListener("keyup", e => {
       // console.log(e);
     });
-  })
+
+    const cleanup = () => {
+      const state = store.getState();
+      state.transport = Transport.STOP; // YOLO!
+      state.tracks.forEach(({ song }) => {
+        unschedule(song, midiAccess?.outputs);
+      });
+    };
+
+    window.addEventListener("beforeunload", event => {
+      cleanup();
+    });
+
+    window.addEventListener("visibilitychange", event => {
+      cleanup();
+    });
+  });
 });
