@@ -1,7 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../types";
-import { Slider } from "./Slider";
 import { TransportControls } from "./TransportControls";
 import { PositionDisplay } from "./PositionDisplay";
 import { stopInteractivity, handlePointerMove } from "../redux/actions";
@@ -10,6 +9,7 @@ import { EditorGridCanvas } from "./EditorGridCanvas";
 import { EditorGridFlexBox } from "./EditorGridFlexBox";
 import { EditorNotes } from "./EditorNotes";
 import { Scrollable } from "./Scrollable";
+import { Menu } from "./Menu";
 
 export const App = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -29,7 +29,8 @@ export const App = (): JSX.Element => {
     //   dispatch(handlePointerMove(e));
     // }}
     >
-      <TransportControls></TransportControls>
+      <Menu></Menu>
+      {/* <TransportControls></TransportControls> */}
       {/* <PositionDisplay></PositionDisplay> */}
       <Scrollable>
         {/* <EditorGridCanvas></EditorGridCanvas> */}

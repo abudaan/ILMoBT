@@ -19,12 +19,42 @@ button {
   font-size: 14px;
   padding: 4px;
   margin-right: 5px;
-  width: 80px;
   background-color: #100806;
 }
 
-.transport-controls {
-  margin-top: 30px;
+.menu {
+  width: 100vw;
+  display: flex;
+  button {
+    min-height: 30px;
+    font-family: monospace;
+    margin: 4px;
+    padding: 0 20px 0 20px;
+
+    &.transport {
+      width: 80px;
+    }
+  }
+  #zoom-range {
+    align-self: center;
+  }
+
+  .react-slider {
+    flex-grow: 0;
+    flex-shrink: 0;
+    white-space: nowrap;
+    height: 25px;
+    margin-top: 4px;
+    margin-right: 4px;
+    display: block;
+    input[type="range"] {
+      vertical-align: middle;
+    }
+    label {
+      display: inline-block;
+      min-width: 100px;
+    }
+  }
 }
 
 .position-display {

@@ -1,93 +1,62 @@
 import React, { RefObject, useRef, SyntheticEvent } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { setZoomLevel, seekZoomLevel, resetTimeline } from "../redux/actions/handleOther";
-import { handleFileUpload } from "../redux/actions/handleFileUpload";
-import { RootState } from "../types";
-import { Slider } from "./Slider";
-import { PositionDisplay } from "./PositionDisplay";
+import { setZoomLevel, seekZoomLevel, addBar, removeBar } from "../redux/actions/handleOther";
+import { handleTransport } from "../redux/actions";
+import { RootState, Transport } from "../types";
+import { SliderRange } from "./SliderRange";
 
 const Menu = (): JSX.Element => {
-  const refs: { [id: string]: RefObject<HTMLInputElement> } = {
-    video: useRef(),
-    audio: useRef(),
-    midi: useRef(),
-  };
   const dispatch = useDispatch();
-  const hasVideo = useSelector((state: RootState) => state.videoURL);
   const value = useSelector((state: RootState) => state.seekZoomLevel);
-
-  const onClick = (type: string): void => {
-    const ref = refs[type];
-    if (ref.current) {
-      ref.current.click();
-      ref.current.value = "";
-    }
-  };
+  const transport = useSelector((state: RootState) => state.transport);
+  const isPlaying = transport === Transport.PLAY;
+  const disabled = false;
 
   return (
     <div className="menu">
-      <input
-        type="file"
-        onChange={(e): void => {
-          dispatch(handleFileUpload(e, "video"));
-        }}
-        multiple={false}
-        className="upload-file"
-        accept="video/*"
-        ref={refs.video}
-      />
       <button
-        // disabled={!enabled}
+        disabled={disabled}
+        className="transport"
         type="button"
         onClick={(): void => {
-          onClick("video");
+          dispatch(handleTransport(isPlaying ? Transport.PAUSE : Transport.PLAY));
         }}
       >
-        add video file
+        {isPlaying ? "pause" : "play"}
       </button>
 
-      <input
-        type="file"
-        onChange={(e): void => {
-          dispatch(handleFileUpload(e, "audio"));
-        }}
-        multiple={false}
-        className="upload-file"
-        accept="audio/*"
-        ref={refs.audio}
-      />
       <button
-        disabled={!hasVideo}
+        disabled={disabled}
+        className="transport"
         type="button"
         onClick={(): void => {
-          onClick("audio");
+          dispatch(handleTransport(Transport.STOP));
         }}
       >
-        add audio file
+        stop
       </button>
 
-      <input
-        type="file"
-        onChange={(e): void => {
-          dispatch(handleFileUpload(e, "midi"));
-        }}
-        multiple={false}
-        className="upload-file"
-        accept=".mid, .midi, .json"
-        ref={refs.midi}
-      />
       <button
-        disabled={!hasVideo}
         type="button"
         onClick={(): void => {
-          onClick("midi");
+          dispatch(addBar());
         }}
       >
-        add MIDI file
+        add bar
       </button>
-      <Slider
+
+      <button
+        type="button"
+        onClick={(): void => {
+          dispatch(removeBar());
+        }}
+      >
+        remove bar
+      </button>
+
+      <SliderRange
         max={10}
-        min={0.1}
+        min={1}
         value={value}
         id="zoom-range"
         label="zoom"
@@ -103,16 +72,7 @@ const Menu = (): JSX.Element => {
           dispatch(setZoomLevel(value));
         }}
         disabled={false}
-      ></Slider>
-      <button
-        disabled={!hasVideo}
-        type="button"
-        onClick={(): void => {
-          dispatch(resetTimeline());
-        }}
-      >
-        reset timeline
-      </button>
+      ></SliderRange>
     </div>
   );
 };

@@ -3,9 +3,11 @@ export const RESIZE = "RESIZE";
 
 export const STOP_SEEK = "STOP_SEEK";
 export const START_SEEK = "START_SEEK";
-
+export const ADD_BAR = "ADD_BAR";
+export const REMOVE_BAR = "REMOVE_BAR";
 
 export const START_EDIT = "START_EDIT";
+export const START_EDIT_NOTE = "START_EDIT_NOTE";
 export const DO_EDIT = "DO_EDIT";
 export const STOP_EDIT = "STOP_EDIT";
 export const MOVE_PLAYHEAD = "MOVE_PLAYHEAD";
@@ -14,7 +16,6 @@ export const NO_ACTION_REQUIRED = "NO_ACTION_REQUIRED";
 export const EDIT_RESIZE_LEFT = "resize-left";
 export const EDIT_RESIZE_RIGHT = "resize-right";
 export const EDIT_MOVE = "move";
-
 
 export const ZOOM_LEVEL = "ZOOM_LEVEL";
 export const SEEK_ZOOM_LEVEL = "SEEK_ZOOM_LEVEL";
@@ -34,5 +35,5 @@ export const VIDEO_READY = "VIDEO_READY";
 
 export const AUDIO_CONTEXT_RESUMED = "AUDIO_CONTEXT_RESUMED";
 
-export const JSON_LOADED = "JSON_LOADED"
-export const SELECT_TRACK = "SELECT_TRACK"
+export const JSON_LOADED = "JSON_LOADED";
+export const SELECT_TRACK = "SELECT_TRACK";

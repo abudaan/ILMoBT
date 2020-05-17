@@ -10,6 +10,10 @@ import {
   START_EDIT,
   STOP_EDIT,
   SEEK_POSITION,
+  ZOOM_LEVEL,
+  SEEK_ZOOM_LEVEL,
+  ADD_BAR,
+  REMOVE_BAR,
 } from "../constants";
 
 export const rootReducer = (
@@ -17,7 +21,9 @@ export const rootReducer = (
   action: { type: string; payload: { [id: string]: any } }
 ): RootState => {
   if (action.type === JSON_LOADED) {
-    const { payload: { tracks } } = action;
+    const {
+      payload: { tracks },
+    } = action;
     return {
       ...state,
       loading: false,
@@ -33,7 +39,9 @@ export const rootReducer = (
       height,
     };
   } else if (action.type === SELECT_TRACK) {
-    const { payload: { index, currentTrack } } = action;
+    const {
+      payload: { index, currentTrack },
+    } = action;
     return {
       ...state,
       currentTrack: { ...currentTrack },
@@ -88,7 +96,7 @@ export const rootReducer = (
   } else if (action.type === SET_PROGRESS) {
     // console.log(action.payload);
     const { playheadPosition, isPlaying, progress, transport } = action.payload;
-    const p = playheadPosition / state.currentTrack.duration
+    const p = playheadPosition / state.currentTrack.duration;
     return {
       ...state,
       playheadMillis: playheadPosition,
@@ -102,13 +110,13 @@ export const rootReducer = (
       ...state,
       lastX: null,
       thumbX: action.payload.thumbX,
-    }
+    };
   } else if (action.type === STOP_EDIT) {
     return {
       ...state,
       lastX: null,
       thumbX: null,
-    }
+    };
   } else if (action.type === SEEK_POSITION) {
     const {
       payload: { lastX, playheadPositionX, playheadPosition },
@@ -120,6 +128,27 @@ export const rootReducer = (
       lastX,
       playheadMillis: playheadPosition,
       playheadPixels: playheadPositionX,
+    };
+  } else if (action.type === ZOOM_LEVEL) {
+    const { zoomLevel } = action.payload;
+    return {
+      ...state,
+      zoomLevel,
+    };
+  } else if (action.type === SEEK_ZOOM_LEVEL) {
+    return {
+      ...state,
+      seekZoomLevel: action.payload.zoom,
+    };
+  } else if (action.type === ADD_BAR) {
+    return {
+      ...state,
+      numBars: state.numBars + 1,
+    };
+  } else if (action.type === REMOVE_BAR) {
+    return {
+      ...state,
+      numBars: state.numBars - 1,
     };
   }
 

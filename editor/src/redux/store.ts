@@ -32,31 +32,33 @@ const initialState: RootState = {
     lastX: null,
     action: null,
   },
-  zoomLevel: 2,
+  zoomLevel: 1,
+  seekZoomLevel: 1,
   durationTimeline: 2000,
   millisPerPixel: window.innerWidth / 2000,
   editorScrollPos: 0,
   notes: [
     {
-      id: "C1",
+      id: "n1",
       ticks: 960 * 16,
       noteNumber: 3,
       duration: 960 * 4,
     },
     {
-      id: "C1",
+      id: "n2",
       ticks: 960 * 50,
       noteNumber: 1,
       duration: 960 * 4,
     },
     {
-      id: "C1",
+      id: "n3",
       ticks: 960 * 150,
       noteNumber: 5,
       duration: 960 * 4,
     },
   ],
   ppq: 960,
+  currentNote: null,
 };
 
 // const store: Store<any, AnyAction> = createStore(

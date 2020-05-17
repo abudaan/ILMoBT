@@ -34,7 +34,13 @@ export const EditorNotes = (): JSX.Element => {
   };
 
   return (
-    <div style={{ width: `${width * zoomLevel}px` }} className="piano-roll-notes">
+    <div
+      style={{ width: `${width * zoomLevel}px` }}
+      className="piano-roll-notes"
+      onPointerDown={(e): void => {
+        dispatch(handlePointerDown(e));
+      }}
+    >
       {addNotes()}
     </div>
   );

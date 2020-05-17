@@ -12,6 +12,11 @@ import {
   START_EDIT,
   NO_ACTION_REQUIRED,
   SEEK_POSITION,
+  ZOOM_LEVEL,
+  SEEK_ZOOM_LEVEL,
+  SCROLL_ARRANGER,
+  ADD_BAR,
+  REMOVE_BAR,
 } from "../../constants";
 import { Dispatch, AnyAction } from "redux";
 import { fetchJSON, fetchArraybuffer } from "../../../../webdaw/fetch_helpers";
@@ -19,15 +24,11 @@ import { createSongFromMIDIFile } from "../../../../webdaw/sugar_coating";
 import { stopMIDI, startMIDI, playMIDI } from "../action_utils";
 import { getNativeEvent, getPagePos, getClientPos, getOffset } from "../../util/util";
 
-
 export const handleTransport = (transport: Transport) => async (
   dispatch: Dispatch
 ): Promise<void> => {
   const state = store.getState() as RootState;
-  const {
-    playheadMillis: playheadPosition,
-    currentTrack,
-  } = state;
+  const { playheadMillis: playheadPosition, currentTrack } = state;
   let track = currentTrack;
   if (currentTrack !== null) {
     if (transport === Transport.STOP) {
@@ -43,7 +44,7 @@ export const handleTransport = (transport: Transport) => async (
       currentTrack: track,
     },
   });
-}
+};
 
 export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
   const state = store.getState() as RootState;
@@ -51,8 +52,8 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
 
   if (thumbX === null) {
     return {
-      type: NO_ACTION_REQUIRED
-    }
+      type: NO_ACTION_REQUIRED,
+    };
   }
   const n = getNativeEvent(e);
   const { x } = getPagePos(n);
@@ -63,9 +64,9 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
       lastX: x,
       playheadPositionX: playheadPositionX + diffX,
       playheadPosition: (playheadPositionX / width) * currentTrack.duration,
-    }
-  }
-}
+    },
+  };
+};
 
 export const startSeek = (e: SyntheticEvent) => {
   const n = getNativeEvent(e);
@@ -74,51 +75,44 @@ export const startSeek = (e: SyntheticEvent) => {
   return {
     type: START_EDIT,
     payload: {
-      thumbX: x
-    }
-  }
-}
+      thumbX: x,
+    },
+  };
+};
 
 export const stopInteractivity = () => {
   return {
     type: STOP_EDIT,
-  }
-}
+  };
+};
 
 export const setPosition = (e: SyntheticEvent) => {
   const state = store.getState() as RootState;
-  const {
-    currentTrack,
-    width,
-  } = state;
+  const { currentTrack, width } = state;
   const id = (e.target as HTMLDivElement).id;
   if (id !== "slider") {
     return {
       type: NO_ACTION_REQUIRED,
-    }
+    };
   }
   const n = getNativeEvent(e);
   const x = getOffset(n).x;
   const millis = (x / width) * currentTrack.duration;
   const track = startMIDI(currentTrack, millis);
 
-  return ({
+  return {
     type: SET_POSITION,
     payload: {
       playheadPosition: (x / width) * currentTrack.duration,
       playheadPositionX: x,
       currentTrack: track,
     },
-  });
-}
+  };
+};
 
 export const setProgress = (progress: number) => {
   const state = store.getState() as RootState;
-  const {
-    playheadMillis: playheadPosition,
-    currentTrack,
-    transport,
-  } = state;
+  const { playheadMillis: playheadPosition, currentTrack, transport } = state;
   const millis = playheadPosition + progress;
   let track = currentTrack;
   if (currentTrack !== null && millis < currentTrack.duration) {
@@ -149,10 +143,7 @@ export const setProgress = (progress: number) => {
 
 export const selectTrack = (index: number) => {
   const state = store.getState() as RootState;
-  const {
-    tracks,
-    currentTrack
-  } = state;
+  const { tracks, currentTrack } = state;
   stopMIDI(currentTrack);
   const track = stopMIDI(tracks[index]);
   return {
@@ -160,31 +151,37 @@ export const selectTrack = (index: number) => {
     payload: {
       index,
       currentTrack: track,
-    }
-  }
-}
+    },
+  };
+};
+export const setZoomLevel = (zoom: number): AnyAction => {
+  return {
+    type: ZOOM_LEVEL,
+    payload: { zoomLevel: zoom },
+  };
+};
 
-export const loadJSON = (url: string) => async (
-  dispatch: Dispatch
-): Promise<void> => {
-  const d = await fetchJSON(url);
-  const v = Object.values(d);
-  const r = await Promise.all(v.map(ld => fetchArraybuffer(ld.url)));
-  const t = await Promise.all(r.map(async (ab, i: number): Promise<RefMIDI> => {
-    const song = await createSongFromMIDIFile(ab);
-    const duration = song.events[song.events.length - 1].millis;
-    song.tracks.forEach(track => {
-      track.outputs.push(...outputs.map(o => o.id));
-    });
-    const reference: RefMIDI = { id: `song-${i}`, title: v[i].title, song, timestamp: 0, millis: 0, index: 0, scheduled: [], duration };
-    return reference;
-  }))
+export const seekZoomLevel = (zoom: number): AnyAction => {
+  return {
+    type: SEEK_ZOOM_LEVEL,
+    payload: { zoom },
+  };
+};
 
-  dispatch({
-    type: JSON_LOADED,
-    payload: {
-      tracks: t,
-    }
-  });
-}
+export const scrollArranger = (scroll: number): AnyAction => {
+  return {
+    type: SCROLL_ARRANGER,
+    payload: { scroll },
+  };
+};
 
+export const addBar = () => {
+  return {
+    type: ADD_BAR,
+  };
+};
+export const removeBar = () => {
+  return {
+    type: REMOVE_BAR,
+  };
+};

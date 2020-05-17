@@ -52,11 +52,13 @@ export type RootState = {
   denominator: number;
   editData: EditData;
   zoomLevel: number;
+  seekZoomLevel: number;
   millisPerPixel: number;
   durationTimeline: number;
   editorScrollPos: number;
   notes: NoteUI[];
   ppq: number;
+  currentNote: NoteUI;
 };
 
 export type NoteUI = {

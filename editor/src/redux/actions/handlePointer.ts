@@ -2,7 +2,14 @@ import { SyntheticEvent } from "react";
 import { store } from "../store";
 import { getNativeEvent, getPagePos } from "../../util/util";
 import { RootState, Transport } from "../../types";
-import { DO_EDIT, NO_ACTION_REQUIRED, SEEK_POSITION, MOVE_PLAYHEAD } from "../../constants";
+import {
+  DO_EDIT,
+  NO_ACTION_REQUIRED,
+  SEEK_POSITION,
+  MOVE_PLAYHEAD,
+  START_EDIT_NOTE,
+  ADD_BAR,
+} from "../../constants";
 import { AnyAction, Dispatch } from "redux";
 import { getOffset, getClientPos } from "../../util/util";
 import { SET_POSITION, START_EDIT, STOP_EDIT } from "../../constants";
@@ -44,19 +51,29 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
 };
 
 export const handlePointerDown = (e: SyntheticEvent): AnyAction => {
-  const className = (e.currentTarget as HTMLDivElement).className;
+  const target = (e.target as HTMLDivElement).className;
+  const currentTarget = (e.currentTarget as HTMLDivElement).className;
   const n = getNativeEvent(e);
   const state = store.getState() as RootState;
-  const { editorScrollPos, zoomLevel, millisPerPixel } = state;
+  const {
+    editorScrollPos,
+    zoomLevel,
+    millisPerPixel,
+    notes,
+    numBars,
+    numerator,
+    denominator,
+    ppq,
+  } = state;
 
-  if (className === "time-ticks") {
+  if (currentTarget === "time-ticks") {
     const newPos = getClientPos(n).x + editorScrollPos;
     const millis = newPos / millisPerPixel / zoomLevel;
 
     return {
       type: SET_POSITION,
       payload: {
-        id: className,
+        id: currentTarget,
         newPos,
         millis,
       },
@@ -66,23 +83,29 @@ export const handlePointerDown = (e: SyntheticEvent): AnyAction => {
   // this x is the thumb!
   const { x } = getOffset(n);
 
-  if (className === "playhead") {
+  if (currentTarget === "playhead") {
     return {
       type: START_EDIT,
       payload: {
-        id: className,
+        id: currentTarget,
         x,
         action: MOVE_PLAYHEAD,
       },
     };
   }
 
+  // const ticksPerPixel = (width * zoomLevel) / (numBars * numerator * denominator * ppq);
+
   return {
-    type: START_EDIT,
+    type: START_EDIT_NOTE,
     payload: {
-      id: className,
+      id: target,
       x,
-      action: className === "piano-roll" ? "drawNote" : "we will see",
+      action: target === "piano-roll-notes" ? "drawNote" : "moveNote",
+      currentNote: {
+        id: `note-${notes.length}`,
+        x,
+      },
     },
   };
 };
