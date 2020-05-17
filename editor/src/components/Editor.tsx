@@ -11,14 +11,14 @@ export const Editor = (): JSX.Element => {
   const numerator = useSelector((state: RootState) => state.numerator);
   const denominator = useSelector((state: RootState) => state.denominator);
   const columns = numBars * numerator * denominator; // beats
-  const cellStyle = { width: `${(width * zoomLevel) / columns}px` };
+  // const cellStyle = { width: `${(width * zoomLevel) / columns}px` };
 
   const createGrid = () => {
     const rowDivs = [];
     for (let i = 0; i < numNotes; i++) {
       const columnDivs = [];
       for (let j = 0; j < columns; j++) {
-        columnDivs.push(<div key={`column-${j}`} style={cellStyle} className="pr-column"></div>);
+        columnDivs.push(<div key={`column-${j}`} className="pr-column"></div>);
       }
       rowDivs.push(
         <div key={`row-${i}`} className="pr-row">

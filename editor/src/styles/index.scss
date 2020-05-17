@@ -36,11 +36,11 @@ button {
     display: flex;
     flex-direction: row;
     border-bottom: 1px solid rgb(231, 208, 186);
-    justify-content: flex-start;
+    // justify-content: space-evenly;
 
     .pr-column {
-      // width: 40px;
-      flex-basis: auto;
+      // flex-basis: auto;
+      flex-grow: 1;
       height: 30px;
       border-right: 1px dotted rgb(231, 208, 186);
       &:nth-child(4n) {
