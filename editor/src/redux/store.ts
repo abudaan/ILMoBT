@@ -22,6 +22,14 @@ const initialState: RootState = {
   thumbX: null,
   lastX: null,
   wasPlaying: false,
+  numBars: 10,
+  numNotes: 8,
+  numerator: 4,
+  denominator: 4,
+  editData: null,
+  zoomLevel: 2,
+  durationTimeline: 2000,
+  millisPerPixel: window.innerWidth / 2000,
 };
 
 // const store: Store<any, AnyAction> = createStore(

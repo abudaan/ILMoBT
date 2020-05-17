@@ -12,6 +12,8 @@ import {
   START_SEEK,
   NO_ACTION_REQUIRED,
   SEEK_POSITION,
+  SCROLL_ARRANGER,
+  STOP_EDIT,
 } from "../constants";
 import { Dispatch, AnyAction } from "redux";
 import { fetchJSON, fetchArraybuffer } from "../../../webdaw/fetch_helpers";
@@ -200,4 +202,22 @@ export const loadJSON = (url: string) => async (dispatch: Dispatch): Promise<voi
       tracks: t,
     },
   });
+};
+
+export const scrollArranger = (scroll: number): AnyAction => {
+  return {
+    type: SCROLL_ARRANGER,
+    payload: { scroll },
+  };
+};
+
+export const handlePointerUp = (): AnyAction => {
+  const state = store.getState() as RootState;
+  const {
+    editData: { thumbX },
+  } = state;
+
+  return {
+    type: thumbX === null ? NO_ACTION_REQUIRED : STOP_EDIT,
+  };
 };

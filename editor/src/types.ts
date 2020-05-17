@@ -13,39 +13,54 @@ export type RefMIDI = {
   song: Song;
   timestamp: number;
   millis: number;
-  duration: number,
+  duration: number;
   index: number;
   scheduled: MIDIEvent[];
 };
 
 export type Tracks = {
-  title: string,
-  song: Song,
-  duration: number,
-}
+  title: string;
+  song: Song;
+  duration: number;
+};
 
 export type ListDataJSON = {
-  title: string,
-  url: string,
+  title: string;
+  url: string;
   // mood: string,
-}
-
+};
 
 export type RootState = {
-  loading: boolean,
-  width: number,
-  height: number,
-  isPlaying: boolean,
-  playheadMillis: number,
-  playheadPixels: number,
-  transport: Transport,
-  tracks: RefMIDI[],
-  currentTrack: RefMIDI,
-  currentTrackIndex: number,
-  progress: number,
-  thumbX: number,
-  lastX: number,
-  wasPlaying: boolean,
+  loading: boolean;
+  width: number;
+  height: number;
+  isPlaying: boolean;
+  playheadMillis: number;
+  playheadPixels: number;
+  transport: Transport;
+  tracks: RefMIDI[];
+  currentTrack: RefMIDI;
+  currentTrackIndex: number;
+  progress: number;
+  thumbX: number;
+  lastX: number;
+  wasPlaying: boolean;
+  // editor
+  numBars: number;
+  numNotes: number;
+  numerator: number;
+  denominator: number;
+  editData: EditData;
+  zoomLevel: number;
+  millisPerPixel: number;
+  durationTimeline: number;
+};
+
+export type EditData = {
+  id: string;
+  thumbX: number;
+  lastX: number;
+  action: string;
 };
 
 export type ProjectData = {

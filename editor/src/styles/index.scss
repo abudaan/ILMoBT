@@ -2,48 +2,11 @@ body {
   background-color: #100806;
   padding: 0;
   margin: 0px;
-  color: white
-  // overflow: hidden;
-  // font-family: "Source Code Pro";
-  // color: rgb(231, 208, 186);
-  // font-size: 16px;
-  // width: 100vw;
-  // overflow: hidden;
+  color: white;
 }
 
-// #container {
-//   width: 100vw;
-//   display: flex;
-//   flex-direction: row;
-//   justify-content: center;
-//   padding: 20px;
-
-//   >div {
-//     width: 500px;
-//   }
-// }
-
-#album {
+#editor {
   width: 100%;
-}
-
-.slider {
-  margin-top: 20px;
-  width: 100%;
-  width: 1500px;
-  position: relative;
-  height: 20px;
-  background-color: #53352e;
-  // max-width: 500px;
-
-  .thumb {
-    top: 1px;
-    height: 18px;
-    width: 10px;
-    position: absolute;
-    background-color: rgb(231, 208, 186);
-    cursor: pointer;
-  }
 }
 
 button {
@@ -53,31 +16,7 @@ button {
   padding: 4px;
   margin-right: 5px;
   width: 80px;
-  background-color: #100806 ;
-}
-
-.list {
-  font-family: "Source Code Pro";
-
-  .list-item {
-    font-size: 14px;
-    line-height: 1.75em;
-    color: rgb(231, 208, 186);
-    // margin-bottom: 7px;
-    font-style: normal;
-    font-weight: 300;
-    cursor: pointer;
-    user-select: none;
-
-    &:hover {
-      color: white;
-    }
-
-    &.active {
-      color: white;
-      text-decoration: underline;
-    }
-  }
+  background-color: #100806;
 }
 
 .transport-controls {
@@ -89,17 +28,24 @@ button {
   font-size: 14px;
 }
 
+.piano-roll {
+  border-top: 1px solid rgb(231, 208, 186);
+  margin-top: 20px;
 
+  .pr-row {
+    display: flex;
+    flex-direction: row;
+    border-bottom: 1px solid rgb(231, 208, 186);
+    justify-content: flex-start;
 
-
-.pr-row {
-  display: flex;
-  flex-direction: row;
-  border-bottom: 1px solid white;
-
-  .pr-column {
-    width: 20px;
-    height: 8px;
-    border-right: 1px solid white;
+    .pr-column {
+      // width: 40px;
+      flex-basis: auto;
+      height: 30px;
+      border-right: 1px dotted rgb(231, 208, 186);
+      &:nth-child(4n) {
+        border-right: 2px solid rgb(231, 208, 186);
+      }
+    }
   }
 }

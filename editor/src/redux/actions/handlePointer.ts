@@ -1,7 +1,7 @@
 import { SyntheticEvent } from "react";
 import { store } from "../store";
 import { getNativeEvent, getPagePos } from "../../util/util";
-import { RootState, Transport, RefVideo } from "../../types";
+import { RootState, Transport } from "../../types";
 import { DO_EDIT, NO_ACTION_REQUIRED, SEEK_POSITION, MOVE_PLAYHEAD } from "../../constants";
 import { AnyAction, Dispatch } from "redux";
 import { getOffset, getClientPos } from "../../util/util";

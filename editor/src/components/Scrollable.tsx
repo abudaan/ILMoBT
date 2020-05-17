@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, RefObject, SyntheticEvent } from "react";
 import { useDispatch } from "react-redux";
-import { scrollArranger } from "../redux/actions/handleOther";
-import { handlePointerUp } from "../redux/actions/handlePointer";
+import { scrollArranger } from "../redux/actions";
+import { handlePointerUp } from "../redux/actions";
 
 type Props = { children: JSX.Element };
 const Scrollable = ({ children }: Props): JSX.Element => {

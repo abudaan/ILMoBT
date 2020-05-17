@@ -6,17 +6,18 @@ import { TransportControls } from "./TransportControls";
 import { PositionDisplay } from "./PositionDisplay";
 import { stopInteractivity, handlePointerMove } from "../redux/actions";
 import { Editor } from "./Editor";
+import { Scrollable } from "./Scrollable";
 
 export const App = (): JSX.Element => {
   const dispatch = useDispatch();
   const loading = useSelector((state: RootState) => state.loading);
 
   if (loading) {
-    return <div className='loading'>LOADING...</div>
+    return <div className="loading">LOADING...</div>;
   }
   const stop = () => {
     dispatch(stopInteractivity());
-  }
+  };
   return (
     <div
       onPointerUp={stop}
@@ -27,6 +28,9 @@ export const App = (): JSX.Element => {
     >
       <TransportControls></TransportControls>
       {/* <PositionDisplay></PositionDisplay> */}
-      <Editor></Editor>
-    </div>);
-}
+      <Scrollable>
+        <Editor></Editor>
+      </Scrollable>
+    </div>
+  );
+};

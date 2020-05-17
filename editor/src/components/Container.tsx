@@ -8,8 +8,6 @@ import { Playhead } from "./Playhead";
 type Props = { children: JSX.Element };
 const Container = ({ children }: Props): JSX.Element => {
   const dispatch = useDispatch();
-  const thumbSize = useSelector((state: RootState) => state.thumbSize);
-  const partIds = useSelector((state: RootState) => Object.keys(state.partsById), shallowEqual);
   const durationTimeline = useSelector((state: RootState) => state.durationTimeline);
   const zoomLevel = useSelector((state: RootState) => state.zoomLevel);
   const millisPerPixel = useSelector((state: RootState) => state.millisPerPixel);
@@ -24,9 +22,6 @@ const Container = ({ children }: Props): JSX.Element => {
       className="container"
     >
       {children}
-      {partIds.map(id => (
-        <Resizable id={id} key={id} thumbSize={thumbSize} />
-      ))}
       <Playhead></Playhead>
     </div>
   );
