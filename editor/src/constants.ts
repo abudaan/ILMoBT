@@ -37,3 +37,5 @@ export const AUDIO_CONTEXT_RESUMED = "AUDIO_CONTEXT_RESUMED";
 
 export const JSON_LOADED = "JSON_LOADED";
 export const SELECT_TRACK = "SELECT_TRACK";
+
+// export const START_EDIT_NOTE = "START_EDIT_NOTE";

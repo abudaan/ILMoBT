@@ -7,6 +7,12 @@ import thunk, { ThunkMiddleware } from "redux-thunk";
 import { rootReducer } from "./reducer";
 import { RootState, Transport } from "../types";
 
+const ppq = 960;
+const numerator = 4;
+const denominator = 4;
+const numBars = 10;
+const numNotes = 8;
+
 const initialState: RootState = {
   loading: false,
   width: window.innerWidth,
@@ -22,10 +28,10 @@ const initialState: RootState = {
   thumbX: null,
   lastX: null,
   wasPlaying: false,
-  numBars: 10,
-  numNotes: 8,
-  numerator: 4,
-  denominator: 4,
+  numBars,
+  numNotes,
+  numerator,
+  denominator,
   editData: {
     id: null,
     thumbX: null,
@@ -36,6 +42,7 @@ const initialState: RootState = {
   seekZoomLevel: 1,
   durationTimeline: 2000,
   millisPerPixel: window.innerWidth / 2000,
+  ticksPerPixel: (window.innerWidth * 1) / (numBars * numerator * denominator * ppq),
   editorScrollPos: 0,
   notes: [
     {

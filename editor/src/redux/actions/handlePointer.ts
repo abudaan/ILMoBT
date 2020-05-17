@@ -13,8 +13,6 @@ import {
 import { AnyAction, Dispatch } from "redux";
 import { getOffset, getClientPos } from "../../util/util";
 import { SET_POSITION, START_EDIT, STOP_EDIT } from "../../constants";
-import { editPart, getEditAction, getInfo } from "./part_utils";
-import { processTransportParts } from "../../process_parts";
 
 export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
   const n = getNativeEvent(e);
@@ -46,7 +44,7 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
 
   return {
     type: DO_EDIT,
-    payload: { lastX: x, ...editPart(diffX, state) },
+    // payload: { lastX: x, ...editPart(diffX, state) },
   };
 };
 
@@ -55,16 +53,7 @@ export const handlePointerDown = (e: SyntheticEvent): AnyAction => {
   const currentTarget = (e.currentTarget as HTMLDivElement).className;
   const n = getNativeEvent(e);
   const state = store.getState() as RootState;
-  const {
-    editorScrollPos,
-    zoomLevel,
-    millisPerPixel,
-    notes,
-    numBars,
-    numerator,
-    denominator,
-    ppq,
-  } = state;
+  const { editorScrollPos, zoomLevel, millisPerPixel, notes, ticksPerPixel, numNotes } = state;
 
   if (currentTarget === "time-ticks") {
     const newPos = getClientPos(n).x + editorScrollPos;
@@ -81,7 +70,7 @@ export const handlePointerDown = (e: SyntheticEvent): AnyAction => {
   }
 
   // this x is the thumb!
-  const { x } = getOffset(n);
+  const { x, y } = getOffset(n);
 
   if (currentTarget === "playhead") {
     return {
@@ -94,8 +83,6 @@ export const handlePointerDown = (e: SyntheticEvent): AnyAction => {
     };
   }
 
-  // const ticksPerPixel = (width * zoomLevel) / (numBars * numerator * denominator * ppq);
-
   return {
     type: START_EDIT_NOTE,
     payload: {
@@ -104,7 +91,9 @@ export const handlePointerDown = (e: SyntheticEvent): AnyAction => {
       action: target === "piano-roll-notes" ? "drawNote" : "moveNote",
       currentNote: {
         id: `note-${notes.length}`,
-        x,
+        ticks: x / ticksPerPixel,
+        noteNumber: numNotes - Math.floor(y / 30),
+        duration: 960,
       },
     },
   };

@@ -54,6 +54,7 @@ export type RootState = {
   zoomLevel: number;
   seekZoomLevel: number;
   millisPerPixel: number;
+  ticksPerPixel: number;
   durationTimeline: number;
   editorScrollPos: number;
   notes: NoteUI[];

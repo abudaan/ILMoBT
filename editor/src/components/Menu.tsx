@@ -1,7 +1,12 @@
 import React, { RefObject, useRef, SyntheticEvent } from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { setZoomLevel, seekZoomLevel, addBar, removeBar } from "../redux/actions/handleOther";
-import { handleTransport } from "../redux/actions";
+import {
+  setZoomLevel,
+  seekZoomLevel,
+  addBar,
+  removeBar,
+  handleTransport,
+} from "../redux/actions/handleOther";
 import { RootState, Transport } from "../types";
 import { SliderRange } from "./SliderRange";
 

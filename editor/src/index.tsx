@@ -8,7 +8,7 @@ import { store } from "./redux/store";
 import { setupClock } from "./observers";
 import { Transport } from "./types";
 import { init, midiAccess } from "./media";
-import { handleTransport } from "./redux/actions";
+import { handleTransport } from "./redux/actions/handleOther";
 import { App } from "./components/App";
 import { unschedule } from "../../webdaw/unschedule";
 

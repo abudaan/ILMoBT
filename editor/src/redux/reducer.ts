@@ -14,6 +14,7 @@ import {
   SEEK_ZOOM_LEVEL,
   ADD_BAR,
   REMOVE_BAR,
+  START_EDIT_NOTE,
 } from "../constants";
 
 export const rootReducer = (
@@ -134,6 +135,9 @@ export const rootReducer = (
     return {
       ...state,
       zoomLevel,
+      ticksPerPixel:
+        (state.width * zoomLevel) /
+        (state.numBars * state.numerator * state.denominator * state.ppq),
     };
   } else if (action.type === SEEK_ZOOM_LEVEL) {
     return {
@@ -144,11 +148,23 @@ export const rootReducer = (
     return {
       ...state,
       numBars: state.numBars + 1,
+      ticksPerPixel:
+        (state.width * state.zoomLevel) /
+        (state.numBars + 1 * state.numerator * state.denominator * state.ppq),
     };
   } else if (action.type === REMOVE_BAR) {
     return {
       ...state,
       numBars: state.numBars - 1,
+      ticksPerPixel:
+        (state.width * state.zoomLevel) /
+        (state.numBars - 1 * state.numerator * state.denominator * state.ppq),
+    };
+  } else if (action.type === START_EDIT_NOTE) {
+    return {
+      ...state,
+      currentNote: { ...action.payload.currentNote },
+      notes: [...state.notes, action.payload.currentNote],
     };
   }
 

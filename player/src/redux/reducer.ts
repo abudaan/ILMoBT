@@ -34,7 +34,7 @@ export const rootReducer = (
       height,
     };
   } else if (action.type === SELECT_TRACK) {
-    console.log('select track')
+    console.log("select track");
     const {
       payload: { index, currentTrack },
     } = action;

@@ -6,15 +6,11 @@ import { handlePointerDown } from "../redux/actions/handlePointer";
 
 export const EditorNotes = (): JSX.Element => {
   const dispatch = useDispatch();
+  const notes = useSelector((state: RootState) => state.notes);
   const width = useSelector((state: RootState) => state.width);
   const zoomLevel = useSelector((state: RootState) => state.zoomLevel);
-  const notes = useSelector((state: RootState) => state.notes);
-  const durationTimeline = useSelector((state: RootState) => state.durationTimeline);
-  const numBars = useSelector((state: RootState) => state.numBars);
-  const numerator = useSelector((state: RootState) => state.numerator);
-  const denominator = useSelector((state: RootState) => state.denominator);
-  const ppq = useSelector((state: RootState) => state.ppq);
-  const ticksPerPixel = (width * zoomLevel) / (numBars * numerator * denominator * ppq);
+  const ticksPerPixel = useSelector((state: RootState) => state.ticksPerPixel);
+  // console.log(ticksPerPixel);
 
   const addNotes = () => {
     const noteDivs = notes.map(n => {

@@ -1,4 +1,4 @@
-import { RootState, VAMPartUI } from "../../types";
+import { RootState } from "../../types";
 import { EDIT_RESIZE_LEFT, EDIT_RESIZE_RIGHT, EDIT_MOVE } from "../../constants";
 
 export const editPart = (
