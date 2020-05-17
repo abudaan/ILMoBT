@@ -5,6 +5,10 @@ body {
   color: white;
 }
 
+div {
+  box-sizing: border-box;
+}
+
 #editor {
   width: 100%;
 }
@@ -34,34 +38,33 @@ button {
   // min-height: 400px;
   width: 100vw;
   position: relative;
-  box-sizing: border-box;
 
   .piano-roll-notes {
-    background-color: rgba(255, 0, 0, 0.1);
+    background-color: rgba(255, 0, 0, 0.05);
     height: 100%;
     top: 0px;
     position: absolute;
     z-index: 2;
     .note {
       position: absolute;
-      background-color: red;
-      box-sizing: border-box;
-
-      // background-color: rgb(231, 208, 186);
+      // background-color: red;
+      background-color: rgba(231, 208, 186, 0.6);
+      height: 15px;
     }
   }
 
   .piano-roll {
     position: absolute;
     z-index: 1;
-    border-top: 1px solid rgb(231, 208, 186);
+    border-top: 1px solid rgba(231, 208, 186, 0.8);
     position: relative;
     padding-bottom: 20px;
 
     .pr-row {
       display: flex;
       flex-direction: row;
-      border-bottom: 1px solid rgb(231, 208, 186);
+      border-bottom: 1px solid rgba(231, 208, 186, 0.8);
+      height: 30px;
       &:nth-child(2n) {
         background-color: rgba(255, 255, 255, 0.1);
       }
@@ -69,14 +72,14 @@ button {
 
       .pr-column {
         // flex-basis: auto;
-        flex-grow: 1;
         height: 30px;
-        border-right: 1px dotted rgb(231, 208, 186);
+        flex-grow: 1;
+        border-right: 1px dotted rgba(231, 208, 186, 0.4);
         &:nth-child(4n) {
-          border-right: 1px solid rgb(231, 208, 186);
+          border-right: 1px solid rgba(231, 208, 186, 0.6);
         }
         &:nth-child(16n) {
-          border-right: 2px solid rgb(231, 208, 186);
+          border-right: 1px solid rgb(231, 208, 186);
         }
       }
     }

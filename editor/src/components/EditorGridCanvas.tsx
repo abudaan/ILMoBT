@@ -21,22 +21,7 @@ const createGrid = (numNotes: number, columns: number, width: number, zoomLevel:
   return rowDivs;
 };
 
-const createGrid2 = (
-  ctx: CanvasRenderingContext2D,
-  numNotes: number,
-  columns: number,
-  width: number
-) => {
-  ctx.fillStyle = "#f7bd3e";
-  ctx.translate(0.5, 0.5);
-  // ctx.fillStyle = 'rgb(' + 100 + ',' + 99 + ',' + (event.velocity * 2) + ')'
-  const w = width / columns;
-  for (let i = 1; i < columns; i++) {
-    ctx.fillRect(w * i, 0, 1, 8 * 30);
-  }
-};
-
-export const EditorGrid = (): JSX.Element => {
+export const EditorGridCanvas = (): JSX.Element => {
   const dispatch = useDispatch();
   const canvasRef: RefObject<HTMLCanvasElement> = useRef(null);
   const width = useSelector((state: RootState) => state.width);
@@ -46,12 +31,24 @@ export const EditorGrid = (): JSX.Element => {
   const numerator = useSelector((state: RootState) => state.numerator);
   const denominator = useSelector((state: RootState) => state.denominator);
   const columns = numBars * numerator * denominator; // beats
-  const canvasWidth = width * zoomLevel;
-  const canvasHeight = 8 * 30;
+  const canvasWidth = width * zoomLevel + 1;
+  const canvasHeight = 8 * 30 + 1;
 
   useEffect(() => {
     if (canvasRef.current) {
-      createGrid2(canvasRef.current.getContext("2d"), numNotes, columns, canvasWidth);
+      const ctx = canvasRef.current.getContext("2d");
+      ctx.fillStyle = "#f7bd3e";
+      ctx.translate(0.5, 0.5);
+      // ctx.fillStyle = 'rgb(' + 100 + ',' + 99 + ',' + (event.velocity * 2) + ')'
+      const w = (width * zoomLevel) / columns;
+      for (let i = 0; i < columns; i++) {
+        const thickness = i % 16 === 0 ? 1 : i % 4 === 0 ? 0.7 : 0.5;
+        ctx.fillRect(Math.round(w * i), 0, thickness, 8 * 30);
+      }
+      const h = 30;
+      for (let i = 1; i <= numNotes; i++) {
+        ctx.fillRect(0, i * 30, width * zoomLevel, 0.7);
+      }
     }
   });
 

@@ -18,15 +18,15 @@ export const EditorNotes = (): JSX.Element => {
 
   const addNotes = () => {
     const noteDivs = notes.map(n => {
-      const x = n.ticks * ticksPerPixel;
+      const x = n.ticks * ticksPerPixel + 0.5;
+      const y = (8 - n.noteNumber) * 30 + 9;
       const w = n.duration * ticksPerPixel;
-      const y = (8 - n.noteNumber) * 30;
       return (
         <div
           key={n.id}
           id={n.id}
           className="note"
-          style={{ left: `${x}px`, top: `${y}px`, width: `${w}px`, height: `${30}px` }}
+          style={{ left: `${x}px`, top: `${y}px`, width: `${w}px` }}
         ></div>
       );
     });

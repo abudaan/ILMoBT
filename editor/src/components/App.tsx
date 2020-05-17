@@ -6,6 +6,8 @@ import { TransportControls } from "./TransportControls";
 import { PositionDisplay } from "./PositionDisplay";
 import { stopInteractivity, handlePointerMove } from "../redux/actions";
 import { EditorGrid } from "./EditorGrid";
+import { EditorGridCanvas } from "./EditorGridCanvas";
+import { EditorGridFlexBox } from "./EditorGridFlexBox";
 import { EditorNotes } from "./EditorNotes";
 import { Scrollable } from "./Scrollable";
 
@@ -30,7 +32,8 @@ export const App = (): JSX.Element => {
       <TransportControls></TransportControls>
       {/* <PositionDisplay></PositionDisplay> */}
       <Scrollable>
-        <EditorGrid></EditorGrid>
+        {/* <EditorGridCanvas></EditorGridCanvas> */}
+        <EditorGridFlexBox></EditorGridFlexBox>
         <EditorNotes></EditorNotes>
       </Scrollable>
     </div>
