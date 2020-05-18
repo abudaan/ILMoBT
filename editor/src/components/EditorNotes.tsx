@@ -11,12 +11,13 @@ export const EditorNotes = (): JSX.Element => {
   const numNotes = useSelector((state: RootState) => state.numNotes);
   const zoomLevel = useSelector((state: RootState) => state.zoomLevel);
   const ticksPerPixel = useSelector((state: RootState) => state.ticksPerPixel);
+  const noteHeight = useSelector((state: RootState) => state.noteHeight);
   // console.log(ticksPerPixel);
 
   const addNotes = () => {
     const noteDivs = notes.map(n => {
       const x = n.ticks * ticksPerPixel + 0.5;
-      const y = (numNotes - n.noteNumber) * 30 + 9;
+      const y = n.noteNumber * noteHeight + noteHeight / 4;
       const w = n.duration * ticksPerPixel;
       return (
         <div

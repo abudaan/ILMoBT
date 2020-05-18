@@ -60,6 +60,7 @@ export type RootState = {
   notes: NoteUI[];
   ppq: number;
   currentNote: NoteUI;
+  noteHeight: number;
 };
 
 export type NoteUI = {

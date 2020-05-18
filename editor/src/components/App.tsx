@@ -11,7 +11,7 @@ import { EditorGridFlexBox } from "./EditorGridFlexBox";
 import { EditorNotes } from "./EditorNotes";
 import { Scrollable } from "./Scrollable";
 import { Menu } from "./Menu";
-import { EditorNotesCurrent } from "./EditorNotesCurrent";
+import { EditorCurrentNote } from "./EditorCurrentNote";
 
 export const App = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ export const App = (): JSX.Element => {
         {/* <EditorGridCanvas></EditorGridCanvas> */}
         <EditorGridFlexBox></EditorGridFlexBox>
         <EditorNotes></EditorNotes>
-        <EditorNotesCurrent></EditorNotesCurrent>
+        <EditorCurrentNote></EditorCurrentNote>
       </Scrollable>
     </div>
   );

@@ -11,7 +11,7 @@ const ppq = 960;
 const numerator = 4;
 const denominator = 4;
 const numBars = 10;
-const numNotes = 18;
+const numNotes = 8;
 
 const initialState: RootState = {
   loading: false,
@@ -48,7 +48,7 @@ const initialState: RootState = {
     {
       id: "n1",
       ticks: 960 * 16,
-      noteNumber: 3,
+      noteNumber: 0,
       duration: 960 * 4,
     },
     {
@@ -66,6 +66,7 @@ const initialState: RootState = {
   ],
   ppq: 960,
   currentNote: null,
+  noteHeight: 30,
 };
 
 // const store: Store<any, AnyAction> = createStore(

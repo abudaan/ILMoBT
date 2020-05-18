@@ -1,12 +1,15 @@
 import React, { useEffect, useRef, RefObject, SyntheticEvent } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { scrollArranger } from "../redux/actions";
 import { handlePointerUp } from "../redux/actions/handlePointer";
+import { RootState } from "../types";
 
 type Props = { children: JSX.Element[] };
 const Scrollable = ({ children }: Props): JSX.Element => {
   const dispatch = useDispatch();
   const containerRef: RefObject<HTMLDivElement> = useRef();
+  const numNotes = useSelector((state: RootState) => state.numNotes);
+  const noteHeight = useSelector((state: RootState) => state.noteHeight);
 
   // const onScroll = (e: SyntheticEvent): void => {
   //   const scroll = (e.nativeEvent.target as HTMLDivElement).scrollLeft;
@@ -33,6 +36,7 @@ const Scrollable = ({ children }: Props): JSX.Element => {
         dispatch(handlePointerUp());
       }}
       className="scrollable"
+      style={{ height: `${numNotes * noteHeight + 100}px` }}
     >
       {children}
     </div>
