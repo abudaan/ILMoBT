@@ -2,7 +2,7 @@ import React, { useRef, useEffect, RefObject } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, RefMIDI } from "../types";
 import { NoteOnEvent } from "../../../webdaw/midi_events";
-import { handlePointerDown } from "../redux/actions/handlePointer";
+import { startDrawNote } from "../redux/actions/startDrawNote";
 
 export const EditorGridFlexBox = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -19,7 +19,12 @@ export const EditorGridFlexBox = (): JSX.Element => {
     const rowDivs = [];
     for (let i = 0; i < numNotes; i++) {
       rowDivs.push(
-        <div key={`row-${i}`} style={{ flex: `0 0 ${noteHeight}px` }} className="pr-row"></div>
+        <div
+          id={`row-${i}`}
+          key={`row-${i}`}
+          style={{ flex: `0 0 ${noteHeight}px` }}
+          className="pr-row"
+        ></div>
       );
     }
     return rowDivs;
@@ -39,14 +44,14 @@ export const EditorGridFlexBox = (): JSX.Element => {
   return (
     <div
       onPointerDown={(e): void => {
-        dispatch(handlePointerDown(e));
+        dispatch(startDrawNote(e));
       }}
     >
-      <div style={style} className="piano-roll-grid rows">
-        {createRows()}
-      </div>
       <div style={style} className="piano-roll-grid columns">
         {createColumns()}
+      </div>
+      <div style={style} className="piano-roll-grid rows">
+        {createRows()}
       </div>
     </div>
   );
