@@ -72,6 +72,7 @@ export type NoteUI = {
   id: string;
   ticks: number;
   noteNumber: number;
+  originalNoteNumber?: number;
   duration: number;
 };
 

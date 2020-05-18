@@ -14,6 +14,7 @@ export const DRAW_NOTE = "DRAW_NOTE";
 export const MOVE_NOTE = "MOVE_NOTE";
 export const STOP_DRAW_NOTE = "STOP_DRAW_NOTE";
 export const STOP_MOVE_NOTE = "STOP_MOVE_NOTE";
+export const REMOVE_NOTE = "REMOVE_NOTE";
 
 export const DO_EDIT = "DO_EDIT";
 export const STOP_EDIT = "STOP_EDIT";

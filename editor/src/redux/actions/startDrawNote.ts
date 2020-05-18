@@ -26,8 +26,8 @@ export const startDrawNote = (e: SyntheticEvent): AnyAction => {
         ticks: x / ticksPerPixel,
         noteNumber: parseInt(target.id.replace("row-", ""), 10),
         duration: 960,
-        noteIndex: noteIndex + 1,
       },
+      noteIndex: noteIndex + 1,
     },
   };
 };

@@ -17,12 +17,18 @@ document.addEventListener("DOMContentLoaded", () => {
     const album = document.getElementById("album");
 
     if (midiAccess === null) {
-      const browsers = ["Chrome", "Chromium", "Brave", "Edge", "Samsung Internet"].map(b => (
-        <li key={b}>{b}</li>
-      ));
+      const browsers = [
+        "Chromium",
+        "Chrome",
+        "Brave",
+        "Edge",
+        "Opera",
+        "Vivaldi",
+        "Samsung Internet",
+      ].map(b => <li key={b}>{b}</li>);
       render(
         <div className="message">
-          The MIDI player only runs in Chrome based browsers:
+          The MIDI player only runs in Chromium based browsers such as:
           <ul>{browsers}</ul>
         </div>,
         album

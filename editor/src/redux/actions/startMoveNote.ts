@@ -24,7 +24,7 @@ export const startMoveNote = (e: SyntheticEvent): AnyAction => {
     payload: {
       lastX,
       lastY,
-      currentNote,
+      currentNote: { ...currentNote, originalNoteNumber: currentNote.noteNumber },
       notes: filteredNotes,
       editAction: "moveNote",
     },

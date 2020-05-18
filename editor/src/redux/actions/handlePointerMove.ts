@@ -11,6 +11,7 @@ import {
   ADD_BAR,
   DRAW_NOTE,
   MOVE_NOTE,
+  REMOVE_NOTE,
 } from "../../constants";
 import { AnyAction, Dispatch } from "redux";
 import { getOffset, getClientPos } from "../../util/util";
@@ -32,10 +33,13 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     playheadPixels,
     currentNote,
     noteHeight,
+    numNotes,
+    notes,
   } = state;
 
   const diffX = lastX !== null ? x - lastX : 0;
   const diffY = lastY !== null ? y - lastY : 0;
+  const clone = { ...currentNote };
 
   if (editAction === null) {
     return {
@@ -53,21 +57,28 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     // console.log(diffX, diffY);
     const duration = (currentNote.duration * ticksPerPixel + diffX) / ticksPerPixel;
     // console.log(duration);
-    currentNote.duration = duration;
+    clone.duration = duration;
     return {
       type: DRAW_NOTE,
-      payload: { lastX: x, lastY: y, currentNote },
+      payload: { lastX: x, lastY: y, currentNote: clone },
     };
   } else if (editAction === "moveNote") {
     // console.log(diffX, diffY);
     const ticks = (currentNote.ticks * ticksPerPixel + diffX) / ticksPerPixel;
-    const yPos = currentNote.noteNumber * noteHeight - (startY - lastY);
-    console.log(-(startY - lastY));
-    currentNote.ticks = ticks;
-    currentNote.noteNumber = Math.floor(yPos / noteHeight);
+    const yPos = currentNote.originalNoteNumber * noteHeight - (startY - lastY);
+    clone.ticks = ticks;
+    clone.noteNumber = Math.floor(yPos / noteHeight);
+    if (clone.noteNumber < 0 || clone.noteNumber >= numNotes) {
+      return {
+        type: REMOVE_NOTE,
+        payload: {
+          notes: notes.filter(note => note.id !== currentNote.id),
+        },
+      };
+    }
     return {
       type: MOVE_NOTE,
-      payload: { lastX: x, lastY: y, currentNote },
+      payload: { lastX: x, lastY: y, currentNote: clone },
     };
   }
 

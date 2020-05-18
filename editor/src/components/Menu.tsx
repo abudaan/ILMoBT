@@ -59,6 +59,24 @@ const Menu = (): JSX.Element => {
         remove bar
       </button>
 
+      <button
+        type="button"
+        onClick={(): void => {
+          // dispatch(addBar());
+        }}
+      >
+        undo
+      </button>
+
+      <button
+        type="button"
+        onClick={(): void => {
+          // dispatch(removeBar());
+        }}
+      >
+        redo
+      </button>
+
       <SliderRange
         max={10}
         min={1}

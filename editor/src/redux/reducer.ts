@@ -20,6 +20,7 @@ import {
   START_MOVE_NOTE,
   MOVE_NOTE,
   STOP_MOVE_NOTE,
+  REMOVE_NOTE,
 } from "../constants";
 
 export const rootReducer = (
@@ -156,13 +157,14 @@ export const rootReducer = (
         (numBars * state.numerator * state.denominator * state.ppq),
     };
   } else if (action.type === START_DRAW_NOTE) {
-    const { lastX, lastY, editAction, currentNote } = action.payload;
+    const { lastX, lastY, editAction, currentNote, noteIndex } = action.payload;
     return {
       ...state,
       currentNote: { ...currentNote },
       editAction,
       lastX,
       lastY,
+      noteIndex,
       startX: lastX,
       startY: lastY,
     };
@@ -211,6 +213,15 @@ export const rootReducer = (
       lastY: null,
       thumbX: null,
       notes: [...state.notes, { ...state.currentNote }],
+      currentNote: null,
+      editAction: "",
+    };
+  } else if (action.type === REMOVE_NOTE) {
+    return {
+      ...state,
+      lastX: null,
+      lastY: null,
+      notes: action.payload.notes,
       currentNote: null,
       editAction: "",
     };
