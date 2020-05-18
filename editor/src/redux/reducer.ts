@@ -14,7 +14,9 @@ import {
   SEEK_ZOOM_LEVEL,
   ADD_BAR,
   REMOVE_BAR,
-  START_EDIT_NOTE,
+  START_DRAW_NOTE,
+  DRAW_NOTE,
+  STOP_DRAW_NOTE,
 } from "../constants";
 
 export const rootReducer = (
@@ -112,13 +114,15 @@ export const rootReducer = (
       lastX: null,
       thumbX: action.payload.thumbX,
     };
-  } else if (action.type === STOP_EDIT) {
+  } else if (action.type === STOP_DRAW_NOTE) {
     return {
       ...state,
       lastX: null,
+      lastY: null,
       thumbX: null,
       notes: [...state.notes, { ...state.currentNote }],
       currentNote: null,
+      editAction: "",
     };
   } else if (action.type === SEEK_POSITION) {
     const {
@@ -164,10 +168,23 @@ export const rootReducer = (
         (state.width * state.zoomLevel) /
         (numBars * state.numerator * state.denominator * state.ppq),
     };
-  } else if (action.type === START_EDIT_NOTE) {
+  } else if (action.type === START_DRAW_NOTE) {
+    const { lastX, lastY, editAction, currentNote } = action.payload;
     return {
       ...state,
-      currentNote: { ...action.payload.currentNote },
+      currentNote: { ...currentNote },
+      editAction,
+      lastX,
+      lastY,
+      // notes: [...state.notes, action.payload.currentNote],
+    };
+  } else if (action.type === DRAW_NOTE) {
+    const { lastX, lastY, currentNote } = action.payload;
+    return {
+      ...state,
+      currentNote: { ...currentNote },
+      lastX,
+      lastY,
       // notes: [...state.notes, action.payload.currentNote],
     };
   }

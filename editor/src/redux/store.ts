@@ -27,6 +27,7 @@ const initialState: RootState = {
   currentTrackIndex: 0,
   thumbX: null,
   lastX: null,
+  lastY: null,
   wasPlaying: false,
   numBars,
   numNotes,
@@ -67,6 +68,7 @@ const initialState: RootState = {
   ppq: 960,
   currentNote: null,
   noteHeight: 30,
+  editAction: "",
 };
 
 // const store: Store<any, AnyAction> = createStore(

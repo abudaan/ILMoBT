@@ -44,6 +44,7 @@ export type RootState = {
   progress: number;
   thumbX: number;
   lastX: number;
+  lastY: number;
   wasPlaying: boolean;
   // editor
   numBars: number;
@@ -61,6 +62,7 @@ export type RootState = {
   ppq: number;
   currentNote: NoteUI;
   noteHeight: number;
+  editAction: string;
 };
 
 export type NoteUI = {

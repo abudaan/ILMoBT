@@ -17,7 +17,7 @@ export const EditorCurrentNote = (): JSX.Element => {
     return null;
   }
 
-  console.log(currentNote);
+  // console.log(currentNote);
   const x = currentNote.ticks * ticksPerPixel;
   const y = currentNote.noteNumber * noteHeight - noteHeight / 4;
   const w = currentNote.duration * ticksPerPixel;
@@ -31,7 +31,7 @@ export const EditorCurrentNote = (): JSX.Element => {
       //   dispatch(handlePointerDown(e));
       // }}
     >
-      <div id={currentNote.id} style={style} className="note"></div>
+      <div id={currentNote.id} key={currentNote.id} style={style} className="note"></div>
     </div>
   );
 };

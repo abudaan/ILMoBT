@@ -3,7 +3,8 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../types";
 import { TransportControls } from "./TransportControls";
 import { PositionDisplay } from "./PositionDisplay";
-import { handlePointerMove } from "../redux/actions/handlePointer";
+import { handlePointerMove } from "../redux/actions/handlePointerMove";
+import { handlePointerUp } from "../redux/actions/handlePointerUp";
 import { stopInteractivity } from "../redux/actions";
 import { EditorGrid } from "./EditorGrid";
 import { EditorGridCanvas } from "./EditorGridCanvas";
@@ -21,15 +22,15 @@ export const App = (): JSX.Element => {
     return <div className="loading">LOADING...</div>;
   }
   const stop = () => {
-    dispatch(stopInteractivity());
+    dispatch(handlePointerUp());
   };
   return (
     <div
-    // onPointerUp={stop}
-    // onPointerLeave={stop}
-    // onPointerMove={(e): void => {
-    //   dispatch(handlePointerMove(e));
-    // }}
+      onPointerUp={stop}
+      onPointerLeave={stop}
+      onPointerMove={(e): void => {
+        dispatch(handlePointerMove(e));
+      }}
     >
       <Menu></Menu>
       {/* <TransportControls></TransportControls> */}

@@ -7,7 +7,7 @@ import {
   NO_ACTION_REQUIRED,
   SEEK_POSITION,
   MOVE_PLAYHEAD,
-  START_EDIT_NOTE,
+  START_DRAW_NOTE,
   ADD_BAR,
 } from "../../constants";
 import { AnyAction, Dispatch } from "redux";
@@ -84,7 +84,7 @@ export const handlePointerDown = (e: SyntheticEvent): AnyAction => {
   }
 
   return {
-    type: START_EDIT_NOTE,
+    type: START_DRAW_NOTE,
     payload: {
       id: target,
       x,
