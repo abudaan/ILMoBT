@@ -17,6 +17,9 @@ import {
   START_DRAW_NOTE,
   DRAW_NOTE,
   STOP_DRAW_NOTE,
+  START_MOVE_NOTE,
+  MOVE_NOTE,
+  STOP_MOVE_NOTE,
 } from "../constants";
 
 export const rootReducer = (
@@ -108,22 +111,6 @@ export const rootReducer = (
       progress,
       transport,
     };
-  } else if (action.type === START_EDIT) {
-    return {
-      ...state,
-      lastX: null,
-      thumbX: action.payload.thumbX,
-    };
-  } else if (action.type === STOP_DRAW_NOTE) {
-    return {
-      ...state,
-      lastX: null,
-      lastY: null,
-      thumbX: null,
-      notes: [...state.notes, { ...state.currentNote }],
-      currentNote: null,
-      editAction: "",
-    };
   } else if (action.type === SEEK_POSITION) {
     const {
       payload: { lastX, playheadPositionX, playheadPosition },
@@ -176,7 +163,20 @@ export const rootReducer = (
       editAction,
       lastX,
       lastY,
-      // notes: [...state.notes, action.payload.currentNote],
+      startX: lastX,
+      startY: lastY,
+    };
+  } else if (action.type === START_MOVE_NOTE) {
+    const { lastX, lastY, editAction, currentNote, notes } = action.payload;
+    return {
+      ...state,
+      notes: [...notes],
+      currentNote: { ...currentNote },
+      editAction,
+      lastX,
+      lastY,
+      startX: lastX,
+      startY: lastY,
     };
   } else if (action.type === DRAW_NOTE) {
     const { lastX, lastY, currentNote } = action.payload;
@@ -185,9 +185,35 @@ export const rootReducer = (
       currentNote: { ...currentNote },
       lastX,
       lastY,
-      // notes: [...state.notes, action.payload.currentNote],
+    };
+  } else if (action.type === MOVE_NOTE) {
+    const { lastX, lastY, currentNote } = action.payload;
+    return {
+      ...state,
+      currentNote: { ...currentNote },
+      lastX,
+      lastY,
+    };
+  } else if (action.type === STOP_DRAW_NOTE) {
+    return {
+      ...state,
+      lastX: null,
+      lastY: null,
+      thumbX: null,
+      notes: [...state.notes, { ...state.currentNote }],
+      currentNote: null,
+      editAction: "",
+    };
+  } else if (action.type === STOP_MOVE_NOTE) {
+    return {
+      ...state,
+      lastX: null,
+      lastY: null,
+      thumbX: null,
+      notes: [...state.notes, { ...state.currentNote }],
+      currentNote: null,
+      editAction: "",
     };
   }
-
   return state;
 };

@@ -26,6 +26,8 @@ const initialState: RootState = {
   currentTrack: null,
   currentTrackIndex: 0,
   thumbX: null,
+  startX: null,
+  startY: null,
   lastX: null,
   lastY: null,
   wasPlaying: false,
@@ -69,6 +71,7 @@ const initialState: RootState = {
   currentNote: null,
   noteHeight: 30,
   editAction: "",
+  noteIndex: 0,
 };
 
 // const store: Store<any, AnyAction> = createStore(

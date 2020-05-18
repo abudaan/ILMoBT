@@ -10,6 +10,7 @@ import {
   START_DRAW_NOTE,
   ADD_BAR,
   DRAW_NOTE,
+  MOVE_NOTE,
 } from "../../constants";
 import { AnyAction, Dispatch } from "redux";
 import { getOffset, getClientPos } from "../../util/util";
@@ -22,12 +23,15 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
   const {
     lastX,
     lastY,
+    startX,
+    startY,
     editAction,
     zoomLevel,
     ticksPerPixel,
     millisPerPixel,
     playheadPixels,
     currentNote,
+    noteHeight,
   } = state;
 
   const diffX = lastX !== null ? x - lastX : 0;
@@ -52,6 +56,17 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     currentNote.duration = duration;
     return {
       type: DRAW_NOTE,
+      payload: { lastX: x, lastY: y, currentNote },
+    };
+  } else if (editAction === "moveNote") {
+    // console.log(diffX, diffY);
+    const ticks = (currentNote.ticks * ticksPerPixel + diffX) / ticksPerPixel;
+    const yPos = currentNote.noteNumber * noteHeight - (startY - lastY);
+    console.log(-(startY - lastY));
+    currentNote.ticks = ticks;
+    currentNote.noteNumber = Math.floor(yPos / noteHeight);
+    return {
+      type: MOVE_NOTE,
       payload: { lastX: x, lastY: y, currentNote },
     };
   }

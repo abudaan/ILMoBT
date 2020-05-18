@@ -43,6 +43,8 @@ export type RootState = {
   currentTrackIndex: number;
   progress: number;
   thumbX: number;
+  startX: number;
+  startY: number;
   lastX: number;
   lastY: number;
   wasPlaying: boolean;
@@ -63,6 +65,7 @@ export type RootState = {
   currentNote: NoteUI;
   noteHeight: number;
   editAction: string;
+  noteIndex: number;
 };
 
 export type NoteUI = {

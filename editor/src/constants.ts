@@ -7,7 +7,9 @@ export const ADD_BAR = "ADD_BAR";
 export const REMOVE_BAR = "REMOVE_BAR";
 
 export const START_EDIT = "START_EDIT";
+
 export const START_DRAW_NOTE = "START_DRAW_NOTE";
+export const START_MOVE_NOTE = "START_MOVE_NOTE";
 export const DRAW_NOTE = "DRAW_NOTE";
 export const MOVE_NOTE = "MOVE_NOTE";
 export const STOP_DRAW_NOTE = "STOP_DRAW_NOTE";

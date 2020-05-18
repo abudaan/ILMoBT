@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { RootState, RefMIDI } from "../types";
 import { NoteOnEvent } from "../../../webdaw/midi_events";
 import { handlePointerDown } from "../redux/actions/handlePointer";
+import { startMoveNote } from "../redux/actions/startMoveNote";
 
 export const EditorNotes = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -16,7 +17,7 @@ export const EditorNotes = (): JSX.Element => {
 
   const addNotes = () => {
     const noteDivs = notes.map(n => {
-      const x = n.ticks * ticksPerPixel + 0.5;
+      const x = n.ticks * ticksPerPixel; // + 0.5;
       const y = n.noteNumber * noteHeight + noteHeight / 4;
       const w = n.duration * ticksPerPixel;
       return (
@@ -36,12 +37,10 @@ export const EditorNotes = (): JSX.Element => {
       style={{ width: `${width * zoomLevel}px` }}
       className="piano-roll-notes"
       onPointerDown={(e): void => {
-        dispatch(handlePointerDown(e));
+        dispatch(startMoveNote(e));
       }}
     >
       {addNotes()}
     </div>
   );
 };
-
-/* <i className="fas fa-play fa-xs"></i> */

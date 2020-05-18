@@ -1,7 +1,5 @@
 import React from "react";
-import { Resizable } from "./TrackUI";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import { handlePointerMove } from "../redux/actions/handlePointer";
 import { RootState } from "../types";
 import { Playhead } from "./Playhead";
 
@@ -14,13 +12,7 @@ const Container = ({ children }: Props): JSX.Element => {
   const width = `${durationTimeline * millisPerPixel * zoomLevel}px`;
 
   return (
-    <div
-      style={{ width }}
-      onPointerMove={(e): void => {
-        dispatch(handlePointerMove(e));
-      }}
-      className="container"
-    >
+    <div style={{ width }} className="container">
       {children}
       <Playhead></Playhead>
     </div>
