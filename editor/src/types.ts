@@ -13,6 +13,7 @@ export type SongData = {
   millis: number;
   index: number;
   numNotes: number;
+  numBars: number;
   scheduled: MIDIEvent[];
   noteMapping: number[];
   millisPerTick: number;
@@ -34,8 +35,6 @@ export type RootState = {
   lastY: number;
   wasPlaying: boolean;
   // editor
-  numBars: number;
-  numNotes: number;
   zoomLevel: number;
   seekZoomLevel: number;
   millisPerPixel: number;

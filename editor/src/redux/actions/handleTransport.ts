@@ -22,7 +22,7 @@ const clock = (() => {
   return {
     play,
     stop: () => {
-      console.log(id);
+      // console.log(id);
       cancelAnimationFrame(id);
     },
   };

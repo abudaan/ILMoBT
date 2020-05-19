@@ -7,7 +7,7 @@ type Props = { children: JSX.Element[] };
 const Scrollable = ({ children }: Props): JSX.Element => {
   const dispatch = useDispatch();
   const containerRef: RefObject<HTMLDivElement> = useRef();
-  const numNotes = useSelector((state: RootState) => state.numNotes);
+  const numNotes = useSelector((state: RootState) => state.songData.numNotes);
   const noteHeight = useSelector((state: RootState) => state.noteHeight);
 
   // const onScroll = (e: SyntheticEvent): void => {

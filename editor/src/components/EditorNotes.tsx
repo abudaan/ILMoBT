@@ -8,7 +8,6 @@ export const EditorNotes = (): JSX.Element => {
   const dispatch = useDispatch();
   const notes = useSelector((state: RootState) => state.notes);
   const width = useSelector((state: RootState) => state.width);
-  const numNotes = useSelector((state: RootState) => state.numNotes);
   const zoomLevel = useSelector((state: RootState) => state.zoomLevel);
   const ticksPerPixel = useSelector((state: RootState) => state.ticksPerPixel);
   const noteHeight = useSelector((state: RootState) => state.noteHeight);

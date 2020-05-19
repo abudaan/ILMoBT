@@ -8,8 +8,8 @@ export const EditorGridFlexBox = (): JSX.Element => {
   const dispatch = useDispatch();
   const width = useSelector((state: RootState) => state.width);
   const zoomLevel = useSelector((state: RootState) => state.zoomLevel);
-  const numBars = useSelector((state: RootState) => state.numBars);
-  const numNotes = useSelector((state: RootState) => state.numNotes);
+  const numBars = useSelector((state: RootState) => state.songData.numBars);
+  const numNotes = useSelector((state: RootState) => state.songData.numNotes);
   const numerator = useSelector((state: RootState) => state.songData.song.numerator);
   const denominator = useSelector((state: RootState) => state.songData.song.denominator);
   const noteHeight = useSelector((state: RootState) => state.noteHeight);

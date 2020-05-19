@@ -8,7 +8,7 @@ export const setProgress = (progress: number) => {
   const { playheadMillis, songData, transport } = state;
   const millis = playheadMillis + progress;
 
-  console.log(millis);
+  // console.log(millis);
   return {
     type: NO_ACTION_REQUIRED,
   };

@@ -9,13 +9,15 @@ export const removeBar = (): AnyAction => {
   const { width, zoomLevel, songData, notes } = state;
 
   const {
+    numBars,
     millisPerTick,
-    song: { tracks, numBars, numerator, denominator, ppq },
+    song: { tracks, numerator, denominator, ppq },
   } = songData;
 
   const ticksPerPixel = (width * zoomLevel) / ((numBars - 1) * numerator * denominator * ppq);
-  const maxTicks = numBars * numerator * denominator * ppq;
+  const maxTicks = (numBars - 1) * numerator * denominator * ppq;
   const filteredNotes = notes.filter(note => {
+    // console.log(maxTicks, note.ticks, note.duration);
     if (note.ticks > maxTicks) {
       return false;
     } else if (note.ticks + note.duration > maxTicks) {
@@ -29,13 +31,16 @@ export const removeBar = (): AnyAction => {
     type: REMOVE_BAR,
     payload: {
       ticksPerPixel,
-      numBars: numBars - 1,
+      notes: filteredNotes,
       songData: {
         ...songData,
+        numBars: numBars - 1,
         song: {
           ...songData.song,
           events: filteredEvents,
           notes: filteredNotes,
+          durationTicks: numBars * numerator * denominator * ppq,
+          durationMillis: numBars * numerator * denominator * ppq * millisPerTick,
         },
       },
     },

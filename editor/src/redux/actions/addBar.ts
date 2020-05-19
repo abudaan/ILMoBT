@@ -5,20 +5,27 @@ import { RootState } from "../../types";
 
 export const addBar = (): AnyAction => {
   const state = store.getState() as RootState;
+  const { width, zoomLevel, songData } = state;
   const {
-    width,
-    zoomLevel,
-    songData: {
-      song: { numerator, denominator, ppq, numBars },
-    },
-  } = state;
+    numBars,
+    millisPerTick,
+    song: { numerator, denominator, ppq },
+  } = songData;
   const ticksPerPixel = (width * zoomLevel) / ((numBars + 1) * numerator * denominator * ppq);
 
   return {
     type: ADD_BAR,
     payload: {
       ticksPerPixel,
-      numBars: numBars + 1,
+      songData: {
+        ...songData,
+        numBars: numBars - 1,
+        song: {
+          ...songData.song,
+          durationTicks: numBars * numerator * denominator * ppq,
+          durationMillis: numBars * numerator * denominator * ppq * millisPerTick,
+        },
+      },
     },
   };
 };

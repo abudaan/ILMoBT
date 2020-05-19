@@ -20,6 +20,7 @@ export const handlePointerUp = (): AnyAction => {
   const { editAction, songData, notes, currentNote } = state;
 
   console.log("Pointer Up", editAction);
+
   if (!editAction) {
     return {
       type: NO_ACTION_REQUIRED,

@@ -29,7 +29,6 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     playheadPixels,
     currentNote,
     noteHeight,
-    numNotes,
     notes,
     songData,
   } = state;
@@ -65,7 +64,7 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     const yPos = currentNote.originalNoteNumber * noteHeight - (startY - lastY);
     clone.ticks = ticks;
     clone.noteNumber = Math.floor(yPos / noteHeight);
-    if (clone.noteNumber < 0 || clone.noteNumber >= numNotes) {
+    if (clone.noteNumber < 0 || clone.noteNumber >= songData.numNotes) {
       const trackId = songData.song.tracks[0].id;
       const events = createMIDIEventsFromNotes(
         [...notes, currentNote],

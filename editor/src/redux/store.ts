@@ -22,8 +22,6 @@ const initialState: RootState = {
   lastX: null,
   lastY: null,
   wasPlaying: false,
-  numBars: 0,
-  numNotes: 8,
   zoomLevel: 1,
   seekZoomLevel: 1,
   millisPerPixel: 0, //window.innerWidth / 2000,

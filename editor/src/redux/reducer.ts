@@ -33,6 +33,8 @@ export const rootReducer = (
       ...state,
       width,
       height,
+      millisPerPixel: window.innerWidth / state.songData.song.durationMillis,
+      ticksPerPixel: window.innerWidth / state.songData.song.durationTicks,
     };
   } else if (action.type === SET_POSITION) {
     const {
@@ -123,20 +125,19 @@ export const rootReducer = (
     };
   } else if (action.type === ADD_BAR) {
     const {
-      payload: { numBars, ticksPerPixel },
+      payload: { songData, ticksPerPixel },
     } = action;
     return {
       ...state,
-      numBars,
+      songData,
       ticksPerPixel,
     };
   } else if (action.type === REMOVE_BAR) {
     const {
-      payload: { numBars, ticksPerPixel, notes, songData },
+      payload: { ticksPerPixel, notes, songData },
     } = action;
     return {
       ...state,
-      numBars,
       ticksPerPixel,
       notes,
       songData,
@@ -145,7 +146,7 @@ export const rootReducer = (
     const { lastX, lastY, editAction, currentNote, noteIndex } = action.payload;
     return {
       ...state,
-      currentNote: { ...currentNote },
+      currentNote,
       editAction,
       lastX,
       lastY,
