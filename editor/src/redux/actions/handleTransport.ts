@@ -1,9 +1,11 @@
 import { Dispatch } from "redux";
 import { store } from "../store";
 import { RootState, Transport } from "../../types";
+import { midiAccess } from "../../media";
 import { stopMIDI, startMIDI } from "./action_utils";
 import { SET_TRANSPORT, NO_ACTION_REQUIRED } from "../../constants";
 import { setProgress } from "./setProgress";
+import { unschedule } from "../../../../webdaw/unschedule";
 
 const clock = (() => {
   let id: number;
@@ -30,11 +32,13 @@ export const handleTransport = (transport: Transport) => async (
   dispatch: Dispatch
 ): Promise<void> => {
   const state = store.getState() as RootState;
-  const { playheadMillis, song } = state;
+  const { playheadMillis, songData } = state;
 
   if (transport === Transport.STOP || transport === Transport.PAUSE) {
     clock.stop();
+    unschedule(songData.song, midiAccess?.outputs);
   } else if (transport === Transport.PLAY) {
+    // startMIDI();
     clock.play(performance.now(), (progress: number) => {
       dispatch(setProgress(progress));
     });

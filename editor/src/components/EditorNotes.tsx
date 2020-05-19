@@ -1,6 +1,6 @@
 import React, { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, RefMIDI } from "../types";
+import { RootState, SongData } from "../types";
 import { NoteOnEvent } from "../../../webdaw/midi_events";
 import { startEditNote } from "../redux/actions/startEditNote";
 

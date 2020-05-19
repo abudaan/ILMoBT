@@ -1,11 +1,11 @@
-import { RefMIDI, NoteUI } from "../../types";
+import { SongData, NoteUI } from "../../types";
 import { schedule, getSchedulerIndex } from "../../../../webdaw/scheduler";
 import { unschedule } from "../../../../webdaw/unschedule";
 import { midiAccess } from "../../media";
 import { sortMIDIEvents } from "../../../../webdaw/midi_utils";
 import { MIDIEvent } from "../../../../webdaw/midi_events";
 
-export const startMIDI = (reference: RefMIDI, position: number): RefMIDI => {
+export const startMIDI = (reference: SongData, position: number): SongData => {
   reference.timestamp = performance.now();
   // const m = position - part.start + part.trimStart;
   const m = position;
@@ -15,7 +15,7 @@ export const startMIDI = (reference: RefMIDI, position: number): RefMIDI => {
   return reference;
 };
 
-export const playMIDI = (reference: RefMIDI): RefMIDI => {
+export const playMIDI = (reference: SongData): SongData => {
   const { index, scheduled } = schedule({
     song: reference.song,
     millis: reference.millis,
@@ -31,7 +31,7 @@ export const playMIDI = (reference: RefMIDI): RefMIDI => {
   return reference;
 };
 
-export const stopMIDI = (reference: RefMIDI): RefMIDI => {
+export const stopMIDI = (reference: SongData): SongData => {
   unschedule(reference.song, midiAccess?.outputs);
   reference.index = 0;
   reference.millis = 0;

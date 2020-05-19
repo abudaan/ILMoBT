@@ -5,13 +5,11 @@ import { render } from "react-dom";
 import { Provider } from "react-redux";
 import { RESIZE } from "./constants";
 import { store } from "./redux/store";
-import { setupClock } from "./observers";
 import { Transport } from "./types";
-import { init, midiAccess, outputs } from "./media";
+import { init, midiAccess } from "./media";
 import { handleTransport } from "./redux/actions/handleTransport";
 import { App } from "./components/App";
-import { unschedule } from "../../webdaw/unschedule";
-import { storeSong } from "./redux/actions/storeSong";
+import { setupSong } from "./redux/actions/setupSong";
 
 document.addEventListener("DOMContentLoaded", () => {
   init().then(() => {
@@ -37,6 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
+    store.dispatch(setupSong());
+
     render(
       <Provider store={store}>
         <App></App>
@@ -57,29 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
     resize();
     window.addEventListener("resize", resize);
 
-    // set up a clock using RxJS
-    setupClock();
-
-    // set up empty song
-    const track = {
-      id: "track-1",
-      latency: 0,
-      inputs: [],
-      outputs: outputs.map(o => o.id),
-    };
-
-    const song = {
-      ppq: 960,
-      latency: 17,
-      bufferTime: 100,
-      initialTempo: 120,
-      tracks: [track],
-      tracksById: { [track.id]: track },
-      events: [],
-    };
-
-    store.dispatch(storeSong(song));
-
     document.addEventListener("keydown", e => {
       if (e.keyCode === 32 || e.keyCode === 13) {
         const { transport } = store.getState();
@@ -95,11 +72,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     const cleanup = () => {
-      const state = store.getState();
-      state.transport = Transport.STOP; // YOLO!
-      state.tracks.forEach(({ song }) => {
-        unschedule(song, midiAccess?.outputs);
-      });
+      store.dispatch(handleTransport(Transport.STOP));
     };
 
     window.addEventListener("beforeunload", event => {

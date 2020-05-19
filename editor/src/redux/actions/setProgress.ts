@@ -5,17 +5,17 @@ import { SET_PROGRESS, NO_ACTION_REQUIRED } from "../../constants";
 
 export const setProgress = (progress: number) => {
   const state = store.getState() as RootState;
-  const { playheadMillis, currentTrack, transport } = state;
+  const { playheadMillis, songData, transport } = state;
   const millis = playheadMillis + progress;
 
   console.log(millis);
   return {
     type: NO_ACTION_REQUIRED,
   };
-
-  let track = currentTrack;
-  if (currentTrack !== null && millis < currentTrack.duration) {
-    track = playMIDI(track);
+  /*
+  let track = songData;
+  if (songData !== null && millis < songData.song.durationMillis) {
+    track = playMIDI(songData);
     return {
       type: SET_PROGRESS,
       payload: {
@@ -38,4 +38,5 @@ export const setProgress = (progress: number) => {
       // currentTrack: track,
     },
   };
+*/
 };

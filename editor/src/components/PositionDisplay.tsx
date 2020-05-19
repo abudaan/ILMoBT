@@ -5,19 +5,15 @@ import { getNiceTime } from "../../../webdaw/utils";
 
 const PositionDisplay = (): JSX.Element => {
   const playheadPosition = useSelector((state: RootState) => state.playheadMillis);
-  const currentTrack = useSelector((state: RootState) => state.currentTrack);
+  const currentTrack = useSelector((state: RootState) => state.songData);
   const playheadPositionX = useSelector((state: RootState) => state.playheadPixels);
   const width = useSelector((state: RootState) => state.width);
   // const display = getNiceTime(playheadPosition).timeAsString + ' X:' + Math.round(playheadPositionX) + ' W:' + Math.round(width);
   // const display = getNiceTime(playheadPosition).timeAsString;
-  const a = getNiceTime(playheadPosition).timeAsArrayString
-  const b = getNiceTime(currentTrack.duration).timeAsArrayString
+  const a = getNiceTime(playheadPosition).timeAsArrayString;
+  const b = getNiceTime(currentTrack.song.durationMillis).timeAsArrayString;
   const display = `${a[1]}:${a[2]} / ${b[1]}:${b[2]}`;
 
-  return (
-    <div className="position-display">
-      {display}
-    </div>
-  );
+  return <div className="position-display">{display}</div>;
 };
 export { PositionDisplay };

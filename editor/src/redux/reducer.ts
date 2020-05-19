@@ -3,7 +3,6 @@ import {
   SET_POSITION,
   SET_TRANSPORT,
   SET_PROGRESS,
-  JSON_LOADED,
   RESIZE,
   ZOOM_LEVEL,
   SEEK_ZOOM_LEVEL,
@@ -28,18 +27,7 @@ export const rootReducer = (
   state: RootState,
   action: { type: string; payload: { [id: string]: any } }
 ): RootState => {
-  if (action.type === JSON_LOADED) {
-    const {
-      payload: { tracks },
-    } = action;
-    return {
-      ...state,
-      loading: false,
-      tracks: tracks,
-      currentTrack: tracks[state.currentTrackIndex],
-      // currentTrackDuration: tracks[state.currentTrackIndex].duration,
-    };
-  } else if (action.type === RESIZE) {
+  if (action.type === RESIZE) {
     const { width, height } = action.payload;
     return {
       ...state,
@@ -48,20 +36,20 @@ export const rootReducer = (
     };
   } else if (action.type === SET_POSITION) {
     const {
-      payload: { playheadPosition, playheadPositionX, currentTrack, lastX },
+      payload: { playheadMillis, playheadPixels, songData, lastX },
     } = action;
     return {
       ...state,
       // isPlaying: false,
       // transport: Transport.STOP,
       lastX,
-      currentTrack: { ...currentTrack },
-      playheadMillis: playheadPosition,
-      playheadPixels: playheadPositionX,
+      songData,
+      playheadMillis,
+      playheadPixels,
     };
   } else if (action.type === SET_TRANSPORT) {
     const {
-      payload: { transport, currentTrack },
+      payload: { transport, songData },
     } = action;
     // console.log("REDUCER", transportAction);
     if (transport === Transport.STOP) {
@@ -70,30 +58,30 @@ export const rootReducer = (
         isPlaying: false,
         playheadMillis: 0,
         playheadPixels: 0,
-        currentTrack: { ...currentTrack },
+        songData,
         transport,
       };
     } else if (transport === Transport.PAUSE) {
       return {
         ...state,
         isPlaying: false,
-        currentTrack: { ...currentTrack },
+        songData,
         transport,
       };
     }
     return {
       ...state,
       isPlaying: true,
-      currentTrack: { ...currentTrack },
+      songData,
       transport,
     };
   } else if (action.type === SET_PROGRESS) {
     // console.log(action.payload);
-    const { playheadPosition, isPlaying, progress, transport } = action.payload;
-    const p = playheadPosition / state.currentTrack.duration;
+    const { playheadMillis, isPlaying, progress, transport } = action.payload;
+    const p = playheadMillis / state.songData.song.durationMillis;
     return {
       ...state,
-      playheadMillis: playheadPosition,
+      playheadMillis,
       playheadPixels: p * state.width,
       isPlaying,
       progress,
@@ -117,13 +105,11 @@ export const rootReducer = (
       playheadPixels: playheadPositionX,
     };
   } else if (action.type === ZOOM_LEVEL) {
-    const { zoomLevel } = action.payload;
+    const { zoomLevel, ticksPerPixel } = action.payload;
     return {
       ...state,
       zoomLevel,
-      ticksPerPixel:
-        (state.width * zoomLevel) /
-        (state.numBars * state.numerator * state.denominator * state.ppq),
+      ticksPerPixel,
     };
   } else if (action.type === SEEK_ZOOM_LEVEL) {
     return {
@@ -133,25 +119,27 @@ export const rootReducer = (
   } else if (action.type === STORE_SONG) {
     return {
       ...state,
-      song: action.payload.song,
+      songData: action.payload.songData,
     };
   } else if (action.type === ADD_BAR) {
-    const numBars = state.numBars + 1;
+    const {
+      payload: { numBars, ticksPerPixel },
+    } = action;
     return {
       ...state,
       numBars,
-      ticksPerPixel:
-        (state.width * state.zoomLevel) /
-        (numBars * state.numerator * state.denominator * state.ppq),
+      ticksPerPixel,
     };
   } else if (action.type === REMOVE_BAR) {
-    const numBars = state.numBars - 1;
+    const {
+      payload: { numBars, ticksPerPixel, notes, songData },
+    } = action;
     return {
       ...state,
       numBars,
-      ticksPerPixel:
-        (state.width * state.zoomLevel) /
-        (numBars * state.numerator * state.denominator * state.ppq),
+      ticksPerPixel,
+      notes,
+      songData,
     };
   } else if (action.type === START_DRAW_NOTE) {
     const { lastX, lastY, editAction, currentNote, noteIndex } = action.payload;
@@ -218,9 +206,8 @@ export const rootReducer = (
       ...state,
       lastX: null,
       lastY: null,
-      thumbX: null,
-      song: action.payload.song,
-      notes: [...state.notes, { ...state.currentNote }],
+      songData: action.payload.songData,
+      notes: action.payload.notes,
       currentNote: null,
       editAction: "",
     };
@@ -229,9 +216,8 @@ export const rootReducer = (
       ...state,
       lastX: null,
       lastY: null,
-      thumbX: null,
-      song: action.payload.song,
-      notes: [...state.notes, { ...state.currentNote }],
+      songData: action.payload.songData,
+      notes: action.payload.notes,
       currentNote: null,
       editAction: "",
     };
@@ -240,8 +226,8 @@ export const rootReducer = (
       ...state,
       lastX: null,
       lastY: null,
-      thumbX: null,
-      notes: [...state.notes, { ...state.currentNote }],
+      songData: action.payload.songData,
+      notes: action.payload.notes,
       currentNote: null,
       editAction: "",
     };
@@ -250,7 +236,7 @@ export const rootReducer = (
       ...state,
       lastX: null,
       lastY: null,
-      song: action.payload.song,
+      songData: action.payload.songData,
       notes: action.payload.notes,
       currentNote: null,
       editAction: "",

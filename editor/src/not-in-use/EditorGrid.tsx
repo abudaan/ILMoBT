@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, RefObject } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, RefMIDI } from "../types";
+import { RootState, SongData } from "../types";
 import { NoteOnEvent } from "../../../webdaw/midi_events";
 import { handlePointerDown } from "../redux/actions/handlePointer";
 

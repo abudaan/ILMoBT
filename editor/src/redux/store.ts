@@ -7,12 +7,6 @@ import thunk, { ThunkMiddleware } from "redux-thunk";
 import { rootReducer } from "./reducer";
 import { RootState, Transport } from "../types";
 
-const ppq = 960;
-const numerator = 4;
-const denominator = 4;
-const numBars = 10;
-const numNotes = 8;
-
 const initialState: RootState = {
   loading: false,
   width: window.innerWidth,
@@ -22,38 +16,25 @@ const initialState: RootState = {
   playheadMillis: 0,
   playheadPixels: 0,
   transport: Transport.STOP,
-  tracks: [],
-  currentTrack: null,
-  currentTrackIndex: 0,
-  thumbX: null,
+  songData: null,
   startX: null,
   startY: null,
   lastX: null,
   lastY: null,
   wasPlaying: false,
-  numBars,
-  numNotes,
-  numerator,
-  denominator,
-  editData: {
-    id: null,
-    thumbX: null,
-    lastX: null,
-    action: null,
-  },
+  numBars: 0,
+  numNotes: 8,
   zoomLevel: 1,
   seekZoomLevel: 1,
-  durationTimeline: 2000,
-  millisPerPixel: window.innerWidth / 2000,
-  ticksPerPixel: (window.innerWidth * 1) / (numBars * numerator * denominator * ppq),
+  millisPerPixel: 0, //window.innerWidth / 2000,
+  ticksPerPixel: 0, //(window.innerWidth * 1) / (numBars * numerator * denominator * ppq),
   editorScrollPos: 0,
   notes: [],
   ppq: 960,
   currentNote: null,
   noteHeight: 30,
   editAction: "",
-  noteIndex: 0,
-  song: null,
+  noteIndex: 0, // every time a note is created the index increases
 };
 
 // const store: Store<any, AnyAction> = createStore(

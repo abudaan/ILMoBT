@@ -7,27 +7,15 @@ export enum Transport {
   STOP = "stop",
 }
 
-export type RefMIDI = {
-  id: string;
-  title: string;
+export type SongData = {
   song: Song;
   timestamp: number;
   millis: number;
-  duration: number;
   index: number;
+  numNotes: number;
   scheduled: MIDIEvent[];
-};
-
-export type Tracks = {
-  title: string;
-  song: Song;
-  duration: number;
-};
-
-export type ListDataJSON = {
-  title: string;
-  url: string;
-  // mood: string,
+  noteMapping: number[];
+  millisPerTick: number;
 };
 
 export type RootState = {
@@ -38,11 +26,8 @@ export type RootState = {
   playheadMillis: number;
   playheadPixels: number;
   transport: Transport;
-  tracks: RefMIDI[];
-  currentTrack: RefMIDI;
-  currentTrackIndex: number;
+  songData: SongData;
   progress: number;
-  thumbX: number;
   startX: number;
   startY: number;
   lastX: number;
@@ -51,14 +36,10 @@ export type RootState = {
   // editor
   numBars: number;
   numNotes: number;
-  numerator: number;
-  denominator: number;
-  editData: EditData;
   zoomLevel: number;
   seekZoomLevel: number;
   millisPerPixel: number;
   ticksPerPixel: number;
-  durationTimeline: number;
   editorScrollPos: number;
   notes: NoteUI[];
   ppq: number;
@@ -66,7 +47,6 @@ export type RootState = {
   noteHeight: number;
   editAction: string;
   noteIndex: number;
-  song: Song;
 };
 
 export type NoteUI = {
@@ -75,21 +55,4 @@ export type NoteUI = {
   noteNumber: number;
   originalNoteNumber?: number;
   duration: number;
-};
-
-export type EditData = {
-  id: string;
-  thumbX: number;
-  lastX: number;
-  action: string;
-};
-
-export type ProjectData = {
-  tracks: [
-    {
-      order: number;
-      title: string;
-      url: string;
-    }
-  ];
 };

@@ -5,8 +5,8 @@ import { startMIDI } from "./action_utils";
 
 export const stopInteractivity = () => {
   const state = store.getState() as RootState;
-  const { wasPlaying, currentTrack, playheadMillis } = state;
-  let track = currentTrack;
+  const { wasPlaying, songData, playheadMillis } = state;
+  let track = songData;
   if (wasPlaying) {
     track = startMIDI(track, playheadMillis);
   }

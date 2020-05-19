@@ -1,6 +1,6 @@
 import React, { useRef, useEffect, RefObject } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { RootState, RefMIDI } from "../types";
+import { RootState, SongData } from "../types";
 import { NoteOnEvent } from "../../../webdaw/midi_events";
 import { startDrawNote } from "../redux/actions/startDrawNote";
 
@@ -10,8 +10,8 @@ export const EditorGridFlexBox = (): JSX.Element => {
   const zoomLevel = useSelector((state: RootState) => state.zoomLevel);
   const numBars = useSelector((state: RootState) => state.numBars);
   const numNotes = useSelector((state: RootState) => state.numNotes);
-  const numerator = useSelector((state: RootState) => state.numerator);
-  const denominator = useSelector((state: RootState) => state.denominator);
+  const numerator = useSelector((state: RootState) => state.songData.song.numerator);
+  const denominator = useSelector((state: RootState) => state.songData.song.denominator);
   const noteHeight = useSelector((state: RootState) => state.noteHeight);
   const columns = numBars * numerator * denominator; // beats
 

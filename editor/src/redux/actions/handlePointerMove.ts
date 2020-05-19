@@ -31,7 +31,7 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     noteHeight,
     numNotes,
     notes,
-    song,
+    songData,
   } = state;
 
   const diffX = lastX !== null ? x - lastX : 0;
@@ -66,17 +66,23 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     clone.ticks = ticks;
     clone.noteNumber = Math.floor(yPos / noteHeight);
     if (clone.noteNumber < 0 || clone.noteNumber >= numNotes) {
-      const millisPerTick = (60 / song.initialTempo / song.ppq) * 1000;
-      const trackId = song.tracks[0].id;
-      const events = createMIDIEventsFromNotes([...notes, currentNote], millisPerTick, trackId);
+      const trackId = songData.song.tracks[0].id;
+      const events = createMIDIEventsFromNotes(
+        [...notes, currentNote],
+        songData.millisPerTick,
+        trackId
+      );
 
       return {
         type: REMOVE_NOTE,
         payload: {
           notes: notes.filter(note => note.id !== currentNote.id),
-          song: {
-            ...song,
-            events,
+          songData: {
+            ...songData,
+            song: {
+              ...songData.song,
+              events,
+            },
           },
         },
       };

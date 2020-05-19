@@ -15,14 +15,19 @@ export interface Song {
   tracks: Track[];
   tracksById: { [id: string]: Track };
   events: MIDIEvent[];
+  durationTicks?: number;
+  durationMillis?: number;
+  numBars?: number;
+  numerator?: number;
+  denominator?: number;
   // timeTrack: MIDIEvent[]
   // tracks: Track[]
-  useMetronome?: boolean;
-  loop?: boolean;
-  loops?: {
-    start: number;
-    end: number;
-  }[];
+  // useMetronome?: boolean;
+  // loop?: boolean;
+  // loops?: {
+  //   start: number;
+  //   end: number;
+  // }[];
 }
 
 export interface Track {

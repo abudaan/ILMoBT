@@ -9,23 +9,23 @@ import { startMIDI } from "./action_utils";
 
 export const setPosition = (e: SyntheticEvent) => {
   const state = store.getState() as RootState;
-  const { currentTrack, width } = state;
+  const { songData, width } = state;
   const id = (e.target as HTMLDivElement).id;
   if (id !== "slider") {
     return {
       type: NO_ACTION_REQUIRED,
     };
   }
-  unschedule(currentTrack.song, midiAccess.outputs);
+  unschedule(songData.song, midiAccess.outputs);
   const n = getNativeEvent(e);
   const x = getOffset(n).x;
-  const millis = (x / width) * currentTrack.duration;
-  const track = startMIDI(currentTrack, millis);
+  const millis = (x / width) * songData.song.durationMillis;
+  const track = startMIDI(songData, millis);
 
   return {
     type: SET_POSITION,
     payload: {
-      playheadMillis: (x / width) * currentTrack.duration,
+      playheadMillis: (x / width) * songData.song.durationMillis,
       playheadPixels: x,
       currentTrack: track,
     },
