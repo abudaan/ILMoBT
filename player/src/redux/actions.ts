@@ -176,6 +176,7 @@ export const loadJSON = (url: string) => async (dispatch: Dispatch): Promise<voi
       async (ab, i: number): Promise<RefMIDI> => {
         const song = await createSongFromMIDIFile(ab);
         const duration = song.events[song.events.length - 1].millis;
+        // console.log(song.events);
         song.tracks.forEach(track => {
           track.outputs.push(...outputs.map(o => o.id));
         });

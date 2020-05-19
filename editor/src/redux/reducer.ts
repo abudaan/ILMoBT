@@ -21,6 +21,9 @@ import {
   MOVE_NOTE,
   STOP_MOVE_NOTE,
   REMOVE_NOTE,
+  START_RESIZE_NOTE,
+  STOP_RESIZE_NOTE,
+  RESIZE_NOTE,
 } from "../constants";
 
 export const rootReducer = (
@@ -180,6 +183,18 @@ export const rootReducer = (
       startX: lastX,
       startY: lastY,
     };
+  } else if (action.type === START_RESIZE_NOTE) {
+    const { lastX, lastY, editAction, currentNote, notes } = action.payload;
+    return {
+      ...state,
+      notes: [...notes],
+      currentNote: { ...currentNote },
+      editAction,
+      lastX,
+      lastY,
+      startX: lastX,
+      startY: lastY,
+    };
   } else if (action.type === DRAW_NOTE) {
     const { lastX, lastY, currentNote } = action.payload;
     return {
@@ -189,6 +204,14 @@ export const rootReducer = (
       lastY,
     };
   } else if (action.type === MOVE_NOTE) {
+    const { lastX, lastY, currentNote } = action.payload;
+    return {
+      ...state,
+      currentNote: { ...currentNote },
+      lastX,
+      lastY,
+    };
+  } else if (action.type === RESIZE_NOTE) {
     const { lastX, lastY, currentNote } = action.payload;
     return {
       ...state,
@@ -207,6 +230,16 @@ export const rootReducer = (
       editAction: "",
     };
   } else if (action.type === STOP_MOVE_NOTE) {
+    return {
+      ...state,
+      lastX: null,
+      lastY: null,
+      thumbX: null,
+      notes: [...state.notes, { ...state.currentNote }],
+      currentNote: null,
+      editAction: "",
+    };
+  } else if (action.type === STOP_RESIZE_NOTE) {
     return {
       ...state,
       lastX: null,

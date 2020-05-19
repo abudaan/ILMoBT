@@ -12,6 +12,7 @@ import {
   DRAW_NOTE,
   MOVE_NOTE,
   REMOVE_NOTE,
+  RESIZE_NOTE,
 } from "../../constants";
 import { AnyAction, Dispatch } from "redux";
 import { getOffset, getClientPos } from "../../util/util";
@@ -41,7 +42,7 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
   const diffY = lastY !== null ? y - lastY : 0;
   const clone = { ...currentNote };
 
-  if (editAction === null) {
+  if (editAction === null || editAction === "") {
     return {
       type: NO_ACTION_REQUIRED,
     };
@@ -53,7 +54,7 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
       type: SEEK_POSITION,
       payload: { lastX: x, newPos, millis },
     };
-  } else if (editAction === "drawNote") {
+  } else if (editAction === DRAW_NOTE) {
     // console.log(diffX, diffY);
     const duration = (currentNote.duration * ticksPerPixel + diffX) / ticksPerPixel;
     // console.log(duration);
@@ -62,7 +63,7 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
       type: DRAW_NOTE,
       payload: { lastX: x, lastY: y, currentNote: clone },
     };
-  } else if (editAction === "moveNote") {
+  } else if (editAction === MOVE_NOTE) {
     // console.log(diffX, diffY);
     const ticks = (currentNote.ticks * ticksPerPixel + diffX) / ticksPerPixel;
     const yPos = currentNote.originalNoteNumber * noteHeight - (startY - lastY);
@@ -80,10 +81,17 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
       type: MOVE_NOTE,
       payload: { lastX: x, lastY: y, currentNote: clone },
     };
+  } else if (editAction === RESIZE_NOTE) {
+    // console.log(diffX, diffY);
+    const duration = (currentNote.duration * ticksPerPixel + diffX) / ticksPerPixel;
+    clone.duration = duration;
+    return {
+      type: RESIZE_NOTE,
+      payload: { lastX: x, lastY: y, currentNote: clone },
+    };
   }
 
   return {
-    type: DO_EDIT,
-    // payload: { lastX: x, ...editPart(diffX, state) },
+    type: NO_ACTION_REQUIRED,
   };
 };

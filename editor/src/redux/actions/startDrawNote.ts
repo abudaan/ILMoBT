@@ -1,6 +1,6 @@
 import { AnyAction } from "redux";
 import { SyntheticEvent } from "react";
-import { START_DRAW_NOTE } from "../../constants";
+import { START_DRAW_NOTE, DRAW_NOTE } from "../../constants";
 import { getNativeEvent, getOffset, getPagePos } from "../../util/util";
 import { RootState } from "../../types";
 import { store } from "../store";
@@ -20,7 +20,7 @@ export const startDrawNote = (e: SyntheticEvent): AnyAction => {
     payload: {
       lastX,
       lastY,
-      editAction: "drawNote",
+      editAction: DRAW_NOTE,
       currentNote: {
         id: `note-${noteIndex}`,
         ticks: x / ticksPerPixel,

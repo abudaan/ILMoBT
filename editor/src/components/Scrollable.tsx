@@ -32,9 +32,9 @@ const Scrollable = ({ children }: Props): JSX.Element => {
   return (
     <div
       ref={containerRef}
-      onPointerUp={(e): void => {
-        dispatch(handlePointerUp());
-      }}
+      // onPointerUp={(e): void => {
+      //   dispatch(handlePointerUp());
+      // }}
       className="scrollable"
       style={{ height: `${numNotes * noteHeight + 100}px` }}
     >
