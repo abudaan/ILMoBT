@@ -132,3 +132,23 @@ button {
     }
   }
 }
+
+.playhead {
+  position: absolute;
+  top: 0px;
+  left: 100px;
+  width: 41px;
+  height: calc(100% + 10px);
+  background-color: rgba(20, 132, 227, 0.2);
+  display: flex;
+  justify-content: center;
+  z-index: 0;
+  margin-left: -20px;
+  div {
+    // should be able to receive pointer events
+    z-index: 4;
+    width: 1px;
+    height: 100%;
+    background-color: #1484e3;
+  }
+}

@@ -47,31 +47,13 @@ const initialState: RootState = {
   millisPerPixel: window.innerWidth / 2000,
   ticksPerPixel: (window.innerWidth * 1) / (numBars * numerator * denominator * ppq),
   editorScrollPos: 0,
-  notes: [
-    {
-      id: "n1",
-      ticks: 960 * 16,
-      noteNumber: 0,
-      duration: 960 * 4,
-    },
-    {
-      id: "n2",
-      ticks: 960 * 50,
-      noteNumber: 1,
-      duration: 960 * 4,
-    },
-    {
-      id: "n3",
-      ticks: 960 * 150,
-      noteNumber: 5,
-      duration: 960 * 4,
-    },
-  ],
+  notes: [],
   ppq: 960,
   currentNote: null,
   noteHeight: 30,
   editAction: "",
   noteIndex: 0,
+  song: null,
 };
 
 // const store: Store<any, AnyAction> = createStore(

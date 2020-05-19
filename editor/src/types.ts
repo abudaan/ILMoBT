@@ -66,6 +66,7 @@ export type RootState = {
   noteHeight: number;
   editAction: string;
   noteIndex: number;
+  song: Song;
 };
 
 export type NoteUI = {

@@ -3,7 +3,7 @@
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
     "module": "commonjs",
-    "target": "ES2017",
+    "target": "ES5",
     "sourceMap": true,
     "esModuleInterop": true,
     "moduleResolution": "node",
@@ -12,24 +12,11 @@
     "jsx": "react",
     "allowJs": true,
     "skipLibCheck": true,
-    "types": [
-      "redux",
-      "react"
-    ],
-    "typeRoots": [
-      "./node_modules/@types"
-    ],
-    "lib": [
-      "dom",
-      "es6",
-      "es2018"
-    ],
+    "types": ["redux", "react"],
+    "typeRoots": ["./node_modules/@types"],
+    "lib": ["dom", "es2019"],
     "outDir": "./dist/",
     "noImplicitAny": false
   },
-  "exclude": [
-    "node_modules",
-    "build",
-    "public"
-  ]
+  "exclude": ["node_modules", "build", "public"]
 }

@@ -1,13 +1,9 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../types";
-import { TransportControls } from "./TransportControls";
-import { PositionDisplay } from "./PositionDisplay";
+import { Playhead } from "./Playhead";
 import { handlePointerMove } from "../redux/actions/handlePointerMove";
 import { handlePointerUp } from "../redux/actions/handlePointerUp";
-import { stopInteractivity } from "../redux/actions";
-import { EditorGrid } from "../not-in-use/EditorGrid";
-import { EditorGridCanvas } from "../not-in-use/EditorGridCanvas";
 import { EditorGridFlexBox } from "./EditorGridFlexBox";
 import { EditorNotes } from "./EditorNotes";
 import { Scrollable } from "./Scrollable";
@@ -40,6 +36,7 @@ export const App = (): JSX.Element => {
         <EditorGridFlexBox></EditorGridFlexBox>
         <EditorNotes></EditorNotes>
         <EditorCurrentNote></EditorCurrentNote>
+        <Playhead></Playhead>
       </Scrollable>
     </div>
   );

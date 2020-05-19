@@ -2,7 +2,6 @@ import React, { useRef, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState, RefMIDI } from "../types";
 import { NoteOnEvent } from "../../../webdaw/midi_events";
-import { handlePointerDown } from "../redux/actions/handlePointer";
 import { startEditNote } from "../redux/actions/startEditNote";
 
 export const EditorNotes = (): JSX.Element => {

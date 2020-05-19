@@ -1,14 +1,12 @@
-import React, { RefObject, useRef, SyntheticEvent } from "react";
+import React from "react";
 import { useSelector, useDispatch, shallowEqual } from "react-redux";
-import {
-  setZoomLevel,
-  seekZoomLevel,
-  addBar,
-  removeBar,
-  handleTransport,
-} from "../redux/actions/handleOther";
 import { RootState, Transport } from "../types";
 import { SliderRange } from "./SliderRange";
+import { handleTransport } from "../redux/actions/handleTransport";
+import { addBar } from "../redux/actions/addBar";
+import { removeBar } from "../redux/actions/removeBar";
+import { seekZoomLevel } from "../redux/actions/seekZoomLevel";
+import { setZoomLevel } from "../redux/actions/setZoomLevel";
 
 const Menu = (): JSX.Element => {
   const dispatch = useDispatch();

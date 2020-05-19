@@ -7,28 +7,35 @@ import { RESIZE } from "./constants";
 import { store } from "./redux/store";
 import { setupClock } from "./observers";
 import { Transport } from "./types";
-import { init, midiAccess } from "./media";
-import { handleTransport } from "./redux/actions/handleOther";
+import { init, midiAccess, outputs } from "./media";
+import { handleTransport } from "./redux/actions/handleTransport";
 import { App } from "./components/App";
 import { unschedule } from "../../webdaw/unschedule";
+import { storeSong } from "./redux/actions/storeSong";
 
 document.addEventListener("DOMContentLoaded", () => {
   init().then(() => {
     const editor = document.getElementById("editor");
 
-    // if (midiAccess === null) {
-    //   const browsers = ["Chrome", "Chromium", "Brave", "Edge", "Samsung Internet"].map(b => (
-    //     <li key={b}>{b}</li>
-    //   ));
-    //   render(
-    //     <div className="message">
-    //       The MIDI player only runs in Chrome based browsers:
-    //       <ul>{browsers}</ul>
-    //     </div>,
-    //     editor
-    //   );
-    //   return;
-    // }
+    if (midiAccess === null) {
+      const browsers = [
+        "Chromium",
+        "Chrome",
+        "Brave",
+        "Edge",
+        "Opera",
+        "Vivaldi",
+        "Samsung Internet",
+      ].map(b => <li key={b}>{b}</li>);
+      render(
+        <div className="message">
+          The MIDI editor only runs in Chromium based browsers such as:
+          <ul>{browsers}</ul>
+        </div>,
+        editor
+      );
+      return;
+    }
 
     render(
       <Provider store={store}>
@@ -52,6 +59,26 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // set up a clock using RxJS
     setupClock();
+
+    // set up empty song
+    const track = {
+      id: "track-1",
+      latency: 0,
+      inputs: [],
+      outputs: outputs.map(o => o.id),
+    };
+
+    const song = {
+      ppq: 960,
+      latency: 17,
+      bufferTime: 100,
+      initialTempo: 120,
+      tracks: [track],
+      tracksById: { [track.id]: track },
+      events: [],
+    };
+
+    store.dispatch(storeSong(song));
 
     document.addEventListener("keydown", e => {
       if (e.keyCode === 32 || e.keyCode === 13) {

@@ -1,6 +1,6 @@
 import { store, getState$ } from "./redux/store";
 import { distinctUntilKeyChanged, map } from "rxjs/operators";
-import { setProgress } from "./redux/actions/handleOther";
+import { setProgress } from "./redux/actions/setProgress";
 import { Transport } from "./types";
 
 export const setupClock = () => {
@@ -46,7 +46,7 @@ export const setupClock = () => {
     progress = a - start;
     store.dispatch(setProgress(progress));
     start = a;
-    if(!run) {
+    if (!run) {
       return;
     }
     id = requestAnimationFrame(b => {
@@ -55,4 +55,3 @@ export const setupClock = () => {
     // console.log(progress, id);
   };
 };
-

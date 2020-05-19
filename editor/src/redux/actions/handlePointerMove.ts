@@ -3,20 +3,14 @@ import { store } from "../store";
 import { getNativeEvent, getPagePos } from "../../util/util";
 import { RootState, Transport } from "../../types";
 import {
-  DO_EDIT,
   NO_ACTION_REQUIRED,
-  SEEK_POSITION,
   MOVE_PLAYHEAD,
-  START_DRAW_NOTE,
-  ADD_BAR,
   DRAW_NOTE,
   MOVE_NOTE,
   REMOVE_NOTE,
   RESIZE_NOTE,
 } from "../../constants";
 import { AnyAction, Dispatch } from "redux";
-import { getOffset, getClientPos } from "../../util/util";
-import { SET_POSITION, START_EDIT, STOP_EDIT } from "../../constants";
 
 export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
   const n = getNativeEvent(e);
@@ -51,7 +45,7 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     const millis = newPos / millisPerPixel / zoomLevel;
     // console.log(newPos);
     return {
-      type: SEEK_POSITION,
+      type: MOVE_PLAYHEAD,
       payload: { lastX: x, newPos, millis },
     };
   } else if (editAction === DRAW_NOTE) {

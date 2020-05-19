@@ -1,29 +1,33 @@
 export interface BaseEvent {
   ticks: number;
   descr: string;
-  trackId: string;
-  part: string;
   type: number;
+  trackId?: string;
+  part?: string;
   subType?: number;
 }
 
 export interface NoteOnEvent extends BaseEvent {
-  type: 0x80;
-  descr: "note on";
+  // type: 0x80;
+  // type: number;
+  // descr: "note on";
+  // descr: string;
   ticks: number;
   channel: number;
-  millis: number;
+  millis?: number;
   noteNumber: number;
   velocity: number;
 }
 
 export type NoteOffEvent = {
-  type: 0x90;
-  descr: "note off";
+  // type: 0x90;
+  // type: number;
+  // descr: "note off";
+  // descr: string;
   ticks: number;
   trackId: string;
   channel: number;
-  millis: number;
+  millis?: number;
   noteNumber: number;
   velocity: 0;
 };

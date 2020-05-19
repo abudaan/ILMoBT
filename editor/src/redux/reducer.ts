@@ -1,15 +1,10 @@
 import { RootState, Transport } from "../types";
 import {
-  POINTER_MOVE,
   SET_POSITION,
   SET_TRANSPORT,
   SET_PROGRESS,
   JSON_LOADED,
-  SELECT_TRACK,
   RESIZE,
-  START_EDIT,
-  STOP_EDIT,
-  SEEK_POSITION,
   ZOOM_LEVEL,
   SEEK_ZOOM_LEVEL,
   ADD_BAR,
@@ -24,6 +19,9 @@ import {
   START_RESIZE_NOTE,
   STOP_RESIZE_NOTE,
   RESIZE_NOTE,
+  STORE_SONG,
+  START_MOVE_PLAYHEAD,
+  MOVE_PLAYHEAD,
 } from "../constants";
 
 export const rootReducer = (
@@ -47,20 +45,6 @@ export const rootReducer = (
       ...state,
       width,
       height,
-    };
-  } else if (action.type === SELECT_TRACK) {
-    const {
-      payload: { index, currentTrack },
-    } = action;
-    return {
-      ...state,
-      currentTrack: { ...currentTrack },
-      currentTrackIndex: index,
-      isPlaying: false,
-      transport: Transport.STOP,
-      playheadMillis: 0,
-      playheadPixels: 0,
-      // currentTrackDuration: state.tracks[index].duration,
     };
   } else if (action.type === SET_POSITION) {
     const {
@@ -115,7 +99,12 @@ export const rootReducer = (
       progress,
       transport,
     };
-  } else if (action.type === SEEK_POSITION) {
+  } else if (action.type === START_MOVE_PLAYHEAD) {
+    return {
+      ...state,
+      editAction: MOVE_PLAYHEAD,
+    };
+  } else if (action.type === MOVE_PLAYHEAD) {
     const {
       payload: { lastX, playheadPositionX, playheadPosition },
     } = action;
@@ -140,6 +129,11 @@ export const rootReducer = (
     return {
       ...state,
       seekZoomLevel: action.payload.zoom,
+    };
+  } else if (action.type === STORE_SONG) {
+    return {
+      ...state,
+      song: action.payload.song,
     };
   } else if (action.type === ADD_BAR) {
     const numBars = state.numBars + 1;
@@ -225,6 +219,7 @@ export const rootReducer = (
       lastX: null,
       lastY: null,
       thumbX: null,
+      song: action.payload.song,
       notes: [...state.notes, { ...state.currentNote }],
       currentNote: null,
       editAction: "",
@@ -235,6 +230,7 @@ export const rootReducer = (
       lastX: null,
       lastY: null,
       thumbX: null,
+      song: action.payload.song,
       notes: [...state.notes, { ...state.currentNote }],
       currentNote: null,
       editAction: "",
@@ -245,6 +241,7 @@ export const rootReducer = (
       lastX: null,
       lastY: null,
       thumbX: null,
+      song: action.payload.song,
       notes: [...state.notes, { ...state.currentNote }],
       currentNote: null,
       editAction: "",
@@ -254,6 +251,7 @@ export const rootReducer = (
       ...state,
       lastX: null,
       lastY: null,
+      song: action.payload.song,
       notes: action.payload.notes,
       currentNote: null,
       editAction: "",

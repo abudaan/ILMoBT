@@ -1,7 +1,7 @@
-import { RefMIDI } from "../types";
-import { schedule, getSchedulerIndex } from "../../../webdaw/scheduler";
-import { unschedule } from "../../../webdaw/unschedule";
-import { midiAccess } from "../media";
+import { RefMIDI } from "../../types";
+import { schedule, getSchedulerIndex } from "../../../../webdaw/scheduler";
+import { unschedule } from "../../../../webdaw/unschedule";
+import { midiAccess } from "../../media";
 
 export const startMIDI = (reference: RefMIDI, position: number): RefMIDI => {
   reference.timestamp = performance.now();

@@ -1,7 +1,6 @@
-import React, { useEffect, useRef, RefObject, SyntheticEvent } from "react";
+import React, { useEffect, useRef, RefObject } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { scrollArranger } from "../redux/actions";
-import { handlePointerUp } from "../redux/actions/handlePointer";
+import { scrollArranger } from "../redux/actions/scrollArranger";
 import { RootState } from "../types";
 
 type Props = { children: JSX.Element[] };
