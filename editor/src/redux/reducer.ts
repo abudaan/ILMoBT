@@ -241,7 +241,6 @@ export const rootReducer = (
       lastX: null,
       lastY: null,
       thumbX: null,
-      song: action.payload.song,
       notes: [...state.notes, { ...state.currentNote }],
       currentNote: null,
       editAction: "",

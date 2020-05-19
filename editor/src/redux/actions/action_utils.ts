@@ -1,7 +1,9 @@
-import { RefMIDI } from "../../types";
+import { RefMIDI, NoteUI } from "../../types";
 import { schedule, getSchedulerIndex } from "../../../../webdaw/scheduler";
 import { unschedule } from "../../../../webdaw/unschedule";
 import { midiAccess } from "../../media";
+import { sortMIDIEvents } from "../../../../webdaw/midi_utils";
+import { MIDIEvent } from "../../../../webdaw/midi_events";
 
 export const startMIDI = (reference: RefMIDI, position: number): RefMIDI => {
   reference.timestamp = performance.now();
@@ -36,3 +38,36 @@ export const stopMIDI = (reference: RefMIDI): RefMIDI => {
   reference.scheduled = [];
   return reference;
 };
+
+export const createMIDIEventsFromNotes = (
+  notes: NoteUI[],
+  millisPerTick: number,
+  trackId: string
+): MIDIEvent[] =>
+  sortMIDIEvents(
+    notes
+      .map(note => {
+        const noteOn = {
+          type: 0x80,
+          descr: "note on",
+          ticks: note.ticks,
+          channel: 0,
+          millis: note.ticks * millisPerTick,
+          noteNumber: note.noteNumber,
+          velocity: 100,
+          trackId,
+        };
+        const noteOff = {
+          type: 0x90,
+          descr: "note off",
+          ticks: note.ticks + note.duration,
+          channel: 0,
+          millis: (note.ticks + note.duration) * millisPerTick,
+          noteNumber: note.noteNumber,
+          velocity: 0,
+          trackId,
+        };
+        return [noteOn, noteOff];
+      })
+      .flat()
+  );

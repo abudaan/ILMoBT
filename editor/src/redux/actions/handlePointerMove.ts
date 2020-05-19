@@ -11,6 +11,7 @@ import {
   RESIZE_NOTE,
 } from "../../constants";
 import { AnyAction, Dispatch } from "redux";
+import { createMIDIEventsFromNotes } from "./action_utils";
 
 export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
   const n = getNativeEvent(e);
@@ -30,6 +31,7 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     noteHeight,
     numNotes,
     notes,
+    song,
   } = state;
 
   const diffX = lastX !== null ? x - lastX : 0;
@@ -64,10 +66,18 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     clone.ticks = ticks;
     clone.noteNumber = Math.floor(yPos / noteHeight);
     if (clone.noteNumber < 0 || clone.noteNumber >= numNotes) {
+      const millisPerTick = (60 / song.initialTempo / song.ppq) * 1000;
+      const trackId = song.tracks[0].id;
+      const events = createMIDIEventsFromNotes([...notes, currentNote], millisPerTick, trackId);
+
       return {
         type: REMOVE_NOTE,
         payload: {
           notes: notes.filter(note => note.id !== currentNote.id),
+          song: {
+            ...song,
+            events,
+          },
         },
       };
     }
