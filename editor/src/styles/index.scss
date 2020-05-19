@@ -68,26 +68,30 @@ button {
   width: 100vw;
   position: relative;
 
-  .note {
-    position: absolute;
-    // background-color: red;
-    background-color: rgba(231, 208, 186, 0.6);
-    height: 15px;
-  }
-
   .piano-roll-notes {
     position: absolute;
     background-color: rgba(255, 0, 0, 0.05);
     // height: 100%;
     top: 0px;
     z-index: 2;
+    .note {
+      position: absolute;
+      // background-color: red;
+      background-color: rgba(231, 208, 186, 0.6);
+      height: 15px;
+    }
   }
 
-  .piano-roll-note-current {
+  .piano-roll-current-note {
     top: 0;
     height: 100%;
     position: absolute;
     z-index: 3;
+    .note {
+      position: absolute;
+      background-color: rgba(20, 132, 227, 0.4);
+      height: 15px;
+    }
   }
 
   .piano-roll-grid {
