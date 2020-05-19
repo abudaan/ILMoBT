@@ -21,17 +21,17 @@ export const setupClock = () => {
       }))
     )
     .subscribe(({ transport, position, tracks, currentTrackIndex }) => {
-      if (!tracks) {
-        return;
-      }
-      const track = tracks[currentTrackIndex];
-      if (!track) {
-        return;
-      }
+      // if (!tracks) {
+      //   return;
+      // }
+      // const track = tracks[currentTrackIndex];
+      // if (!track) {
+      //   return;
+      // }
 
-      const duration = tracks[currentTrackIndex].duration;
-      const end = position >= duration;
-      const isPlaying = transport === Transport.PLAY && !end;
+      // const duration = tracks[currentTrackIndex].duration;
+      // const end = position >= duration;
+      const isPlaying = transport === Transport.PLAY; // && !end;
       if (isPlaying) {
         start = performance.now();
         run = true;
