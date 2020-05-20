@@ -8,7 +8,9 @@ import { EditorGridFlexBox } from "./EditorGridFlexBox";
 import { EditorNotes } from "./EditorNotes";
 import { Scrollable } from "./Scrollable";
 import { Menu } from "./Menu";
+import { Debug } from "./Debug";
 import { EditorCurrentNote } from "./EditorCurrentNote";
+import { PositionDisplay } from "./PositionDisplay";
 
 export const App = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -17,8 +19,8 @@ export const App = (): JSX.Element => {
   if (loading) {
     return <div className="loading">LOADING...</div>;
   }
-  const stop = () => {
-    dispatch(handlePointerUp());
+  const stop = (e: React.SyntheticEvent<Element, Event>) => {
+    dispatch(handlePointerUp(e));
   };
   return (
     <div
@@ -29,8 +31,7 @@ export const App = (): JSX.Element => {
       }}
     >
       <Menu></Menu>
-      {/* <TransportControls></TransportControls> */}
-      {/* <PositionDisplay></PositionDisplay> */}
+      <PositionDisplay></PositionDisplay>
       <Scrollable>
         {/* <EditorGridCanvas></EditorGridCanvas> */}
         <EditorGridFlexBox></EditorGridFlexBox>
@@ -38,6 +39,7 @@ export const App = (): JSX.Element => {
         <EditorCurrentNote></EditorCurrentNote>
         <Playhead></Playhead>
       </Scrollable>
+      <Debug></Debug>
     </div>
   );
 };

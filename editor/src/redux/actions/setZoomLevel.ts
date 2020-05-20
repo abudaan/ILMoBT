@@ -8,10 +8,10 @@ export const setZoomLevel = (zoom: number): AnyAction => {
   const {
     width,
     songData: {
-      song: { numerator, denominator, ppq, numBars },
+      song: { durationTicks },
     },
   } = state;
-  const ticksPerPixel = (width * zoom) / (numBars * numerator * denominator * ppq);
+  const ticksPerPixel = (width * zoom) / durationTicks;
   return {
     type: ZOOM_LEVEL,
     payload: {

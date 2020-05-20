@@ -41,7 +41,7 @@ export const schedule = ({
           // console.log(event.type, event.channel, event.noteNumber);
           const time = ts + song.latency + track.latency + (event.millis - millis);
           // console.log(time, ts, time - ts);
-          console.log(event.type + event.channel, event.noteNumber, event.velocity);
+          // console.log(event.type + event.channel, event.noteNumber, event.velocity);
           outputs
             ?.get(id)
             ?.send([event.type + event.channel, event.noteNumber, event.velocity], time);

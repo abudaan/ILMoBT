@@ -57,7 +57,9 @@ document.addEventListener("DOMContentLoaded", () => {
     resize();
     window.addEventListener("resize", resize);
 
-    document.addEventListener("keydown", e => {
+    document.addEventListener("keydown", e => {});
+    document.addEventListener("keyup", e => {
+      // console.log(e);
       if (e.keyCode === 32 || e.keyCode === 13) {
         const { transport } = store.getState();
         const action = transport === Transport.PLAY ? Transport.PAUSE : Transport.PLAY;
@@ -66,9 +68,6 @@ document.addEventListener("DOMContentLoaded", () => {
       } else if (e.keyCode === 96) {
         store.dispatch(handleTransport(Transport.STOP));
       }
-    });
-    document.addEventListener("keyup", e => {
-      // console.log(e);
     });
 
     const cleanup = () => {

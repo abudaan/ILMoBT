@@ -10,16 +10,16 @@ import {
   RESIZE_NOTE,
   MOVE_PLAYHEAD,
   STOP_MOVE_PLAYHEAD,
-  REMOVE_NOTE,
 } from "../../constants";
 import { RootState } from "../../types";
 import { createMIDIEventsFromNotes } from "../../util/midi_utils";
+import { SyntheticEvent } from "react";
 
-export const handlePointerUp = (): AnyAction => {
+export const handlePointerUp = (e: SyntheticEvent): AnyAction => {
   const state = store.getState() as RootState;
   const { editAction, songData, notes, currentNote } = state;
 
-  console.log("Pointer Up", editAction);
+  console.log("Pointer", e.nativeEvent.type, editAction);
 
   if (!editAction) {
     return {

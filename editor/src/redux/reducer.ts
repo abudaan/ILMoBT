@@ -20,6 +20,7 @@ import {
   RESIZE_NOTE,
   STORE_SONG,
   START_MOVE_PLAYHEAD,
+  STOP_MOVE_PLAYHEAD,
   MOVE_PLAYHEAD,
 } from "../constants";
 
@@ -93,19 +94,21 @@ export const rootReducer = (
   } else if (action.type === START_MOVE_PLAYHEAD) {
     return {
       ...state,
+      isPlaying: false,
+      transport: Transport.PAUSE,
       editAction: MOVE_PLAYHEAD,
     };
   } else if (action.type === MOVE_PLAYHEAD) {
     const {
-      payload: { lastX, playheadPositionX, playheadPosition },
+      payload: { lastX, playheadMillis, playheadPixels },
     } = action;
     return {
       ...state,
       isPlaying: false,
       transport: Transport.STOP,
       lastX,
-      playheadMillis: playheadPosition,
-      playheadPixels: playheadPositionX,
+      playheadMillis,
+      playheadPixels,
     };
   } else if (action.type === ZOOM_LEVEL) {
     const { zoomLevel, ticksPerPixel } = action.payload;
@@ -231,6 +234,13 @@ export const rootReducer = (
       songData: action.payload.songData,
       notes: action.payload.notes,
       currentNote: null,
+      editAction: "",
+    };
+  } else if (action.type === STOP_MOVE_PLAYHEAD) {
+    return {
+      ...state,
+      lastX: null,
+      lastY: null,
       editAction: "",
     };
   } else if (action.type === REMOVE_NOTE) {

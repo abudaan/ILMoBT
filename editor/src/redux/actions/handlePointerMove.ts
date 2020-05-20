@@ -42,12 +42,12 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
       type: NO_ACTION_REQUIRED,
     };
   } else if (editAction === MOVE_PLAYHEAD) {
-    const newPos = playheadPixels + diffX;
-    const millis = newPos / millisPerPixel / zoomLevel;
+    const pixels = playheadPixels + diffX;
+    const millis = pixels / millisPerPixel / zoomLevel;
     // console.log(newPos);
     return {
       type: MOVE_PLAYHEAD,
-      payload: { lastX: x, newPos, millis },
+      payload: { lastX: x, playheadPixels: pixels, playheadMillis: millis },
     };
   } else if (editAction === DRAW_NOTE) {
     // console.log(diffX, diffY);
@@ -63,7 +63,7 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
     const ticks = (currentNote.ticks * ticksPerPixel + diffX) / ticksPerPixel;
     const yPos = currentNote.originalNoteNumber * noteHeight - (startY - lastY);
     clone.ticks = ticks;
-    clone.noteNumber = Math.floor(yPos / noteHeight);
+    clone.noteNumber = Math.round(yPos / noteHeight);
     if (clone.noteNumber < 0 || clone.noteNumber >= songData.numNotes) {
       const trackId = songData.song.tracks[0].id;
       const events = createMIDIEventsFromNotes(
