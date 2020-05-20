@@ -47,9 +47,9 @@ module.exports = {
         use: {
           loader: "ts-loader",
           options: {
-            onlyCompileBundledFiles: true
-          }
-        }
+            onlyCompileBundledFiles: true,
+          },
+        },
       },
     ],
   },
@@ -64,5 +64,8 @@ module.exports = {
     hot: false,
     inline: false,
     liveReload: false,
+  },
+  node: {
+    fs: "empty",
   },
 };

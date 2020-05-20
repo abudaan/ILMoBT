@@ -9,7 +9,7 @@ const numerator = 4;
 const denominator = 4;
 const numBars = 10;
 const numNotes = 8; // number of notes used in this song
-const noteMapping = [60, 61, 62, 63, 64, 65, 66, 67].reverse();
+const noteMapping = [60, 62, 64, 65, 67, 69, 71, 72].reverse();
 
 export const setupSong = (): AnyAction => {
   const millisPerTick = (60 / bpm / ppq) * 1000;
