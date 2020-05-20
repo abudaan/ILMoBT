@@ -25,7 +25,7 @@ export const startDrawNote = (e: SyntheticEvent): AnyAction => {
         id: `note-${noteIndex}`,
         ticks: x / ticksPerPixel,
         noteNumber: parseInt(target.id.replace("row-", ""), 10),
-        duration: 960,
+        duration: 0,
       },
       noteIndex: noteIndex + 1,
     },

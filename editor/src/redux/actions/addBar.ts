@@ -22,8 +22,8 @@ export const addBar = (): AnyAction => {
         numBars: numBars - 1,
         song: {
           ...songData.song,
-          durationTicks: numBars * numerator * denominator * ppq,
-          durationMillis: numBars * numerator * denominator * ppq * millisPerTick,
+          durationTicks: numBars * numerator * (denominator / 4) * ppq,
+          durationMillis: numBars * numerator * (denominator / 4) * ppq * millisPerTick,
         },
       },
     },

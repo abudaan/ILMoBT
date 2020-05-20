@@ -11,7 +11,7 @@ import {
   RESIZE_NOTE,
 } from "../../constants";
 import { AnyAction, Dispatch } from "redux";
-import { createMIDIEventsFromNotes } from "./action_utils";
+import { createMIDIEventsFromNotes } from "../../util/midi_utils";
 
 export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
   const n = getNativeEvent(e);
@@ -68,6 +68,7 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
       const trackId = songData.song.tracks[0].id;
       const events = createMIDIEventsFromNotes(
         [...notes, currentNote],
+        songData.noteMapping,
         songData.millisPerTick,
         trackId
       );

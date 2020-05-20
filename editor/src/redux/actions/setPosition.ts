@@ -5,7 +5,7 @@ import { NO_ACTION_REQUIRED, SET_POSITION } from "../../constants";
 import { unschedule } from "../../../../webdaw/unschedule";
 import { midiAccess } from "../../media";
 import { getNativeEvent, getOffset } from "../../util/util";
-import { startMIDI } from "./action_utils";
+import { startMIDI } from "../../util/midi_utils";
 
 export const setPosition = (e: SyntheticEvent) => {
   const state = store.getState() as RootState;

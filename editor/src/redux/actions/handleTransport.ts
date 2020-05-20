@@ -1,30 +1,9 @@
 import { Dispatch } from "redux";
 import { store } from "../store";
 import { RootState, Transport } from "../../types";
-import { stopMIDI, startMIDI, pauseMIDI } from "./action_utils";
+import { stopMIDI, startMIDI, pauseMIDI, clock } from "../../util/midi_utils";
 import { SET_TRANSPORT } from "../../constants";
 import { setProgress } from "./setProgress";
-
-const clock = (() => {
-  let id: number;
-
-  const play = (start: number, callback: (p: number) => void) => {
-    const now = performance.now();
-    const progress = now - start;
-    callback(progress);
-    id = requestAnimationFrame(b => {
-      play(now, callback);
-    });
-  };
-
-  return {
-    play,
-    stop: () => {
-      // console.log(id);
-      cancelAnimationFrame(id);
-    },
-  };
-})();
 
 export const handleTransport = (transport: Transport) => async (
   dispatch: Dispatch

@@ -2,7 +2,7 @@ import { REMOVE_BAR } from "../../constants";
 import { AnyAction } from "redux";
 import { RootState } from "../../types";
 import { store } from "../store";
-import { createMIDIEventsFromNotes } from "./action_utils";
+import { createMIDIEventsFromNotes } from "../../util/midi_utils";
 
 export const removeBar = (): AnyAction => {
   const state = store.getState() as RootState;
@@ -10,6 +10,7 @@ export const removeBar = (): AnyAction => {
 
   const {
     numBars,
+    noteMapping,
     millisPerTick,
     song: { tracks, numerator, denominator, ppq },
   } = songData;
@@ -25,7 +26,7 @@ export const removeBar = (): AnyAction => {
     }
     return true;
   });
-  const filteredEvents = createMIDIEventsFromNotes(notes, millisPerTick, tracks[0].id);
+  const filteredEvents = createMIDIEventsFromNotes(notes, noteMapping, millisPerTick, tracks[0].id);
 
   return {
     type: REMOVE_BAR,
@@ -39,8 +40,8 @@ export const removeBar = (): AnyAction => {
           ...songData.song,
           events: filteredEvents,
           notes: filteredNotes,
-          durationTicks: numBars * numerator * denominator * ppq,
-          durationMillis: numBars * numerator * denominator * ppq * millisPerTick,
+          durationTicks: numBars * numerator * (denominator / 4) * ppq,
+          durationMillis: numBars * numerator * (denominator / 4) * ppq * millisPerTick,
         },
       },
     },

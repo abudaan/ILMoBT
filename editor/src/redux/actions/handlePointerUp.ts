@@ -13,7 +13,7 @@ import {
   REMOVE_NOTE,
 } from "../../constants";
 import { RootState } from "../../types";
-import { createMIDIEventsFromNotes } from "./action_utils";
+import { createMIDIEventsFromNotes } from "../../util/midi_utils";
 
 export const handlePointerUp = (): AnyAction => {
   const state = store.getState() as RootState;
@@ -33,7 +33,13 @@ export const handlePointerUp = (): AnyAction => {
 
   const trackId = songData.song.tracks[0].id;
   const newNotes = [...notes, currentNote];
-  const events = createMIDIEventsFromNotes(newNotes, songData.millisPerTick, trackId);
+  const events = createMIDIEventsFromNotes(
+    newNotes,
+    songData.noteMapping,
+    songData.millisPerTick,
+    trackId
+  );
+  // console.log(events);
   let type = "";
   if (editAction === DRAW_NOTE) {
     type = STOP_DRAW_NOTE;

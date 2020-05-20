@@ -1,7 +1,7 @@
 import { store } from "../store";
 import { RootState } from "../../types";
 import { STOP_SEEK } from "../../constants";
-import { startMIDI } from "./action_utils";
+import { startMIDI } from "../../util/midi_utils";
 
 export const stopInteractivity = () => {
   const state = store.getState() as RootState;
