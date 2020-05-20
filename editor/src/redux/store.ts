@@ -28,7 +28,6 @@ const initialState: RootState = {
   ticksPerPixel: 0, //(window.innerWidth * 1) / (numBars * numerator * denominator * ppq),
   editorScrollPos: 0,
   notes: [],
-  ppq: 960,
   currentNote: null,
   noteHeight: 30,
   editAction: "",

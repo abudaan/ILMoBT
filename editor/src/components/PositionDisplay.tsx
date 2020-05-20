@@ -14,6 +14,10 @@ const PositionDisplay = (): JSX.Element => {
   // const b = getNiceTime(songData.song.durationMillis).timeAsArrayString;
   // const display = `${a[1]}:${a[2]} / ${b[1]}:${b[2]}`;
 
-  return <div className="position-display">{a}</div>;
+  return (
+    <div className="position-display">
+      <div>{a}</div>
+    </div>
+  );
 };
 export { PositionDisplay };

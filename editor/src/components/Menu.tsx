@@ -7,6 +7,10 @@ import { addBar } from "../redux/actions/addBar";
 import { removeBar } from "../redux/actions/removeBar";
 import { seekZoomLevel } from "../redux/actions/seekZoomLevel";
 import { setZoomLevel } from "../redux/actions/setZoomLevel";
+import { handlePanic } from "../redux/actions/handlePanic";
+import { clearSong } from "../redux/actions/clearSong";
+import { saveMIDIFile } from "../redux/actions/saveMIDIFile";
+import { sendToFriend } from "../redux/actions/sendToFriend";
 
 const Menu = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -60,6 +64,42 @@ const Menu = (): JSX.Element => {
       <button
         type="button"
         onClick={(): void => {
+          dispatch(clearSong());
+        }}
+      >
+        clear song
+      </button>
+
+      <button
+        type="button"
+        onClick={(): void => {
+          dispatch(handlePanic());
+        }}
+      >
+        panic
+      </button>
+
+      <button
+        type="button"
+        onClick={(): void => {
+          dispatch(sendToFriend());
+        }}
+      >
+        send to friend
+      </button>
+
+      <button
+        type="button"
+        onClick={(): void => {
+          dispatch(saveMIDIFile());
+        }}
+      >
+        save
+      </button>
+
+      {/* <button
+        type="button"
+        onClick={(): void => {
           // dispatch(addBar());
         }}
       >
@@ -73,7 +113,7 @@ const Menu = (): JSX.Element => {
         }}
       >
         redo
-      </button>
+      </button> */}
 
       <SliderRange
         max={10}

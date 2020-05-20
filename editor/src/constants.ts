@@ -35,3 +35,8 @@ export const SET_PROGRESS = "SET_PROGRESS";
 export const JSON_LOADED = "JSON_LOADED";
 
 export const STORE_SONG = "STORE_SONG";
+
+export const PANIC = "PANIC";
+export const CLEAR_SONG = "CLEAR_SONG";
+export const SAVE_MIDI_FILE = "SAVE_MIDI_FILE";
+export const SEND_TO_FRIEND = "SEND_TO_FRIEND";

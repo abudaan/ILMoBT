@@ -3,7 +3,7 @@ import { outputs } from "../../media";
 import { Song } from "../../../../webdaw/types";
 import { STORE_SONG } from "../../constants";
 
-const ppq = 960;
+const ppq = 128;
 const bpm = 120;
 const numerator = 4;
 const denominator = 4;

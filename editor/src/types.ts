@@ -41,7 +41,6 @@ export type RootState = {
   ticksPerPixel: number;
   editorScrollPos: number;
   notes: NoteUI[];
-  ppq: number;
   currentNote: NoteUI;
   noteHeight: number;
   editAction: string;

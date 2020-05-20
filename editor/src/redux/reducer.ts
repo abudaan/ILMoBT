@@ -22,6 +22,10 @@ import {
   START_MOVE_PLAYHEAD,
   STOP_MOVE_PLAYHEAD,
   MOVE_PLAYHEAD,
+  PANIC,
+  CLEAR_SONG,
+  SAVE_MIDI_FILE,
+  SEND_TO_FRIEND,
 } from "../constants";
 
 export const rootReducer = (
@@ -252,6 +256,39 @@ export const rootReducer = (
       notes: action.payload.notes,
       currentNote: null,
       editAction: "",
+    };
+  } else if (action.type === PANIC) {
+    return {
+      ...state,
+      transport: Transport.STOP,
+      playheadMillis: 0,
+      playheadPixels: 0,
+    };
+  } else if (action.type === CLEAR_SONG) {
+    const {
+      payload: { notes, songData },
+    } = action;
+    return {
+      ...state,
+      notes,
+      songData,
+      transport: Transport.STOP,
+      playheadMillis: 0,
+      playheadPixels: 0,
+    };
+  } else if (action.type === SAVE_MIDI_FILE) {
+    return {
+      ...state,
+      transport: Transport.STOP,
+      playheadMillis: 0,
+      playheadPixels: 0,
+    };
+  } else if (action.type === SEND_TO_FRIEND) {
+    return {
+      ...state,
+      transport: Transport.STOP,
+      playheadMillis: 0,
+      playheadPixels: 0,
     };
   }
   return state;
