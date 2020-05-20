@@ -11,6 +11,7 @@ import { Menu } from "./Menu";
 import { Debug } from "./Debug";
 import { EditorCurrentNote } from "./EditorCurrentNote";
 import { PositionDisplay } from "./PositionDisplay";
+import { Form } from "./Form";
 
 export const App = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -39,7 +40,8 @@ export const App = (): JSX.Element => {
         <EditorCurrentNote></EditorCurrentNote>
         <Playhead></Playhead>
       </Scrollable>
-      <Debug></Debug>
+      <Form></Form>
+      {/* <Debug></Debug> */}
     </div>
   );
 };

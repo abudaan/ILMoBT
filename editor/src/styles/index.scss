@@ -27,15 +27,16 @@ button {
   display: flex;
   button {
     min-height: 30px;
-    font-family: monospace;
+    font-family: "Source Code Pro";
     margin: 4px;
-    padding: 0 20px 0 20px;
+    padding: 0 10px 0 10px;
 
     &.transport {
-      width: 80px;
+      width: 60px;
     }
   }
   #zoom-range {
+    margin-left: 15px;
     align-self: center;
   }
 
@@ -164,4 +165,42 @@ button {
     height: 100%;
     background-color: #1484e3;
   }
+}
+
+.form {
+  margin-top: 20px;
+  width: 400px;
+  background-color: rgb(50, 50, 50);
+  padding: 10px;
+  .form-item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 8px;
+    // justify-content: space-around;
+    div {
+      font-family: "Source Code Pro";
+      color: rgb(231, 208, 186);
+      font-size: 14px;
+      width: 160px;
+    }
+    input[type="text"],
+    input[type="email"] {
+      // width: calc(100vw - 200px);
+      width: 200px;
+    }
+    textarea {
+      // width: calc(100vw - 198px);
+      width: 198px;
+      height: 120px;
+    }
+    button {
+      align-self: flex-end;
+    }
+  }
+}
+
+.debug {
+  margin-top: 20px;
+  border-top: 1px solid rgb(231, 208, 186);
 }

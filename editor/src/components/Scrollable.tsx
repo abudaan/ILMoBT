@@ -35,7 +35,7 @@ const Scrollable = ({ children }: Props): JSX.Element => {
       //   dispatch(handlePointerUp());
       // }}
       className="scrollable"
-      style={{ height: `${numNotes * noteHeight + 100}px` }}
+      style={{ height: `${numNotes * noteHeight}px` }}
     >
       {children}
     </div>

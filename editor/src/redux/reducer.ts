@@ -26,12 +26,14 @@ import {
   CLEAR_SONG,
   SAVE_MIDI_FILE,
   SEND_TO_FRIEND,
+  SET_FORM,
 } from "../constants";
 
 export const rootReducer = (
   state: RootState,
   action: { type: string; payload: { [id: string]: any } }
 ): RootState => {
+  // console.log(action.type);
   if (action.type === RESIZE) {
     const { width, height } = action.payload;
     return {
@@ -258,6 +260,7 @@ export const rootReducer = (
       editAction: "",
     };
   } else if (action.type === PANIC) {
+    // console.log("PANIQUE EN AFRIQUE");
     return {
       ...state,
       transport: Transport.STOP,
@@ -286,9 +289,24 @@ export const rootReducer = (
   } else if (action.type === SEND_TO_FRIEND) {
     return {
       ...state,
+      form: {
+        name: "",
+        email: "",
+        nameFriend: "",
+        emailFriend: "",
+        message: "",
+      },
       transport: Transport.STOP,
       playheadMillis: 0,
       playheadPixels: 0,
+    };
+  } else if (action.type === SET_FORM) {
+    return {
+      ...state,
+      form: {
+        ...state.form,
+        ...action.payload,
+      },
     };
   }
   return state;

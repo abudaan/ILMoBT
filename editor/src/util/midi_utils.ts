@@ -4,6 +4,8 @@ import { unschedule } from "../../../webdaw/unschedule";
 import { midiAccess } from "../media";
 import { sortMIDIEvents } from "../../../webdaw/midi_utils";
 import { MIDIEvent } from "../../../webdaw/midi_events";
+import MidiWriter from "midi-writer-js";
+import { getNoteName } from "../../../webdaw/getNoteName";
 
 export const startMIDI = (data: SongData, position: number): SongData => {
   const m = position < 0 ? 0 : position;
@@ -103,3 +105,43 @@ export const clock = (() => {
     },
   };
 })();
+
+export const getMIDIFile = (
+  songData: SongData,
+  notes: NoteUI[],
+  noteMapping: number[],
+  type: "base64" | "dataUri" = "dataUri"
+): string => {
+  let pointer = 0;
+  const events = notes.map((n, i) => {
+    const t = getNoteName(noteMapping[n.noteNumber]);
+    const noteName = `${t[0]}${t[1]}`;
+    let wait = "T0";
+    // console.log(n.ticks, noteName, n.duration);
+    if (i === 0) {
+      wait = `T${n.ticks}`;
+    } else {
+      wait = `T${n.ticks - pointer}`;
+    }
+    const note = new MidiWriter.NoteEvent({
+      wait,
+      pitch: [noteName],
+      duration: `T${n.duration}`,
+    });
+    pointer = n.ticks + n.duration;
+    return note;
+  });
+
+  const track = new MidiWriter.Track();
+  // track.addEvent(new MidiWriter.ProgramChangeEvent({ instrument: 1 }));
+  track.setTimeSignature(songData.song.numerator, songData.song.denominator);
+  track.setTempo(songData.song.initialTempo);
+  track.addEvent(events, () => ({ sequential: true }));
+
+  // Generate a data URI
+  const write = new MidiWriter.Writer(track);
+  // if (type === "base64") {
+  //   return write.base64();
+  // }
+  return write.dataUri();
+};

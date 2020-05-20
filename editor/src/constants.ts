@@ -40,3 +40,5 @@ export const PANIC = "PANIC";
 export const CLEAR_SONG = "CLEAR_SONG";
 export const SAVE_MIDI_FILE = "SAVE_MIDI_FILE";
 export const SEND_TO_FRIEND = "SEND_TO_FRIEND";
+
+export const SET_FORM = "SET_FORM";

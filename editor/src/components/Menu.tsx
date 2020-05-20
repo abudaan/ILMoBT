@@ -79,14 +79,14 @@ const Menu = (): JSX.Element => {
         panic
       </button>
 
-      <button
+      {/* <button
         type="button"
         onClick={(): void => {
           dispatch(sendToFriend());
         }}
       >
         send to friend
-      </button>
+      </button> */}
 
       <button
         type="button"

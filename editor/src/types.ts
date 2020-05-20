@@ -45,6 +45,13 @@ export type RootState = {
   noteHeight: number;
   editAction: string;
   noteIndex: number;
+  form: {
+    name: string;
+    email: string;
+    nameFriend: string;
+    emailFriend: string;
+    message: string;
+  };
 };
 
 export type NoteUI = {

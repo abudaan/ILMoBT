@@ -32,6 +32,13 @@ const initialState: RootState = {
   noteHeight: 30,
   editAction: "",
   noteIndex: 0, // every time a note is created the index increases
+  form: {
+    name: "",
+    email: "",
+    nameFriend: "",
+    emailFriend: "",
+    message: "",
+  },
 };
 
 // const store: Store<any, AnyAction> = createStore(
