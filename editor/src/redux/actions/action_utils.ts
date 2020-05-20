@@ -6,13 +6,13 @@ import { sortMIDIEvents } from "../../../../webdaw/midi_utils";
 import { MIDIEvent } from "../../../../webdaw/midi_events";
 
 export const startMIDI = (reference: SongData, position: number): SongData => {
-  reference.timestamp = performance.now();
-  // const m = position - part.start + part.trimStart;
-  const m = position;
-  reference.millis = m < 0 ? 0 : m;
-  reference.index = getSchedulerIndex(reference.song, m);
-  // console.log("START", reference.millis, position, reference.index);
-  return reference;
+  const m = position < 0 ? 0 : position;
+  return {
+    ...reference,
+    millis: m,
+    index: getSchedulerIndex(reference.song, m),
+    timestamp: performance.now(),
+  };
 };
 
 export const playMIDI = (reference: SongData): SongData => {
@@ -22,21 +22,24 @@ export const playMIDI = (reference: SongData): SongData => {
     index: reference.index,
     outputs: midiAccess?.outputs,
   });
-  const ts = performance.now();
-  reference.millis += ts - reference.timestamp;
-  reference.timestamp = ts;
-  reference.index = index;
-  reference.scheduled = scheduled;
-  // console.log(reference.song.events.length, reference.millis, reference.index);
-  return reference;
+  const timestamp = performance.now();
+  return {
+    ...reference,
+    millis: reference.millis + (timestamp - reference.timestamp),
+    timestamp,
+    index,
+    scheduled,
+  };
+};
+
+export const pauseMIDI = (reference: SongData): SongData => {
+  unschedule(reference.song, midiAccess?.outputs);
+  return { ...reference, scheduled: [] };
 };
 
 export const stopMIDI = (reference: SongData): SongData => {
   unschedule(reference.song, midiAccess?.outputs);
-  reference.index = 0;
-  reference.millis = 0;
-  reference.scheduled = [];
-  return reference;
+  return { ...reference, scheduled: [], millis: 0, index: 0 };
 };
 
 export const createMIDIEventsFromNotes = (

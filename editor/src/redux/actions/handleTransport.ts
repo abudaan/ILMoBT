@@ -1,11 +1,9 @@
 import { Dispatch } from "redux";
 import { store } from "../store";
 import { RootState, Transport } from "../../types";
-import { midiAccess } from "../../media";
-import { stopMIDI, startMIDI } from "./action_utils";
-import { SET_TRANSPORT, NO_ACTION_REQUIRED } from "../../constants";
+import { stopMIDI, startMIDI, pauseMIDI } from "./action_utils";
+import { SET_TRANSPORT } from "../../constants";
 import { setProgress } from "./setProgress";
-import { unschedule } from "../../../../webdaw/unschedule";
 
 const clock = (() => {
   let id: number;
@@ -33,30 +31,25 @@ export const handleTransport = (transport: Transport) => async (
 ): Promise<void> => {
   const state = store.getState() as RootState;
   const { playheadMillis, songData } = state;
-
-  if (transport === Transport.STOP || transport === Transport.PAUSE) {
+  let sd = songData;
+  if (transport === Transport.STOP) {
     clock.stop();
-    unschedule(songData.song, midiAccess?.outputs);
+    sd = stopMIDI(songData);
+  } else if (transport === Transport.PAUSE) {
+    clock.stop();
+    sd = pauseMIDI(songData);
   } else if (transport === Transport.PLAY) {
-    // startMIDI();
+    sd = startMIDI(songData, playheadMillis);
     clock.play(performance.now(), (progress: number) => {
       dispatch(setProgress(progress));
     });
   }
-  // let track = currentTrack;
-  // if (currentTrack !== null) {
-  //   if (transport === Transport.STOP) {
-  //     track = stopMIDI(currentTrack);
-  //   } else if (transport === Transport.PLAY) {
-  //     track = startMIDI(currentTrack, playheadMillis);
-  //   }
-  // }
+
   dispatch({
-    // type: SET_TRANSPORT,
-    type: NO_ACTION_REQUIRED,
+    type: SET_TRANSPORT,
     payload: {
       transport,
-      // currentTrack: track,
+      songData: sd,
     },
   });
 };

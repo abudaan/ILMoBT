@@ -79,8 +79,8 @@ export const rootReducer = (
     };
   } else if (action.type === SET_PROGRESS) {
     // console.log(action.payload);
-    const { playheadMillis, isPlaying, progress, transport } = action.payload;
-    const p = playheadMillis / state.songData.song.durationMillis;
+    const { progress, transport, playheadMillis, isPlaying, songData } = action.payload;
+    const p = playheadMillis / songData.song.durationMillis;
     return {
       ...state,
       playheadMillis,
@@ -88,6 +88,7 @@ export const rootReducer = (
       isPlaying,
       progress,
       transport,
+      songData,
     };
   } else if (action.type === START_MOVE_PLAYHEAD) {
     return {
