@@ -50,13 +50,15 @@ try {
     $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
 
     $mail->send();
-    echo 'Message has been sent';
+    header('Content-Type: application/json; charset=UTF-8');
+    echo json_encode(array(
+      'msg' => 'Message has been sent'
+    ));
 } catch (Exception $e) {
-    echo "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
+  header('Content-Type: application/json; charset=UTF-8');
+  echo json_encode(array(
+    'msg' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"
+  ));
+
 }
 
-
-// header('Content-Type: application/json; charset=UTF-8');
-// echo json_encode(array(
-//   'id' => $id
-// ));
