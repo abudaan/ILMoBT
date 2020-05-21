@@ -29,6 +29,7 @@ import {
   SET_FORM,
   SCROLL_EDITOR,
   JSON_LOADED,
+  SENT_TO_FRIEND,
 } from "../constants";
 
 export const rootReducer = (
@@ -304,7 +305,7 @@ export const rootReducer = (
       playheadMillis: 0,
       playheadPixels: 0,
     };
-  } else if (action.type === SEND_TO_FRIEND) {
+  } else if (action.type === SENT_TO_FRIEND) {
     return {
       ...state,
       form: {

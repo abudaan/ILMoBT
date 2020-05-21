@@ -32,7 +32,7 @@ export const startDrawNote = (e: SyntheticEvent): AnyAction => {
         id: `note-${noteIndex}`,
         ticks: x / ticksPerPixel,
         noteNumber: parseInt(target.id.replace("row-", ""), 10),
-        duration: ppq / 2,
+        duration: ppq / 4,
       },
       noteIndex: noteIndex + 1,
     },

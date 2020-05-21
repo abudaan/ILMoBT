@@ -53,7 +53,7 @@ export const loadJSON = (url: string) => async (dispatch: Dispatch): Promise<voi
         scheduled: [],
         numBars,
         numNotes,
-        noteMapping,
+        noteMapping: noteMapping.reverse(),
       },
       width: window.innerWidth,
       height: window.innerHeight,
