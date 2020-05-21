@@ -11,13 +11,15 @@ import {
   MOVE_PLAYHEAD,
   STOP_MOVE_PLAYHEAD,
 } from "../../constants";
-import { RootState } from "../../types";
+import { RootState, Transport } from "../../types";
 import { createMIDIEventsFromNotes } from "../../util/midi_utils";
 import { SyntheticEvent } from "react";
+import { clock, startMIDI } from "../../util/midi_utils";
+import { setProgress } from "../../redux/actions/setProgress";
 
 export const handlePointerUp = (e: SyntheticEvent): AnyAction => {
   const state = store.getState() as RootState;
-  const { editAction, songData, notes, currentNote } = state;
+  const { editAction, songData, notes, currentNote, wasPlaying, transport, playheadMillis } = state;
 
   console.log("Pointer", e.nativeEvent.type, editAction);
 
@@ -26,8 +28,20 @@ export const handlePointerUp = (e: SyntheticEvent): AnyAction => {
       type: NO_ACTION_REQUIRED,
     };
   } else if (editAction === MOVE_PLAYHEAD) {
+    let t = transport;
+    let sd = songData;
+    if (wasPlaying) {
+      t = Transport.PLAY;
+      sd = startMIDI(songData, playheadMillis);
+      clock.play(performance.now(), (progress: number) => {
+        store.dispatch(setProgress(progress));
+      });
+    }
     return {
       type: STOP_MOVE_PLAYHEAD,
+      payload: {
+        transport: t,
+      },
     };
   }
 
@@ -37,7 +51,8 @@ export const handlePointerUp = (e: SyntheticEvent): AnyAction => {
     newNotes,
     songData.noteMapping,
     songData.millisPerTick,
-    trackId
+    trackId,
+    songData.velocity
   );
   // console.log(events);
   let type = "";

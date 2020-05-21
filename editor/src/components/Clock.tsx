@@ -1,7 +1,7 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { RootState } from "../types";
-import { setProgress } from "../redux/actions/handleOther";
+import { setProgress } from "../redux/actions/setProgress";
 
 // let id: number;
 

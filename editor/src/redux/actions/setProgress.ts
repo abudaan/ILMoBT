@@ -5,8 +5,15 @@ import { SET_PROGRESS } from "../../constants";
 
 export const setProgress = (progress: number) => {
   const state = store.getState() as RootState;
-  const { playheadMillis, songData, transport } = state;
+  const { playheadMillis, songData, transport, width, editorScrollPos } = state;
   const millis = playheadMillis + progress;
+  const p = playheadMillis / songData.song.durationMillis;
+  let scroll = editorScrollPos;
+  let pixels = p * width;
+  if (p >= 1) {
+    scroll = editorScrollPos - width;
+    pixels = 0;
+  }
 
   let sd = songData;
   if (millis < songData.song.durationMillis) {
@@ -17,6 +24,8 @@ export const setProgress = (progress: number) => {
         progress,
         transport,
         playheadMillis: millis,
+        playheadPixels: pixels,
+        editorScrollPos: scroll,
         isPlaying: true,
         songData: sd,
       },

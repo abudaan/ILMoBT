@@ -1,5 +1,5 @@
-import uniquid from "uniquid";
-import { Observable, Subscriber } from "rxjs";
+// import uniquid from "uniquid";
+// import { Observable, Subscriber } from "rxjs";
 import { compose, applyMiddleware, createStore, Store, AnyAction } from "redux";
 import { createLogger } from "redux-logger";
 // import thunkMiddleware from "redux-thunk";
@@ -42,13 +42,14 @@ const initialState: RootState = {
 };
 
 // const store: Store<any, AnyAction> = createStore(
-const store = createStore(
+export const store = createStore(
   rootReducer,
   initialState,
   applyMiddleware(thunk as ThunkMiddleware<RootState, AnyAction>)
   // compose(applyMiddleware(thunkMiddleware, createLogger({ collapsed: true })))
 );
 
+/*
 const state$ = new Observable((observer: Subscriber<RootState>) => {
   observer.next(store.getState());
   const unsubscribe = store.subscribe(() => {
@@ -62,3 +63,4 @@ const getState$ = (): Observable<RootState> => {
 };
 
 export { getState$, store };
+*/

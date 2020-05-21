@@ -41,7 +41,7 @@ export const App = (): JSX.Element => {
         <Playhead></Playhead>
       </Scrollable>
       <Form></Form>
-      <Debug></Debug>
+      {/* <Debug></Debug> */}
     </div>
   );
 };

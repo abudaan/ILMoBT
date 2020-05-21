@@ -19,13 +19,13 @@ export const setPosition = (e: SyntheticEvent) => {
   unschedule(songData.song, midiAccess.outputs);
   const n = getNativeEvent(e);
   const x = getOffset(n).x;
-  const millis = (x / width) * songData.song.durationMillis;
+  const millis = Math.max(0, (x / width) * songData.song.durationMillis);
   const track = startMIDI(songData, millis);
 
   return {
     type: SET_POSITION,
     payload: {
-      playheadMillis: (x / width) * songData.song.durationMillis,
+      playheadMillis: millis,
       playheadPixels: x,
       currentTrack: track,
     },

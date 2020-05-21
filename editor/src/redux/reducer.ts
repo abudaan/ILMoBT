@@ -27,6 +27,7 @@ import {
   SAVE_MIDI_FILE,
   SEND_TO_FRIEND,
   SET_FORM,
+  SCROLL_EDITOR,
 } from "../constants";
 
 export const rootReducer = (
@@ -86,12 +87,20 @@ export const rootReducer = (
     };
   } else if (action.type === SET_PROGRESS) {
     // console.log(action.payload);
-    const { progress, transport, playheadMillis, isPlaying, songData } = action.payload;
-    const p = playheadMillis / songData.song.durationMillis;
+    const {
+      progress,
+      transport,
+      playheadMillis,
+      playheadPixels,
+      editorScrollPos,
+      isPlaying,
+      songData,
+    } = action.payload;
     return {
       ...state,
       playheadMillis,
-      playheadPixels: p * state.width,
+      playheadPixels,
+      editorScrollPos,
       isPlaying,
       progress,
       transport,
@@ -100,6 +109,7 @@ export const rootReducer = (
   } else if (action.type === START_MOVE_PLAYHEAD) {
     return {
       ...state,
+      wasPlaying: state.isPlaying,
       isPlaying: false,
       transport: Transport.PAUSE,
       editAction: MOVE_PLAYHEAD,
@@ -243,8 +253,14 @@ export const rootReducer = (
       editAction: "",
     };
   } else if (action.type === STOP_MOVE_PLAYHEAD) {
+    const {
+      payload: { transport },
+    } = action;
     return {
       ...state,
+      transport,
+      wasPlaying: false,
+      isPlaying: transport === Transport.PLAY,
       lastX: null,
       lastY: null,
       editAction: "",
@@ -307,6 +323,11 @@ export const rootReducer = (
         ...state.form,
         ...action.payload,
       },
+    };
+  } else if (action.type === SCROLL_EDITOR) {
+    return {
+      ...state,
+      editorScrollPos: action.payload.scrollLeft,
     };
   }
   return state;

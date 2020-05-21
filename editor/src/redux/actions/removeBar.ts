@@ -26,7 +26,13 @@ export const removeBar = (): AnyAction => {
     }
     return true;
   });
-  const filteredEvents = createMIDIEventsFromNotes(notes, noteMapping, millisPerTick, tracks[0].id);
+  const filteredEvents = createMIDIEventsFromNotes(
+    notes,
+    noteMapping,
+    millisPerTick,
+    tracks[0].id,
+    songData.velocity
+  );
 
   return {
     type: REMOVE_BAR,

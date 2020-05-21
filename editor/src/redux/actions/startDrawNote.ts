@@ -8,8 +8,15 @@ import { store } from "../store";
 export const startDrawNote = (e: SyntheticEvent): AnyAction => {
   const target = e.target as HTMLDivElement;
   const n = getNativeEvent(e);
+  n.stopPropagation();
   const state = store.getState() as RootState;
-  const { ticksPerPixel, noteIndex } = state;
+  const {
+    ticksPerPixel,
+    noteIndex,
+    songData: {
+      song: { ppq },
+    },
+  } = state;
 
   // this x is the thumb!
   const { x, y } = getOffset(n);
@@ -25,7 +32,7 @@ export const startDrawNote = (e: SyntheticEvent): AnyAction => {
         id: `note-${noteIndex}`,
         ticks: x / ticksPerPixel,
         noteNumber: parseInt(target.id.replace("row-", ""), 10),
-        duration: 0,
+        duration: ppq / 2,
       },
       noteIndex: noteIndex + 1,
     },

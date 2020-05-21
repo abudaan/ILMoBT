@@ -10,6 +10,7 @@ export enum Transport {
 export type SongData = {
   song: Song;
   timestamp: number;
+  velocity: number;
   millis: number;
   index: number;
   numNotes: number;

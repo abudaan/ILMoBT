@@ -48,7 +48,8 @@ export const createMIDIEventsFromNotes = (
   notes: NoteUI[],
   noteMapping: number[],
   millisPerTick: number,
-  trackId: string
+  trackId: string,
+  velocity: number
 ): MIDIEvent[] =>
   sortMIDIEvents(
     notes
@@ -60,7 +61,7 @@ export const createMIDIEventsFromNotes = (
           channel: 0,
           millis: note.ticks * millisPerTick,
           noteNumber: noteMapping[note.noteNumber],
-          velocity: 100,
+          velocity,
           trackId,
         };
         const noteOff = {

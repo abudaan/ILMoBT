@@ -26,7 +26,7 @@ export const NO_ACTION_REQUIRED = "NO_ACTION_REQUIRED";
 export const ZOOM_LEVEL = "ZOOM_LEVEL";
 export const SEEK_ZOOM_LEVEL = "SEEK_ZOOM_LEVEL";
 
-export const SCROLL_ARRANGER = "SCROLL_ARRANGER";
+export const SCROLL_EDITOR = "SCROLL_EDITOR";
 
 export const SET_POSITION = "SET_POSITION";
 export const SET_TRANSPORT = "SET_TRANSPORT";

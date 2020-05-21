@@ -42,8 +42,8 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
       type: NO_ACTION_REQUIRED,
     };
   } else if (editAction === MOVE_PLAYHEAD) {
-    const pixels = playheadPixels + diffX;
-    const millis = pixels / millisPerPixel / zoomLevel;
+    const pixels = Math.max(0, playheadPixels + diffX);
+    const millis = Math.max(0, pixels / millisPerPixel / zoomLevel);
     // console.log(newPos);
     return {
       type: MOVE_PLAYHEAD,
@@ -70,7 +70,8 @@ export const handlePointerMove = (e: SyntheticEvent): AnyAction => {
         [...notes, currentNote],
         songData.noteMapping,
         songData.millisPerTick,
-        trackId
+        trackId,
+        songData.velocity
       );
 
       return {
