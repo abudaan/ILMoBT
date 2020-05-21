@@ -1,0 +1,10 @@
+{
+  "ppq": 128,
+  "bpm": 120,
+  "velocity": 100,
+  "numerator": 4,
+  "denominator": 4,
+  "numBars": 4,
+  "numNotes": 8,
+  "noteMapping": [60, 62, 64, 65, 67, 69, 71, 72]
+}

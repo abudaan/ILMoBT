@@ -8,7 +8,7 @@ import { rootReducer } from "./reducer";
 import { RootState, Transport } from "../types";
 
 const initialState: RootState = {
-  loading: false,
+  loading: true,
   width: window.innerWidth,
   height: window.innerHeight,
   isPlaying: false,

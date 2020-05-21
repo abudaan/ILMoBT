@@ -7,6 +7,17 @@ export enum Transport {
   STOP = "stop",
 }
 
+export type ConfigData = {
+  ppq: number;
+  bpm: number;
+  velocity: number;
+  numerator: number;
+  denominator: number;
+  numBars: number;
+  numNotes: number;
+  noteMapping: number[];
+};
+
 export type SongData = {
   song: Song;
   timestamp: number;

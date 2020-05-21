@@ -10,6 +10,7 @@ import { init, midiAccess } from "./media";
 import { handleTransport } from "./redux/actions/handleTransport";
 import { App } from "./components/App";
 import { setupSong } from "./redux/actions/setupSong";
+import { loadJSON } from "./redux/actions/loadJSON";
 
 document.addEventListener("DOMContentLoaded", () => {
   init().then(() => {
@@ -35,7 +36,7 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    store.dispatch(setupSong());
+    store.dispatch(loadJSON("./config.json"));
 
     render(
       <Provider store={store}>
@@ -54,7 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
         },
       });
     };
-    resize();
     window.addEventListener("resize", resize);
 
     document.addEventListener("keydown", e => {});

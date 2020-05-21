@@ -1,20 +1,23 @@
-import { AnyAction } from "redux";
+import { Dispatch } from "redux";
+import { fetchJSON } from "../../../../webdaw/fetch_helpers";
+import { JSON_LOADED } from "../../constants";
+import { ConfigData } from "../../types";
 import { outputs } from "../../media";
 import { Song } from "../../../../webdaw/types";
-import { STORE_SONG } from "../../constants";
 
-const ppq = 128;
-const bpm = 120;
-const velocity = 100;
-const numerator = 4;
-const denominator = 4;
-const numBars = 4; // initial number of bars
-const numNotes = 8; // number of notes used in this song
-const noteMapping = [60, 62, 64, 65, 67, 69, 71, 72].reverse();
+export const loadJSON = (url: string) => async (dispatch: Dispatch): Promise<void> => {
+  const {
+    ppq,
+    bpm,
+    velocity,
+    numerator,
+    denominator,
+    numBars,
+    numNotes,
+    noteMapping,
+  } = ((await fetchJSON(url)) as unknown) as ConfigData;
 
-export const setupSong = (): AnyAction => {
   const millisPerTick = (60 / bpm / ppq) * 1000;
-
   const track = {
     id: "track-1",
     latency: 0,
@@ -37,8 +40,8 @@ export const setupSong = (): AnyAction => {
     events: [],
   } as Song;
 
-  return {
-    type: STORE_SONG,
+  dispatch({
+    type: JSON_LOADED,
     payload: {
       songData: {
         song,
@@ -52,6 +55,8 @@ export const setupSong = (): AnyAction => {
         numNotes,
         noteMapping,
       },
+      width: window.innerWidth,
+      height: window.innerHeight,
     },
-  };
+  });
 };

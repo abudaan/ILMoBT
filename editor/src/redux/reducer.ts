@@ -28,6 +28,7 @@ import {
   SEND_TO_FRIEND,
   SET_FORM,
   SCROLL_EDITOR,
+  JSON_LOADED,
 } from "../constants";
 
 export const rootReducer = (
@@ -326,10 +327,22 @@ export const rootReducer = (
       },
     };
   } else if (action.type === SCROLL_EDITOR) {
-    // console.log(SCROLL_EDITOR, action.payload.scrollLeft);
     return {
       ...state,
       editorScrollPos: action.payload.scrollLeft,
+    };
+  } else if (action.type === JSON_LOADED) {
+    const {
+      payload: { width, height, songData },
+    } = action;
+    return {
+      ...state,
+      songData,
+      loading: false,
+      width,
+      height,
+      millisPerPixel: width / songData.song.durationMillis,
+      ticksPerPixel: width / songData.song.durationTicks,
     };
   }
   return state;
