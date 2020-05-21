@@ -141,8 +141,8 @@ export const getMIDIFile = (
 
   // Generate a data URI
   const write = new MidiWriter.Writer(track);
-  // if (type === "base64") {
-  //   return write.base64();
-  // }
+  if (type === "base64") {
+    return write.base64();
+  }
   return write.dataUri();
 };

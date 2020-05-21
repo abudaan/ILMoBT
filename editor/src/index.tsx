@@ -9,32 +9,31 @@ import { Transport } from "./types";
 import { init, midiAccess } from "./media";
 import { handleTransport } from "./redux/actions/handleTransport";
 import { App } from "./components/App";
-import { setupSong } from "./redux/actions/setupSong";
 import { loadJSON } from "./redux/actions/loadJSON";
 
 document.addEventListener("DOMContentLoaded", () => {
   init().then(() => {
     const editor = document.getElementById("editor");
 
-    if (midiAccess === null) {
-      const browsers = [
-        "Chromium",
-        "Chrome",
-        "Brave",
-        "Edge",
-        "Opera",
-        "Vivaldi",
-        "Samsung Internet",
-      ].map(b => <li key={b}>{b}</li>);
-      render(
-        <div className="message">
-          The MIDI editor only runs in Chromium based browsers such as:
-          <ul>{browsers}</ul>
-        </div>,
-        editor
-      );
-      return;
-    }
+    // if (midiAccess === null) {
+    //   const browsers = [
+    //     "Chromium",
+    //     "Chrome",
+    //     "Brave",
+    //     "Edge",
+    //     "Opera",
+    //     "Vivaldi",
+    //     "Samsung Internet",
+    //   ].map(b => <li key={b}>{b}</li>);
+    //   render(
+    //     <div className="message">
+    //       The MIDI editor only runs in Chromium based browsers such as:
+    //       <ul>{browsers}</ul>
+    //     </div>,
+    //     editor
+    //   );
+    //   return;
+    // }
 
     store.dispatch(loadJSON("./config.json"));
 

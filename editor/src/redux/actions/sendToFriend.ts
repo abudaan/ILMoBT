@@ -41,8 +41,6 @@ export const sendToFriend = () => async (dispatch: Dispatch): Promise<void> => {
     body: JSON.stringify(data), // body data type must match "Content-Type" header
   });
 
-  console.log(response.json());
-
   dispatch({
     type: SENT_TO_FRIEND,
   });
