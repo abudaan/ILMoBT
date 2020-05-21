@@ -5,15 +5,14 @@ import { SET_PROGRESS } from "../../constants";
 
 export const setProgress = (progress: number) => {
   const state = store.getState() as RootState;
-  const { playheadMillis, songData, transport, width, editorScrollPos } = state;
+  const { playheadMillis, songData, transport, width, editorScrollPos, zoomLevel } = state;
   const millis = playheadMillis + progress;
   const p = playheadMillis / songData.song.durationMillis;
   let scroll = editorScrollPos;
-  let pixels = p * width;
-  if (p >= 1) {
-    scroll = editorScrollPos - width;
-    pixels = 0;
-  }
+  let pixels = p * width * zoomLevel;
+  scroll = Math.max(0, Math.ceil((pixels - width) / width) * width);
+  scroll = Math.min(scroll, width * zoomLevel - width);
+  // console.log(scroll);
 
   let sd = songData;
   if (millis < songData.song.durationMillis) {
@@ -39,6 +38,8 @@ export const setProgress = (progress: number) => {
       progress,
       transport: Transport.PAUSE,
       playheadMillis: songData.song.durationMillis,
+      playheadPixels: width * zoomLevel,
+      editorScrollPos: scroll,
       isPlaying: false,
       songData: sd,
     },

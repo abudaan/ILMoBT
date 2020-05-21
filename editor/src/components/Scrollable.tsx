@@ -10,7 +10,7 @@ const Scrollable = ({ children }: Props): JSX.Element => {
   const numNotes = useSelector((state: RootState) => state.songData.numNotes);
   const noteHeight = useSelector((state: RootState) => state.noteHeight);
   const scrollLeft = useSelector((state: RootState) => state.editorScrollPos);
-  console.log(scrollLeft);
+  // console.log(scrollLeft);
 
   // const onScroll = (e: SyntheticEvent): void => {
   //   const scroll = (e.nativeEvent.target as HTMLDivElement).scrollLeft;

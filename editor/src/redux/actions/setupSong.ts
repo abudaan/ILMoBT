@@ -4,11 +4,11 @@ import { Song } from "../../../../webdaw/types";
 import { STORE_SONG } from "../../constants";
 
 const ppq = 128;
-const bpm = 240;
+const bpm = 120;
 const velocity = 100;
 const numerator = 4;
 const denominator = 4;
-const numBars = 10; // initial number of bars
+const numBars = 4; // initial number of bars
 const numNotes = 8; // number of notes used in this song
 const noteMapping = [60, 62, 64, 65, 67, 69, 71, 72].reverse();
 

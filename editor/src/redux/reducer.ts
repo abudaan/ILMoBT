@@ -87,6 +87,7 @@ export const rootReducer = (
     };
   } else if (action.type === SET_PROGRESS) {
     // console.log(action.payload);
+    // console.log(SET_PROGRESS, action.payload.scrollLeft);
     const {
       progress,
       transport,
@@ -325,6 +326,7 @@ export const rootReducer = (
       },
     };
   } else if (action.type === SCROLL_EDITOR) {
+    // console.log(SCROLL_EDITOR, action.payload.scrollLeft);
     return {
       ...state,
       editorScrollPos: action.payload.scrollLeft,
