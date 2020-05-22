@@ -179,10 +179,9 @@ button {
 }
 
 .form {
-  margin-top: 50px;
-  width: 400px;
-  background-color: rgb(50, 50, 50);
-  padding: 10px;
+  margin-top: 60px;
+  max-width: 500px;
+  width: 100%;
   .form-item {
     width: 100%;
     display: flex;
@@ -197,14 +196,28 @@ button {
     }
     input[type="text"],
     input[type="email"] {
-      width: 200px;
+      width: calc(100% - 160px);
+      height: 30px;
+      padding: 3px;
+      font-size: 16px;
+      background-color: rgb(50, 50, 50);
+      color: rgb(231, 208, 186);
     }
     textarea {
-      width: 198px;
-      height: 120px;
+      font-family: "Source Code Pro";
+      color: rgb(231, 208, 186);
+      font-size: 16px;
+      width: calc(100% - 160px);
+      height: 50px;
+      padding: 3px;
+      background-color: rgb(50, 50, 50);
     }
-    button {
-      align-self: flex-end;
+    &:last-child {
+      justify-content: flex-end;
+      button {
+        margin: 0;
+        margin-top: 5px;
+      }
     }
   }
 }
