@@ -16,7 +16,7 @@ type Props = {
 const createLabel = (label: string, value: number) => {
   let l = `${value}`;
   if (label !== "") {
-    l = label + ": <em>" + value + "</em>";
+    l = `${label}: ${value}`;
   }
   return { __html: l };
 };
@@ -37,7 +37,7 @@ export const SliderRange = (props: Props): JSX.Element => {
 
   return (
     <div className="react-slider" id={id}>
-      {/* <label htmlFor={id} dangerouslySetInnerHTML={createLabel(label, value)} /> */}
+      <label htmlFor={id} dangerouslySetInnerHTML={createLabel(label, value)} />
       <input
         key={type}
         type="range"
@@ -50,7 +50,6 @@ export const SliderRange = (props: Props): JSX.Element => {
         onTouchEndCapture={onInput}
         onMouseUpCapture={onInput}
       />
-      <label htmlFor={id} dangerouslySetInnerHTML={createLabel(label, value)} />
     </div>
   );
 };

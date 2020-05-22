@@ -31,7 +31,6 @@ export const App = (): JSX.Element => {
         dispatch(handlePointerMove(e));
       }}
     >
-      <Menu></Menu>
       <PositionDisplay></PositionDisplay>
       <Scrollable>
         {/* <EditorGridCanvas></EditorGridCanvas> */}
@@ -40,6 +39,7 @@ export const App = (): JSX.Element => {
         <EditorCurrentNote></EditorCurrentNote>
         <Playhead></Playhead>
       </Scrollable>
+      <Menu></Menu>
       <Form></Form>
       {/* <Debug></Debug> */}
     </div>

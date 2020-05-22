@@ -1,8 +1,8 @@
 body {
   background-color: #100806;
-  padding: 0;
-  margin: 0px;
-  color: white;
+  // padding: 0;
+  // margin: 0px;
+  // color: white;
 }
 
 div {
@@ -23,59 +23,70 @@ button {
 }
 
 .menu {
-  width: 100vw;
+  width: 100%;
   display: flex;
-  button {
-    min-height: 30px;
-    font-family: "Source Code Pro";
-    margin: 4px;
-    padding: 0 10px 0 10px;
+  margin-top: 20px;
+  justify-content: space-between;
 
-    &.transport {
-      width: 60px;
-    }
-  }
-  #zoom-range {
-    margin-left: 15px;
-    align-self: center;
-  }
+  div {
+    display: flex;
 
-  .react-slider {
-    flex-grow: 0;
-    flex-shrink: 0;
-    white-space: nowrap;
-    height: 25px;
-    margin-top: 4px;
-    margin-right: 4px;
-    display: block;
-    input[type="range"] {
-      vertical-align: middle;
+    button {
+      min-height: 30px;
+      font-family: "Source Code Pro";
+      margin: 4px;
+      padding: 0 10px 0 10px;
+
+      &.transport {
+        width: 60px;
+      }
     }
-    label {
-      display: inline-block;
-      min-width: 100px;
+    #zoom-range {
+      margin-left: 15px;
+      align-self: center;
+    }
+
+    .react-slider {
+      flex-grow: 0;
+      flex-shrink: 0;
+      white-space: nowrap;
+      height: 25px;
+      margin-top: 4px;
+      margin-right: 4px;
+      display: block;
+      input[type="range"] {
+        vertical-align: middle;
+      }
+      label {
+        display: inline-block;
+        font-family: "Source Code Pro";
+        font-size: 14px;
+        color: rgb(231, 208, 186);
+        min-width: 80px;
+        padding-left: 8px;
+      }
     }
   }
 }
 
 .position-display {
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-direction: row;
   justify-content: space-evenly;
   div {
     font-family: "Source Code Pro";
     color: rgb(231, 208, 186);
-    margin-top: 20px;
+    // margin-top: 20px;
     font-size: 14px;
   }
 }
 
 .scrollable {
-  margin-top: 20px;
+  margin-top: 10px;
   overflow-x: scroll;
   overflow-y: hidden;
-  width: 100vw;
+  width: 100%;
   position: relative;
 
   .piano-roll-notes {
@@ -168,7 +179,7 @@ button {
 }
 
 .form {
-  margin-top: 20px;
+  margin-top: 50px;
   width: 400px;
   background-color: rgb(50, 50, 50);
   padding: 10px;
@@ -186,11 +197,9 @@ button {
     }
     input[type="text"],
     input[type="email"] {
-      // width: calc(100vw - 200px);
       width: 200px;
     }
     textarea {
-      // width: calc(100vw - 198px);
       width: 198px;
       height: 120px;
     }

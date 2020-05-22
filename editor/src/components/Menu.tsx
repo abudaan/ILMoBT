@@ -21,119 +21,96 @@ const Menu = (): JSX.Element => {
 
   return (
     <div className="menu">
-      <button
-        disabled={disabled}
-        className="transport"
-        type="button"
-        onClick={(): void => {
-          dispatch(handleTransport(isPlaying ? Transport.PAUSE : Transport.PLAY));
-        }}
-      >
-        {isPlaying ? "pause" : "play"}
-      </button>
+      <div>
+        <button
+          disabled={disabled}
+          className="transport"
+          type="button"
+          onClick={(): void => {
+            dispatch(handleTransport(isPlaying ? Transport.PAUSE : Transport.PLAY));
+          }}
+        >
+          {isPlaying ? "pause" : "play"}
+        </button>
 
-      <button
-        disabled={disabled}
-        className="transport"
-        type="button"
-        onClick={(): void => {
-          dispatch(handleTransport(Transport.STOP));
-        }}
-      >
-        stop
-      </button>
+        <button
+          disabled={disabled}
+          className="transport"
+          type="button"
+          onClick={(): void => {
+            dispatch(handleTransport(Transport.STOP));
+          }}
+        >
+          stop
+        </button>
+      </div>
 
-      <button
-        type="button"
-        onClick={(): void => {
-          dispatch(addBar());
-        }}
-      >
-        add bar
-      </button>
+      <div>
+        <SliderRange
+          max={10}
+          min={1}
+          value={value}
+          id="zoom-range"
+          label="zoom"
+          step={0.1}
+          onChange={(e): void => {
+            // console.log(e);
+            const value = parseFloat((e.nativeEvent.target as HTMLInputElement).value);
+            dispatch(seekZoomLevel(value));
+          }}
+          onInput={(e): void => {
+            // console.log((e.nativeEvent.target as HTMLInputElement).value);
+            const value = parseFloat((e.nativeEvent.target as HTMLInputElement).value);
+            dispatch(setZoomLevel(value));
+          }}
+          disabled={false}
+        ></SliderRange>
 
-      <button
-        type="button"
-        onClick={(): void => {
-          dispatch(removeBar());
-        }}
-      >
-        remove bar
-      </button>
+        <button
+          type="button"
+          onClick={(): void => {
+            dispatch(addBar());
+          }}
+        >
+          add bar
+        </button>
 
-      <button
-        type="button"
-        onClick={(): void => {
-          dispatch(clearSong());
-        }}
-      >
-        clear song
-      </button>
+        <button
+          type="button"
+          onClick={(): void => {
+            dispatch(removeBar());
+          }}
+        >
+          remove bar
+        </button>
 
-      <button
-        type="button"
-        onClick={(): void => {
-          dispatch(handlePanic());
-        }}
-      >
-        panic
-      </button>
+        <button
+          type="button"
+          onClick={(): void => {
+            dispatch(clearSong());
+          }}
+        >
+          clear song
+        </button>
 
-      {/* <button
-        type="button"
-        onClick={(): void => {
-          dispatch(sendToFriend());
-        }}
-      >
-        send to friend
-      </button> */}
+        <button
+          type="button"
+          onClick={(): void => {
+            dispatch(handlePanic());
+          }}
+        >
+          panic
+        </button>
 
-      <button
-        type="button"
-        onClick={(): void => {
-          dispatch(saveMIDIFile());
-        }}
-      >
-        save
-      </button>
-
-      {/* <button
-        type="button"
-        onClick={(): void => {
-          // dispatch(addBar());
-        }}
-      >
-        undo
-      </button>
-
-      <button
-        type="button"
-        onClick={(): void => {
-          // dispatch(removeBar());
-        }}
-      >
-        redo
-      </button> */}
-
-      <SliderRange
-        max={10}
-        min={1}
-        value={value}
-        id="zoom-range"
-        label="zoom"
-        step={0.1}
-        onChange={(e): void => {
-          // console.log(e);
-          const value = parseFloat((e.nativeEvent.target as HTMLInputElement).value);
-          dispatch(seekZoomLevel(value));
-        }}
-        onInput={(e): void => {
-          // console.log((e.nativeEvent.target as HTMLInputElement).value);
-          const value = parseFloat((e.nativeEvent.target as HTMLInputElement).value);
-          dispatch(setZoomLevel(value));
-        }}
-        disabled={false}
-      ></SliderRange>
+        <button
+          type="button"
+          onClick={(): void => {
+            dispatch(saveMIDIFile());
+          }}
+        >
+          download
+        </button>
+      </div>
     </div>
   );
 };
