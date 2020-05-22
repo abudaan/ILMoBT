@@ -10,5 +10,6 @@ export const SET_POSITION = "SET_POSITION";
 export const SET_TRANSPORT = "SET_TRANSPORT";
 export const SET_PROGRESS = "SET_PROGRESS";
 
-export const JSON_LOADED = "JSON_LOADED";
+export const SONG_LOADED = "SONG_LOADED";
+export const ALBUM_LOADED = "ALBUM_LOADED";
 export const SELECT_TRACK = "SELECT_TRACK";

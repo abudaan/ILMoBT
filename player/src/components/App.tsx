@@ -5,7 +5,8 @@ import { List } from "./List";
 import { Slider } from "./Slider";
 import { TransportControls } from "./TransportControls";
 import { PositionDisplay } from "./PositionDisplay";
-import { stopInteractivity, handlePointerMove } from "../redux/actions";
+import { stopInteractivity } from "../redux/actions/stopInteractivity";
+import { handlePointerMove } from "../redux/actions/handlePointerMove";
 import { PianoRollPreview } from "./PianoRollPreview";
 
 export const App = (): JSX.Element => {

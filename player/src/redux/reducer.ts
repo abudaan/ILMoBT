@@ -3,7 +3,8 @@ import {
   SET_POSITION,
   SET_TRANSPORT,
   SET_PROGRESS,
-  JSON_LOADED,
+  SONG_LOADED,
+  ALBUM_LOADED,
   SELECT_TRACK,
   RESIZE,
   START_SEEK,
@@ -15,7 +16,7 @@ export const rootReducer = (
   state: RootState,
   action: { type: string; payload: { [id: string]: any } }
 ): RootState => {
-  if (action.type === JSON_LOADED) {
+  if (action.type === ALBUM_LOADED) {
     const {
       payload: { tracks },
     } = action;

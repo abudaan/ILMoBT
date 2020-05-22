@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { handleTransport } from "../redux/actions";
+import { handleTransport } from "../redux/actions/handleTransport";
 import { RootState, Transport } from "../types";
 
 export const TransportControls = (): JSX.Element => {

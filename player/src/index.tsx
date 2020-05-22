@@ -8,13 +8,15 @@ import { store } from "./redux/store";
 import { setupClock } from "./observers";
 import { Transport } from "./types";
 import { init, midiAccess } from "./media";
-import { handleTransport, loadJSON } from "./redux/actions";
 import { App } from "./components/App";
 import { unschedule } from "../../webdaw/unschedule";
+import { loadAlbum } from "./redux/actions/loadAlbum";
+import { loadSong } from "./redux/actions/loadSong";
+import { handleTransport } from "./redux/actions/handleTransport";
 
 document.addEventListener("DOMContentLoaded", () => {
   init().then(() => {
-    const album = document.getElementById("album");
+    const player = document.getElementById("player");
 
     if (midiAccess === null) {
       const browsers = [
@@ -31,7 +33,7 @@ document.addEventListener("DOMContentLoaded", () => {
           The MIDI player only runs in Chromium based browsers such as:
           <ul>{browsers}</ul>
         </div>,
-        album
+        player
       );
       return;
     }
@@ -40,17 +42,23 @@ document.addEventListener("DOMContentLoaded", () => {
       <Provider store={store}>
         <App></App>
       </Provider>,
-      album
+      player
     );
 
-    if (window.location.hostname === "localhost") {
-      store.dispatch(loadJSON("/assets/list.json"));
+    const s = location.search;
+    const id = s.substring(s.indexOf("=") + 1);
+    if (id) {
+      store.dispatch(loadSong(`https://ilmobt.heartbeatjs.org/backend/songs/${id}.json`));
     } else {
-      store.dispatch(loadJSON("https://ilmobt.heartbeatjs.org/list.json"));
+      if (window.location.hostname === "localhost") {
+        store.dispatch(loadAlbum("/assets/list.json"));
+      } else {
+        store.dispatch(loadAlbum("https://ilmobt.heartbeatjs.org/list.json"));
+      }
     }
 
     const resize = () => {
-      const rect = album.getBoundingClientRect();
+      const rect = player.getBoundingClientRect();
       store.dispatch({
         type: RESIZE,
         payload: {
