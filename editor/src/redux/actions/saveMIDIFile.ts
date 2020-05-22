@@ -15,7 +15,7 @@ export const saveMIDIFile = () => {
   const url = getMIDIFile(songData, notes, noteMapping);
   const a: HTMLAnchorElement = document.createElement("A") as HTMLAnchorElement;
   a.href = url;
-  a.download = "touch";
+  a.download = "touch.mid";
   a.click();
   window.URL.revokeObjectURL(url); // cleanup
 

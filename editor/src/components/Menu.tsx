@@ -102,14 +102,14 @@ const Menu = (): JSX.Element => {
           panic
         </button>
 
-        <button
+        {/* <button
           type="button"
           onClick={(): void => {
             dispatch(saveMIDIFile());
           }}
         >
           download
-        </button>
+        </button> */}
       </div>
     </div>
   );
