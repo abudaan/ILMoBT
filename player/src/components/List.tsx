@@ -6,6 +6,9 @@ import { RootState } from "../types";
 export const List = (): JSX.Element => {
   const dispatch = useDispatch();
   const tracks = useSelector((state: RootState) => state.tracks);
+  if (tracks.length === 1) {
+    return null;
+  }
   const currentTrackIndex = useSelector((state: RootState) => state.currentTrackIndex);
   const divTracks = tracks.map((d, i) => {
     const className = i === currentTrackIndex ? "list-item active" : "list-item";

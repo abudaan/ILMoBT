@@ -20,7 +20,7 @@ export const sendToFriend = () => async (dispatch: Dispatch): Promise<void> => {
     nameFriend,
     emailFriend,
     message,
-    song: getMIDIFile(songData, notes, noteMapping), // "base64"),
+    song: getMIDIFile(songData, notes, noteMapping, "base64"),
   };
 
   dispatch({

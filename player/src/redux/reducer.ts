@@ -27,6 +27,17 @@ export const rootReducer = (
       currentTrack: tracks[state.currentTrackIndex],
       // currentTrackDuration: tracks[state.currentTrackIndex].duration,
     };
+  } else if (action.type === SONG_LOADED) {
+    const {
+      payload: { tracks },
+    } = action;
+    return {
+      ...state,
+      loading: false,
+      tracks: tracks,
+      currentTrack: tracks[state.currentTrackIndex],
+      // currentTrackDuration: tracks[state.currentTrackIndex].duration,
+    };
   } else if (action.type === RESIZE) {
     const { width, height } = action.payload;
     return {
