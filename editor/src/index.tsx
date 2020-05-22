@@ -15,27 +15,31 @@ document.addEventListener("DOMContentLoaded", () => {
   init().then(() => {
     const editor = document.getElementById("editor");
 
-    // if (midiAccess === null) {
-    //   const browsers = [
-    //     "Chromium",
-    //     "Chrome",
-    //     "Brave",
-    //     "Edge",
-    //     "Opera",
-    //     "Vivaldi",
-    //     "Samsung Internet",
-    //   ].map(b => <li key={b}>{b}</li>);
-    //   render(
-    //     <div className="message">
-    //       The MIDI editor only runs in Chromium based browsers such as:
-    //       <ul>{browsers}</ul>
-    //     </div>,
-    //     editor
-    //   );
-    //   return;
-    // }
+    if (midiAccess === null) {
+      const browsers = [
+        "Chromium",
+        "Chrome",
+        "Brave",
+        "Edge",
+        "Opera",
+        "Vivaldi",
+        "Samsung Internet",
+      ].map(b => <li key={b}>{b}</li>);
+      render(
+        <div className="message">
+          The MIDI editor only runs in Chromium based browsers such as:
+          <ul>{browsers}</ul>
+        </div>,
+        editor
+      );
+      return;
+    }
 
-    store.dispatch(loadJSON("./config.json"));
+    if (window.location.hostname === "localhost") {
+      store.dispatch(loadJSON("./config.json"));
+    } else {
+      store.dispatch(loadJSON("https://ilmobt.heartbeatjs.org/editor/config.json"));
+    }
 
     render(
       <Provider store={store}>
@@ -58,7 +62,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     document.addEventListener("keydown", e => {});
     document.addEventListener("keyup", e => {
-      // console.log(e);
+      const target = e.target as HTMLElement;
+      // console.log(target.nodeName);
+      if (target.nodeName === "INPUT" || target.nodeName === "TEXTAREA") {
+        return;
+      }
       if (e.keyCode === 32 || e.keyCode === 13) {
         const { transport } = store.getState();
         const action = transport === Transport.PLAY ? Transport.PAUSE : Transport.PLAY;

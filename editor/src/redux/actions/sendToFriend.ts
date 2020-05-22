@@ -27,9 +27,9 @@ export const sendToFriend = () => async (dispatch: Dispatch): Promise<void> => {
     type: SEND_TO_FRIEND,
   });
 
-  const response = await fetch("https://ilmobt.heartbeatjs.org/post-song.php", {
+  fetch("https://ilmobt.heartbeatjs.org/backend/post-song.php", {
     method: "POST", // *GET, POST, PUT, DELETE, etc.
-    mode: "no-cors", // no-cors, *cors, same-origin
+    mode: "cors", // no-cors, *cors, same-origin
     cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
     credentials: "same-origin", // include, *same-origin, omit
     headers: {
@@ -39,12 +39,15 @@ export const sendToFriend = () => async (dispatch: Dispatch): Promise<void> => {
     redirect: "follow", // manual, *follow, error
     referrerPolicy: "no-referrer", // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
     body: JSON.stringify(data), // body data type must match "Content-Type" header
-  });
-
-  const { msg } = await response.json();
-  console.log(msg);
-
-  dispatch({
-    type: SENT_TO_FRIEND,
-  });
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data["msg"]);
+      dispatch({
+        type: SENT_TO_FRIEND,
+      });
+    })
+    .catch(e => {
+      console.error(e);
+    });
 };

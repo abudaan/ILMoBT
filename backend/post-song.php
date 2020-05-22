@@ -46,8 +46,15 @@ try {
     // Content
     $mail->isHTML(true);                                  // Set email format to HTML
     $mail->Subject = 'In Loving Memory of Being Touched';
-    $mail->Body    = "This is the HTML message body " . $json->{'name'};
-    $mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+    $mail->Body    = "Hey {$json->{'nameFriend'}},
+    <br/><br/>{$json->{'name'}} has created a <a href='https://ilmobt.heartbeatjs.org/songs/{$id}'>touch composition</a> for you.
+    <br/><br/>{$json->{'message'}}
+    <br/><br/>Best";
+
+    $mail->AltBody = "Hey {$json->{'nameFriend'}},
+    \n\n{$json->{'name'}} has created a for you: https://ilmobt.heartbeatjs.org/songs/{$id}.
+    \n\n{$json->{'message'}}
+    \n\nBest";
 
     $mail->send();
     header('Content-Type: application/json; charset=UTF-8');
