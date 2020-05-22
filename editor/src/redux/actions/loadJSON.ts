@@ -55,8 +55,6 @@ export const loadJSON = (url: string) => async (dispatch: Dispatch): Promise<voi
         numNotes,
         noteMapping: noteMapping.reverse(),
       },
-      width: window.innerWidth,
-      height: window.innerHeight,
     },
   });
 };

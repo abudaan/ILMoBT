@@ -29,13 +29,18 @@ export const rootReducer = (
     };
   } else if (action.type === SONG_LOADED) {
     const {
-      payload: { tracks },
+      payload: { tracks, name, nameFriend, message },
     } = action;
     return {
       ...state,
       loading: false,
       tracks: tracks,
       currentTrack: tracks[state.currentTrackIndex],
+      emailData: {
+        sender: name,
+        receiver: nameFriend,
+        message,
+      },
       // currentTrackDuration: tracks[state.currentTrackIndex].duration,
     };
   } else if (action.type === RESIZE) {

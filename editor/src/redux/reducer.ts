@@ -39,13 +39,21 @@ export const rootReducer = (
   // console.log(action.type);
   if (action.type === RESIZE) {
     const { width, height } = action.payload;
-    return {
-      ...state,
-      width,
-      height,
-      millisPerPixel: window.innerWidth / state.songData.song.durationMillis,
-      ticksPerPixel: window.innerWidth / state.songData.song.durationTicks,
-    };
+    if (state.songData && state.songData.song) {
+      return {
+        ...state,
+        width,
+        height,
+        millisPerPixel: width / state.songData.song.durationMillis,
+        ticksPerPixel: width / state.songData.song.durationTicks,
+      };
+    } else {
+      return {
+        ...state,
+        width,
+        height,
+      };
+    }
   } else if (action.type === SET_POSITION) {
     const {
       payload: { playheadMillis, playheadPixels, songData, lastX },
@@ -334,16 +342,14 @@ export const rootReducer = (
     };
   } else if (action.type === JSON_LOADED) {
     const {
-      payload: { width, height, songData },
+      payload: { songData },
     } = action;
     return {
       ...state,
       songData,
       loading: false,
-      width,
-      height,
-      millisPerPixel: width / songData.song.durationMillis,
-      ticksPerPixel: width / songData.song.durationTicks,
+      millisPerPixel: state.width / songData.song.durationMillis,
+      ticksPerPixel: state.width / songData.song.durationTicks,
     };
   }
   return state;

@@ -8,6 +8,7 @@ import { PositionDisplay } from "./PositionDisplay";
 import { stopInteractivity } from "../redux/actions/stopInteractivity";
 import { handlePointerMove } from "../redux/actions/handlePointerMove";
 import { PianoRollPreview } from "./PianoRollPreview";
+import { Message } from "./Message";
 
 export const App = (): JSX.Element => {
   const dispatch = useDispatch();
@@ -29,9 +30,10 @@ export const App = (): JSX.Element => {
       }}
     >
       <List></List>
-      <TransportControls></TransportControls>
+      <Message></Message>
       <PositionDisplay></PositionDisplay>
       <Slider></Slider>
+      <TransportControls></TransportControls>
       {/* <div className="overlay"></div> */}
       {/* <PianoRollPreview></PianoRollPreview> */}
     </div>

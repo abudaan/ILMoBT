@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Samsung Internet",
       ].map(b => <li key={b}>{b}</li>);
       render(
-        <div className="message">
+        <div className="no-chromium-warning">
           The MIDI player only runs in Chromium based browsers such as:
           <ul>{browsers}</ul>
         </div>,

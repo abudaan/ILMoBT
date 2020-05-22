@@ -34,6 +34,7 @@ export const loadSong = (url: string) => async (dispatch: Dispatch): Promise<voi
     type: SONG_LOADED,
     payload: {
       tracks: [reference],
+      ...d,
     },
   });
 };

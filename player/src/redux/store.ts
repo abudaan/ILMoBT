@@ -9,8 +9,8 @@ import { RootState, Transport } from "../types";
 
 const initialState: RootState = {
   loading: true,
-  width: window.innerWidth,
-  height: window.innerHeight,
+  width: 0,
+  height: 0,
   isPlaying: false,
   progress: 0,
   playheadMillis: 0,
@@ -22,6 +22,7 @@ const initialState: RootState = {
   thumbX: null,
   lastX: null,
   wasPlaying: false,
+  emailData: null,
 };
 
 // const store: Store<any, AnyAction> = createStore(

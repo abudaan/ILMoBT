@@ -68,4 +68,10 @@ module.exports = {
   node: {
     fs: "empty",
   },
+  // optimization: {
+  //   minimize: true,
+  //   // minimizer: [new UglifyJsPlugin({
+  //   //   include: /\.min\.js$/
+  //   // })]
+  // },
 };

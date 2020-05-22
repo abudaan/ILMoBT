@@ -50,12 +50,14 @@ try {
     $mail->Body    = "Hey {$json->{'nameFriend'}},
     <br/><br/>{$json->{'name'}} has created a <a href='{$url}?id={$id}'>touch composition</a> for you.
     <br/><br/>{$json->{'message'}}
-    <br/><br/>Best";
+    <br/><br/>Best
+    <br/><br/>{$json->{'name'}}";
 
     $mail->AltBody = "Hey {$json->{'nameFriend'}},
     \n\n{$json->{'name'}} has created a for you: {$url}?id={$id}
     \n\n{$json->{'message'}}
-    \n\nBest";
+    \n\nBest
+    \n\n{$json->{'name'}}";
 
     $mail->send();
     header('Content-Type: application/json; charset=UTF-8');

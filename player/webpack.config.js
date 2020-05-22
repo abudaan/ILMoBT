@@ -65,4 +65,10 @@ module.exports = {
     inline: false,
     liveReload: false,
   },
+  // optimization: {
+  //   minimize: true,
+  //   // minimizer: [new UglifyJsPlugin({
+  //   //   include: /\.min\.js$/
+  //   // })]
+  // },
 };

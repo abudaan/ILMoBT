@@ -26,7 +26,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "Samsung Internet",
       ].map(b => <li key={b}>{b}</li>);
       render(
-        <div className="message">
+        <div className="no-chromium-warning">
           The MIDI editor only runs in Chromium based browsers such as:
           <ul>{browsers}</ul>
         </div>,
@@ -58,6 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
         },
       });
     };
+    resize();
     window.addEventListener("resize", resize);
 
     document.addEventListener("keydown", e => {});

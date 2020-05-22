@@ -9,8 +9,8 @@ import { RootState, Transport } from "../types";
 
 const initialState: RootState = {
   loading: true,
-  width: window.innerWidth,
-  height: window.innerHeight,
+  width: 0,
+  height: 0,
   isPlaying: false,
   progress: 0,
   playheadMillis: 0,
@@ -24,8 +24,8 @@ const initialState: RootState = {
   wasPlaying: false,
   zoomLevel: 1,
   seekZoomLevel: 1,
-  millisPerPixel: 0, //window.innerWidth / 2000,
-  ticksPerPixel: 0, //(window.innerWidth * 1) / (numBars * numerator * denominator * ppq),
+  millisPerPixel: 0,
+  ticksPerPixel: 0,
   editorScrollPos: 0,
   notes: [],
   currentNote: null,

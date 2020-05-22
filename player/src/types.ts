@@ -39,6 +39,11 @@ export type RootState = {
   thumbX: number;
   lastX: number;
   wasPlaying: boolean;
+  emailData: {
+    sender: string;
+    receiver: string;
+    message: string;
+  };
 };
 
 export type ProjectData = {

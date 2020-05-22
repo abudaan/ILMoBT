@@ -29,7 +29,7 @@ body {
 }
 
 .slider {
-  margin-top: 20px;
+  margin-top: 10px;
   width: 100%;
   // width: 1500px;
   position: relative;
@@ -86,13 +86,13 @@ button {
 }
 
 .position-display {
-  margin-top: 20px;
+  margin-top: 30px;
   font-size: 14px;
   color: rgb(231, 208, 186);
   font-family: "Source Code Pro";
 }
 
-.message {
+.no-chromium-warning {
   margin-top: 20px;
   font-size: 14px;
   color: rgb(231, 208, 186);
@@ -113,4 +113,17 @@ input[type="button"] {
 
 *:focus {
   outline: none;
+}
+
+.email-message {
+  font-size: 14px;
+  color: rgb(231, 208, 186);
+  font-family: "Source Code Pro";
+
+  .opening {
+    margin-bottom: 5px;
+  }
+  .content {
+    margin-bottom: 5px;
+  }
 }
