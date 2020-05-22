@@ -36,7 +36,7 @@ try {
     //Recipients
     $mail->setFrom('jen@ilmobt.heartbeatjs.org', 'In Loving Memory of Being Touched');
     $mail->addAddress($json->{'emailFriend'}, $json->{'nameFriend'});   
-    $mail->addReplyTo('jenkutleraudio@gmail.com', 'Jen Kuttler');
+    $mail->addReplyTo('jenkutleraudio@gmail.com', 'Jen Kutler');
     // $mail->addCC('cc@example.com');
     // $mail->addBCC('bcc@example.com');
 
@@ -51,13 +51,16 @@ try {
     <br/><br/>{$json->{'name'}} has created a <a href='{$url}?id={$id}'>touch composition</a> for you.
     <br/><br/>{$json->{'message'}}
     <br/><br/>Best
-    <br/><br/>{$json->{'name'}}";
+    <br/><br/>{$json->{'name'}}
+    <br/><br/><br/><br/>Create your own touch composition <a href='https://www.jenkutler.com/inlovingmemory-editor'>here</a>.";
 
     $mail->AltBody = "Hey {$json->{'nameFriend'}},
     \n\n{$json->{'name'}} has created a for you: {$url}?id={$id}
     \n\n{$json->{'message'}}
     \n\nBest
-    \n\n{$json->{'name'}}";
+    \n\n{$json->{'name'}}
+    \n\n\n\nCreate your own touch composition here https://www.jenkutler.com/inlovingmemory-editor";
+
 
     $mail->send();
     header('Content-Type: application/json; charset=UTF-8');
