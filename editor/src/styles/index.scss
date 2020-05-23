@@ -5,6 +5,10 @@ body {
   // color: white;
 }
 
+*:focus {
+  outline: none;
+}
+
 div {
   box-sizing: border-box;
 }
@@ -212,13 +216,18 @@ button {
       padding: 3px;
       background-color: rgb(50, 50, 50);
     }
-    &:last-child {
+    &.submit {
       justify-content: flex-end;
       button {
         margin: 0;
         margin-top: 5px;
       }
     }
+  }
+  .feedback-message {
+    font-family: "Source Code Pro";
+    color: rgb(231, 208, 186);
+    font-size: 14px;
   }
 }
 

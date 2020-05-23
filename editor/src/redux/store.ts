@@ -38,6 +38,7 @@ const initialState: RootState = {
     nameFriend: "",
     emailFriend: "",
     message: "",
+    feedbackMessage: "",
   },
 };
 

@@ -42,9 +42,12 @@ export const sendToFriend = () => async (dispatch: Dispatch): Promise<void> => {
   })
     .then(response => response.json())
     .then(data => {
-      console.log(data["msg"]);
+      // console.log(data["msg"]);
       dispatch({
         type: SENT_TO_FRIEND,
+        payload: {
+          msg: data["msg"],
+        },
       });
     })
     .catch(e => {

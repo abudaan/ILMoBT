@@ -63,6 +63,7 @@ export type RootState = {
     nameFriend: string;
     emailFriend: string;
     message: string;
+    feedbackMessage: string;
   };
 };
 

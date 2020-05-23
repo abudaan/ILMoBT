@@ -65,12 +65,12 @@ try {
     $mail->send();
     header('Content-Type: application/json; charset=UTF-8');
     echo json_encode(array(
-      'msg' => 'Message has been sent'
+      'msg' => 'Your message has been sent.'
     ));
 } catch (Exception $e) {
   header('Content-Type: application/json; charset=UTF-8');
   echo json_encode(array(
-    'msg' => "Message could not be sent. Mailer Error: {$mail->ErrorInfo}"
+    'msg' => "Your message could not be sent. Mailer Error: {$mail->ErrorInfo}"
   ));
 
 }

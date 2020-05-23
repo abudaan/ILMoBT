@@ -11,6 +11,7 @@ export const Form = (): JSX.Element => {
   const nameFriend = useSelector((state: RootState) => state.form.nameFriend);
   const emailFriend = useSelector((state: RootState) => state.form.emailFriend);
   const message = useSelector((state: RootState) => state.form.message);
+  const feedbackMessage = useSelector((state: RootState) => state.form.feedbackMessage);
   const disabled = false;
 
   return (
@@ -69,7 +70,7 @@ export const Form = (): JSX.Element => {
           value={message}
         ></textarea>
       </div>
-      <div className="form-item">
+      <div className="form-item submit">
         <button
           type="button"
           onClick={(): void => {
@@ -79,6 +80,7 @@ export const Form = (): JSX.Element => {
           send to friend
         </button>
       </div>
+      <div className="feedback-message">{feedbackMessage}</div>
     </div>
   );
 };

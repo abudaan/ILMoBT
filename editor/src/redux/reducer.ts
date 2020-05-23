@@ -315,6 +315,17 @@ export const rootReducer = (
       playheadMillis: 0,
       playheadPixels: 0,
     };
+  } else if (action.type === SEND_TO_FRIEND) {
+    return {
+      ...state,
+      form: {
+        ...state.form,
+        feedbackMessage: "sending song to server...",
+      },
+      transport: Transport.STOP,
+      playheadMillis: 0,
+      playheadPixels: 0,
+    };
   } else if (action.type === SENT_TO_FRIEND) {
     return {
       ...state,
@@ -324,6 +335,7 @@ export const rootReducer = (
         nameFriend: "",
         emailFriend: "",
         message: "",
+        feedbackMessage: action.payload.msg,
       },
       transport: Transport.STOP,
       playheadMillis: 0,
