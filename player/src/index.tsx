@@ -18,6 +18,18 @@ document.addEventListener("DOMContentLoaded", () => {
   init().then(() => {
     const player = document.getElementById("player");
 
+    const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+    if (iOS) {
+      render(
+        <div className="no-webmidi-warning">
+          The player requires WebMIDI, unfortunately WebMIDI is not supported on your device.
+        </div>,
+        player
+      );
+      return;
+    }
+
     if (midiAccess === null) {
       const browsers = [
         "Chromium",
@@ -29,8 +41,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "Samsung Internet",
       ].map(b => <li key={b}>{b}</li>);
       render(
-        <div className="no-chromium-warning">
-          The MIDI player only runs in Chromium based browsers such as:
+        <div className="no-webmidi-warning">
+          The player only runs in browsers that support WebMIDI. All chromium based browsers support
+          WebMIDI, for instance:
           <ul>{browsers}</ul>
         </div>,
         player

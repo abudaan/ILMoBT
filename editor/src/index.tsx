@@ -14,6 +14,17 @@ import { loadJSON } from "./redux/actions/loadJSON";
 document.addEventListener("DOMContentLoaded", () => {
   init().then(() => {
     const editor = document.getElementById("editor");
+    const iOS = !!navigator.platform && /iPad|iPhone|iPod/.test(navigator.platform);
+
+    if (iOS) {
+      render(
+        <div className="no-webmidi-warning">
+          The editor requires WebMIDI, unfortunately WebMIDI is not supported on your device.
+        </div>,
+        editor
+      );
+      return;
+    }
 
     if (midiAccess === null) {
       const browsers = [
@@ -26,8 +37,9 @@ document.addEventListener("DOMContentLoaded", () => {
         "Samsung Internet",
       ].map(b => <li key={b}>{b}</li>);
       render(
-        <div className="no-chromium-warning">
-          The MIDI editor only runs in Chromium based browsers such as:
+        <div className="no-webmidi-warning">
+          The editor only runs in browsers that support WebMIDI. All chromium based browsers support
+          WebMIDI, for instance:
           <ul>{browsers}</ul>
         </div>,
         editor
