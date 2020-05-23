@@ -320,7 +320,7 @@ export const rootReducer = (
       ...state,
       form: {
         ...state.form,
-        feedbackMessage: "sending song to server...",
+        feedbackMessage: "Sending message to server...",
       },
       transport: Transport.STOP,
       playheadMillis: 0,

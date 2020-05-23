@@ -15,7 +15,7 @@ export const setForm = (e: SyntheticEvent) => {
     type: SET_FORM,
     payload: {
       [target.id]: target.value,
-      // feedbackMessage,
+      feedbackMessage: "Please fill out all fields.",
     },
   };
 };

@@ -1,51 +1,42 @@
 [
-    {
-        "title": "Mozart Sonata Facile",
-        "mood": "",
-        "moreMetaData": "add as much as you like",
-        "url": "https://ilmobt.heartbeatjs.org/mozk545a.mid"
-    },
-    {
-        "title": "Limits",
-        "mood": "",
-        "moreMetaData": "add as much as you like",
-        "url": "https://ilmobt.heartbeatjs.org/01 Limits.mid"
-    },
-    {
-        "title": "Hard Pressed",
-        "url": "https://ilmobt.heartbeatjs.org/02 Hard Pressed.mid"
-    },
-    {
-        "title": "Rocking Back and Forth",
-        "url": "https://ilmobt.heartbeatjs.org/03 Rocking Back and Forth.mid"
-    },
-    {
-        "title": "Expansion",
-        "url": "https://ilmobt.heartbeatjs.org/04 Expansion.mid"
-    },
-    {
-        "title": "Wildlife",
-        "url": "https://ilmobt.heartbeatjs.org/05 Wildlife.mid"
-    },
-    {
-        "title": "Knotted backs",
-        "url": "https://ilmobt.heartbeatjs.org/06 Knotted Backs.MID"
-    },
-    {
-        "title": "Euclid",
-        "url": "https://ilmobt.heartbeatjs.org/07 Euclid.mid"
-    },
-    {
-        "title": "Salience",
-        "url": "https://ilmobt.heartbeatjs.org/08 Salience.mid"
-    },
-    {
-        "title": "Clubbing at Home",
-        "url": "https://ilmobt.heartbeatjs.org/09 Clubbing at Home.mid"
-    },
-    {
-        "title": "Thaw",
-        "url": "https://ilmobt.heartbeatjs.org/10 Thaw.mid"
-    }
-
+  {
+    "title": "Limits",
+    "url": "https://ilmobt.heartbeatjs.org/album/01 Limits.mid"
+  },
+  {
+    "title": "Hard Pressed",
+    "url": "https://ilmobt.heartbeatjs.org/album/02 Hard Pressed.mid"
+  },
+  {
+    "title": "Rocking Back and Forth",
+    "url": "https://ilmobt.heartbeatjs.org/album/03 Rocking Back and Forth.mid"
+  },
+  {
+    "title": "Expansion",
+    "url": "https://ilmobt.heartbeatjs.org/album/04 Expansion.mid"
+  },
+  {
+    "title": "Wildlife",
+    "url": "https://ilmobt.heartbeatjs.org/album/05 Wildlife.mid"
+  },
+  {
+    "title": "Knotted backs",
+    "url": "https://ilmobt.heartbeatjs.org/album/06 Knotted Backs.MID"
+  },
+  {
+    "title": "Euclid",
+    "url": "https://ilmobt.heartbeatjs.org/album/07 Euclid.mid"
+  },
+  {
+    "title": "Salience",
+    "url": "https://ilmobt.heartbeatjs.org/album/08 Salience.mid"
+  },
+  {
+    "title": "Clubbing at Home",
+    "url": "https://ilmobt.heartbeatjs.org/album/09 Clubbing at Home.mid"
+  },
+  {
+    "title": "Thaw",
+    "url": "https://ilmobt.heartbeatjs.org/album/10 Thaw.mid"
+  }
 ]

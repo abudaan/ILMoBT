@@ -66,7 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (window.location.hostname === "localhost") {
         store.dispatch(loadAlbum("/assets/list.json"));
       } else {
-        store.dispatch(loadAlbum("https://ilmobt.heartbeatjs.org/player/list.json"));
+        store.dispatch(loadAlbum("https://ilmobt.heartbeatjs.org/album/list.json"));
       }
     }
 
