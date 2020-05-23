@@ -44,8 +44,8 @@ export const rootReducer = (
         ...state,
         width,
         height,
-        millisPerPixel: width / state.songData.song.durationMillis,
-        ticksPerPixel: width / state.songData.song.durationTicks,
+        millisPerPixel: (width * state.zoomLevel) / state.songData.song.durationMillis,
+        ticksPerPixel: (width * state.zoomLevel) / state.songData.song.durationTicks,
       };
     } else {
       return {
@@ -156,22 +156,24 @@ export const rootReducer = (
     };
   } else if (action.type === ADD_BAR) {
     const {
-      payload: { songData, ticksPerPixel },
+      payload: { songData, ticksPerPixel, millisPerPixel },
     } = action;
     return {
       ...state,
       songData,
       ticksPerPixel,
+      millisPerPixel,
     };
   } else if (action.type === REMOVE_BAR) {
     const {
-      payload: { ticksPerPixel, notes, songData },
+      payload: { notes, songData, ticksPerPixel, millisPerPixel },
     } = action;
     return {
       ...state,
-      ticksPerPixel,
       notes,
       songData,
+      ticksPerPixel,
+      millisPerPixel,
     };
   } else if (action.type === START_DRAW_NOTE) {
     const { lastX, lastY, editAction, currentNote, noteIndex } = action.payload;
@@ -342,14 +344,14 @@ export const rootReducer = (
     };
   } else if (action.type === JSON_LOADED) {
     const {
-      payload: { songData },
+      payload: { songData, millisPerPixel, ticksPerPixel },
     } = action;
     return {
       ...state,
       songData,
       loading: false,
-      millisPerPixel: state.width / songData.song.durationMillis,
-      ticksPerPixel: state.width / songData.song.durationTicks,
+      millisPerPixel,
+      ticksPerPixel,
     };
   }
   return state;

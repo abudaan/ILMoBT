@@ -7,8 +7,8 @@ import { addBar } from "../redux/actions/addBar";
 import { removeBar } from "../redux/actions/removeBar";
 import { seekZoomLevel } from "../redux/actions/seekZoomLevel";
 import { setZoomLevel } from "../redux/actions/setZoomLevel";
-import { handlePanic } from "../redux/actions/handlePanic";
 import { clearSong } from "../redux/actions/clearSong";
+import { handlePanic } from "../redux/actions/handlePanic";
 import { saveMIDIFile } from "../redux/actions/saveMIDIFile";
 import { sendToFriend } from "../redux/actions/sendToFriend";
 
@@ -93,14 +93,14 @@ const Menu = (): JSX.Element => {
           clear song
         </button>
 
-        <button
+        {/* <button
           type="button"
           onClick={(): void => {
             dispatch(handlePanic());
           }}
         >
           panic
-        </button>
+        </button> */}
 
         {/* <button
           type="button"

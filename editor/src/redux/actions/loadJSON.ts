@@ -1,9 +1,10 @@
 import { Dispatch } from "redux";
 import { fetchJSON } from "../../../../webdaw/fetch_helpers";
 import { JSON_LOADED } from "../../constants";
-import { ConfigData } from "../../types";
+import { ConfigData, RootState } from "../../types";
 import { outputs } from "../../media";
 import { Song } from "../../../../webdaw/types";
+import { store } from "../store";
 
 export const loadJSON = (url: string) => async (dispatch: Dispatch): Promise<void> => {
   const {
@@ -25,6 +26,14 @@ export const loadJSON = (url: string) => async (dispatch: Dispatch): Promise<voi
     outputs: outputs.map(o => o.id),
   };
 
+  const durationTicks = numBars * numerator * (denominator / 4) * ppq;
+  const durationMillis = durationTicks * millisPerTick;
+
+  const state = store.getState() as RootState;
+  const { width } = state;
+  const ticksPerPixel = width / durationTicks;
+  const millisPerPixel = width / durationMillis;
+
   const song = {
     ppq,
     latency: 17,
@@ -33,8 +42,8 @@ export const loadJSON = (url: string) => async (dispatch: Dispatch): Promise<voi
     // numBars: numBars,
     numerator,
     denominator,
-    durationTicks: numBars * numerator * (denominator / 4) * ppq,
-    durationMillis: numBars * numerator * (denominator / 4) * ppq * millisPerTick,
+    durationTicks,
+    durationMillis,
     tracks: [track],
     tracksById: { [track.id]: track },
     events: [],
@@ -55,6 +64,8 @@ export const loadJSON = (url: string) => async (dispatch: Dispatch): Promise<voi
         numNotes,
         noteMapping: noteMapping.reverse(),
       },
+      ticksPerPixel,
+      millisPerPixel,
     },
   });
 };

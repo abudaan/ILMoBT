@@ -11,19 +11,25 @@ export const addBar = (): AnyAction => {
     millisPerTick,
     song: { numerator, denominator, ppq },
   } = songData;
-  const ticksPerPixel = (width * zoomLevel) / ((numBars + 1) * numerator * denominator * ppq);
+
+  const numBars1 = numBars + 1;
+  const durationTicks = numBars1 * numerator * (denominator / 4) * ppq;
+  const durationMillis = durationTicks * millisPerTick;
+  const ticksPerPixel = (width * zoomLevel) / durationTicks;
+  const millisPerPixel = (width * zoomLevel) / durationMillis;
 
   return {
     type: ADD_BAR,
     payload: {
       ticksPerPixel,
+      millisPerPixel,
       songData: {
         ...songData,
-        numBars: numBars - 1,
+        numBars: numBars1,
         song: {
           ...songData.song,
-          durationTicks: numBars * numerator * (denominator / 4) * ppq,
-          durationMillis: numBars * numerator * (denominator / 4) * ppq * millisPerTick,
+          durationTicks,
+          durationMillis,
         },
       },
     },
