@@ -11,7 +11,7 @@
   ],
   "dependencies": {
     "@types/webmidi": "^2.0.4",
-    "jszip": "^3.2.2",
+    "jszip": "^3.7.0",
     "midi-writer-js": "^1.7.4",
     "ramda": "^0.26.1",
     "react": "^16.13.1",
